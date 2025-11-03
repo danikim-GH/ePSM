@@ -1,0 +1,8 @@
+Array
+(
+    [username] => danialhakim
+    [password] => 123Ronaldo!
+    [csrf_token] => 810f8dedf1d9b486dc33c5e7ed7f4a0b5e32d0a3d1a102aeb17c327cc5266d5d
+    [device_id] => eyJ1c2VyQWdlbnQiOiJNb3ppbGxhLzUu
+    [timestamp] => 1758614252264
+)

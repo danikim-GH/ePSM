@@ -62,7 +62,6 @@
                         </div>  
                     </div>
                 </nav>
-                <h1>HITAMMMM</h1>
                 <!-- Carousel Start -->
                 <div class="carousel-header">
                     <div id="carouselId" class="carousel slide" data-bs-ride="carousel">

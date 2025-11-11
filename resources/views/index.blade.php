@@ -134,15 +134,15 @@
                     </div>
                     <!-- Card 2 -->
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s" style="cursor:pointer;">
-                        <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
-                            <a href="{{route('senarai.index')}}" class="text-decoration-none">
+                        <a href="{{route('senarai.index')}}" class="text-decoration-none">
+                            <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                                 <div>
                                     <div class="feature-icon mb-3 mx-auto"><i class="fas fa-list text-white fa-3x"></i></div>
                                     <h4 class="mb-3">Senarai Kursus</h4>
                                     <p class="mb-0">Lihat senarai kursus.</p>
                                 </div>
-                            </a>
-                        </div>
+                            </div>
+                        </a>
                     </div>
                     <!-- Card 3 -->
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s" style="cursor:pointer;">
@@ -156,13 +156,15 @@
                     </div>
                     <!-- Card 4 -->
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.4s" style="cursor:pointer;"> 
-                        <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
-                            <div>
-                                <div class="feature-icon mb-3 mx-auto"><i class="bi bi-graph-up text-white fa-3x"></i></div>
-                                <h4 class="mb-3">Statistik Kehadiran</h4>
-                                <p class="mb-0">Lihat butiran kursus tertentu.</p>
+                        <a href="{{ route('statistik-kehadiran') }}">
+                            <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
+                                <div>    
+                                    <div class="feature-icon mb-3 mx-auto"><i class="bi bi-graph-up text-white fa-3x"></i></div>
+                                    <h4 class="mb-3">Statistik Kehadiran</h4>
+                                    <p class="mb-0">Lihat kehadiran kursus.</p>
+                                </div>
                             </div>
-                        </div>
+                        </a>
                     </div>
                     <!-- Card 5 -->
                     <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.6s" style="cursor:pointer;">

@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\StatistikController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\GaleriController;
@@ -50,3 +51,8 @@ Route::get('/logout',function(){
     session()->forget('user_level');
     return redirect()->route('login.show')->with('success','Berjaya log keluar!');
 })->name('logout');
+
+//statistik kehadiran route
+Route::get('/statistik-kehadiran',[StatistikController::class, 'statistikKehadiran'])->name('statistik-kehadiran');
+Route::get('/getJabatan',[StatistikController::class, 'getJabatan']);
+Route::get('/getKursus',[StatistikController::class, 'getKursus']);

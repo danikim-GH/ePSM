@@ -1,3 +1,21 @@
+/*Font styles*/
+.pt-sans-regular {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
+
+.pt-sans-bold {
+    font-family: "PT Sans", sans-serif;
+    font-weight: 700;
+    font-style: normal;
+}
+
+.righteous-regular {
+    font-family: "Righteous", sans-serif;
+    font-weight: 400;
+    font-style: normal;
+}
 
 /*** Spinner Start ***/
 /*** Spinner ***/
@@ -7,6 +25,7 @@
     transition: opacity .5s ease-out, visibility 0s linear .5s;
     z-index: 99999;
 }
+
 
 #spinner.show {
     transition: opacity .5s ease-out, visibility 0s linear 0s;
@@ -141,6 +160,7 @@
 
 @media (max-width: 991.98px) {
 
+    
     .navbar-light.bg-dark .nav-link {
         color: #fff !important;
     }
@@ -182,7 +202,31 @@
 }
 
 @media (min-width: 992px) {
-    
+    /* Formal, elegant "slide-up + subtle fade + letter spacing" animation */
+    .navbar-brand h1 {
+        display: inline-block;
+        white-space: nowrap;
+        overflow: hidden;
+        animation: formalReveal 1.2s ease forwards;
+    }
+
+
+    @keyframes formalReveal {
+    0% {
+        opacity: 0.3;
+        transform: translateY(10px);
+        letter-spacing: 30px;
+    }
+    50% {
+        opacity: 0.7;
+        transform: translateY(0);
+        letter-spacing: 10px;
+    }
+    100% {
+        opacity: 1;
+        letter-spacing: 0px;
+        }
+    }
     .navbar .nav-item .dropdown-menu {
         display: block;
         visibility: hidden;
@@ -205,7 +249,7 @@
         border-bottom: 1px solid;
         border-left: 0;
         border-style: dotted;
-        z-index: 1;
+        z-index: 1050;
     }
     
     .sticky-top.navbar-light {

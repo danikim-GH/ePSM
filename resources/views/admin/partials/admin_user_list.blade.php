@@ -81,4 +81,5 @@
 
 @push('scripts')
     <script src="{{ asset("assets/js/admin.js")}}"></script>
+    <script src="{{ asset("assets/js/adminUserList.js") }}"></script>
 @endpush

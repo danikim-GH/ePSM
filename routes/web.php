@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AdminPanelController;
 use App\Http\Controllers\StatistikController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
@@ -11,6 +12,7 @@ use App\Http\Controllers\HelpdeskController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\TestLoginController;
 use App\Http\Controllers\TestRegisterController;
+use App\Http\Controllers\UserListController;
 
 //index/home page
 Route::get('/',[DashboardController::class,'index'])->name('home');
@@ -56,3 +58,7 @@ Route::get('/logout',function(){
 Route::get('/statistik-kehadiran',[StatistikController::class, 'statistikKehadiran'])->name('statistik-kehadiran');
 Route::get('/getJabatan',[StatistikController::class, 'getJabatan']);
 Route::get('/getKursus',[StatistikController::class, 'getKursus']);
+
+//admin panel route
+Route::get('/admin-panel',[AdminPanelController::class, 'adminView'])->name('adminView');//pending user page
+Route::get('/admin-panel/user-list',[UserListController::class,'view'])->name('view');

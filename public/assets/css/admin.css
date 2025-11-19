@@ -1,0 +1,267 @@
+.admin-panel{
+    display: flex;
+    min-height: 100vh;
+    width: 100%;
+}
+
+/********** SIDEBAR SECTION — IMPROVED ************/
+
+
+/* Sidebar Background + Style */
+.admin-sidebar {
+    width: 240px;
+    background: linear-gradient(180deg, #001442, #001a57);
+    color: #fff;
+    padding: 20px 0;
+    transition: width 0.28s ease;
+    position: relative;
+    overflow: hidden;
+    box-shadow: 2px 0 12px rgba(0,0,0,0.25);
+}
+
+.sidebar-header{
+    margin-top: 10px;
+}
+
+/* Collapsed mode */
+.admin-sidebar.collapsed {
+    width: 70px;
+    .kedah-img{
+        display: none;
+    }
+}
+
+
+/* Sidebar top */
+.admin-sidebar .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.admin-sidebar .sidebar-header h3 {
+    font-size: 20px;
+    font-weight: 700;
+    white-space: nowrap;
+}
+
+.admin-sidebar.collapsed .sidebar-header h3 {
+    display: none;
+}
+
+/* Toggle Icon */
+.admin-sidebar .sidebar-toggle {
+    background: rgba(255,255,255,0.08);
+    padding: 6px 9px;
+    border-radius: 6px;
+    transition: 0.2s;
+}
+
+.admin-sidebar .sidebar-toggle:hover {
+    background: rgba(255,255,255,0.15);
+    transform: scale(1.05);
+}
+
+/* Menu List */
+.admin-sidebar ul.sidebar-menu {
+    list-style: none;
+    padding: 0;
+    margin-top: 30px;
+}
+
+/* Menu item */
+.admin-sidebar ul.sidebar-menu li {
+    margin: 8px 0;
+}
+
+.admin-sidebar ul.sidebar-menu li a {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+    padding: 12px 20px;
+    border-radius: 10px;
+    transition: 0.2s ease;
+    font-size: 15px;
+    color: #fff;
+    text-decoration: none;
+    position: relative;
+}
+
+/* Hover effect */
+.admin-sidebar ul.sidebar-menu li a:hover {
+    background: rgba(255,255,255,0.12);
+    transform: translateX(4px);
+}
+
+/* Active state */
+.admin-sidebar ul.sidebar-menu li.active a {
+    background: rgba(255,255,255,0.18);
+    font-weight: 600;
+}
+
+/* Active indicator bar */
+.admin-sidebar ul.sidebar-menu li.active a::before {
+    content: "";
+    position: absolute;
+    left: 0;
+    height: 70%;
+    width: 4px;
+    background: #00D1F9;
+    border-radius: 0 8px 8px 0;
+}
+
+/* Icon styling */
+.admin-sidebar ul.sidebar-menu li a i {
+    font-size: 18px;
+}
+
+/* Collapse text hide */
+.admin-sidebar.collapsed .menu-text {
+    display: none;
+}
+
+/* Keep icon centered in collapsed */
+.admin-sidebar.collapsed ul.sidebar-menu li a {
+    justify-content: center;
+}
+
+/* Tooltip when collapsed */
+.admin-sidebar.collapsed ul.sidebar-menu li a[title]:hover::after {
+    content: attr(title);
+    position: absolute;
+    left: 75px;
+    background: #001a57;
+    padding: 6px 10px;
+    border-radius: 6px;
+    white-space: nowrap;
+    font-size: 13px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.3);
+    z-index: 9999;
+    opacity: 1;
+}
+
+/* --- SIDEBAR FOOTER HOME BUTTON --- */
+.sidebar-bottom {
+    position: absolute;
+    bottom: 0;              /* flush bottom */
+    left: 0;
+    width: 100%;
+    padding: 15px 20px;     /* spacing biar sedap */
+    background: rgba(255,255,255,0.05); /* subtle footer background */
+    backdrop-filter: blur(4px);
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+/* Button style */
+.sidebar-home-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 15px;
+    border-radius: 10px;
+    background: rgba(255,255,255,0.10);
+    color: #fff;
+    text-decoration: none;
+    transition: 0.2s ease;
+    font-size: 15px;
+}
+
+/* Hover */
+.sidebar-home-btn:hover {
+    background: rgba(255,255,255,0.18);
+    transform: translateX(4px);
+}
+
+
+/* Collapsed mode (icon centered only) */
+.admin-sidebar.collapsed .sidebar-bottom {
+    padding: 15px 10px;
+}
+
+.admin-sidebar.collapsed .sidebar-home-btn {
+    justify-content: center;
+}
+
+.admin-sidebar.collapsed .sidebar-home-btn .menu-text {
+    display: none;
+}
+
+
+
+/********** MAIN CONTENT SECTION ************/
+
+/* Main Content */
+.admin-content {
+    flex: 1;
+    padding: 30px;
+    background-color: #f5f5f5;
+}
+
+/* Heading */
+.admin-content h2 {
+    margin-bottom: 20px;
+    font-size: 24px;
+    color: #333;
+}
+
+
+
+/********** USER SECTION ************/
+/* User Cards */
+.user-cards {
+    display: grid;
+    gap: 20px;
+}
+
+.user-card {
+    background-color: #fff;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* User Info */
+.user-info p {
+    margin: 5px 0;
+}
+
+/* User Actions */
+.user-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.user-actions label {
+    font-weight: 600;
+    font-size: 14px;
+}
+
+.user-actions select {
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: 1px solid #ccc;
+}
+
+/* Buttons */
+.user-actions .btn-approve {
+    background-color: #00D1F9;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.user-actions .btn-edit {
+    background-color: #FFA500;
+    border: none;
+    color: #fff;
+    padding: 8px 12px;
+    border-radius: 5px;
+    cursor: pointer;
+}

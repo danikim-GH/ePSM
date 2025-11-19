@@ -3,7 +3,8 @@
 @section('title', ' - Senarai Kursus')
 
 @section('content')
-    <!-- Spinner End -->
+
+    @include('components.spinnerLoading')
     @include('components.navbar_wrapper',['navbarClass'=>'navbar-light bg-dark shadow'])
 
     <div class="container responsive-padding">

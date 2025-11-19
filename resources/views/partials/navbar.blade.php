@@ -47,7 +47,7 @@ $mainMenu = Menu::where('menu_level', 1)
     @else
         {{-- Menu tanpa submenu --}}
         @if ($menu->menu_tajuk === 'User')
-            <a href="{{route('logout')}}" class="nav-item nav-link">
+            <a href="#" class="nav-item nav-link" data-bs-toggle="modal" data-bs-target="#userModal">
                 {{ $menu->menu_tajuk }}
             </a>
         @else    
@@ -57,3 +57,50 @@ $mainMenu = Menu::where('menu_level', 1)
         @endif
     @endif
 @endforeach
+
+
+<!--Modal user profile-->
+<div class="modal fade" id="userModal" tabindex="-1" aria-labelledby="userModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+
+            <div class="modal-header">
+                <h5 class="modal-title pt-sans-bold" id="userModalLabel">User Profile</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+
+
+            <div class="modal-body">
+                <div class="text-center mb-3">
+                    <img src="{{ asset("assets/img/cropped-kedah-baru.png")}}" alt="Avatar" class="rounded-circle mb-2" width="100" height="100">
+                </div>
+
+                <div class="mb-2">
+                    <strong>Nama:</strong> {{ session('nama','tidak tersedia') }}
+                </div>
+
+                <div class="mb-2">
+                    <strong>No KP:</strong> {{session('nokp', 'tidak tersedia')}}
+                </div>
+
+                <div class="mb-2">
+                    <strong>Emel:</strong> {{session('email', 'tidak tersedia')}}
+                </div>
+
+                <div class="mb-2">
+                    <strong>No Telefon:</strong> {{session('phone', 'tidak tersedia')}}
+                </div>
+
+                <div class="d-grid gap-2 d-sm-flex justify-content-end mt-3">
+                    <a href="{{ route('logout') }}" class="btn btn-danger w-100 mb-2">
+                        Logout
+                    </a>
+                    <a href="{{ route('adminView') }}" class="btn btn-warning w-100 mb-2">
+                        Admin Panel
+                    </a>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>

@@ -162,11 +162,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 </table>
             </div>
             <div class="alert alert-primary text-center fw-semibold mt-3" role="alert">
-                % Pencapaian (7 Hari Berkursus): ${
-                    summary.total_staff
-                    ? ((summary.staff_lebih7 / summary.total_staff *100).toFixed(1))
-                    : 0
-                }% (${summary.staff_lebih7 || 0} orang daripada ${summary.total_staff || 0})
+                % Pencapaian (7 Hari Berkursus):
+                100% (${summary.total_staff || 0} orang)
             </div>
             `;
 

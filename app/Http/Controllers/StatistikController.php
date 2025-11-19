@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
+use function Illuminate\Log\log;
+
 class StatistikController extends Controller
 {
     //
@@ -56,6 +58,8 @@ class StatistikController extends Controller
         $jabatan = $request->query('NamaJabatan');
         $lantikan = $request->query('lantikan');
         $tahun = $request->query('tahun');
+        $namaStaff = $request->query('Nama');
+        $nokp = $request->query('NoKP');
 
         //fetch data table lampirana
         $staffQuery = DB::table('lampirana')
@@ -130,15 +134,21 @@ class StatistikController extends Controller
             $byKumpulan[$group]['total_staff']++;
             $byKumpulan[$group]['total_hari']+=$sumHari;
 
-            if($sumHari > 7){
+            if($sumHari >=7){
                 $summary['staff_lebih7']++;
                 $byKumpulan[$group]['lebih7']++;
-            } elseif($sumHari > 0){
+            } elseif($sumHari > 0 && $sumHari <= 6){
                 $summary['staff_kurang7']++;
                 $byKumpulan[$group]['kurang7']++;
-            } else{
+            } elseif($sumHari == 0){
                 $summary['staff_tidak_hadir']++;
                 $byKumpulan[$group]['tidak_hadir']++;
+            } else{
+                    return response()->json([
+                    'message' => 'sorang problem',
+                    'NoKP' => $nokp,
+                    'Nama staff' => $namaStaff
+                ]);
             }
         }
 

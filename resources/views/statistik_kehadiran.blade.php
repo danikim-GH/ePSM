@@ -3,18 +3,14 @@
 @section('title',' - Statistik Kehadiran')
 
 @section('content')
-    <!-- Spinner Start -->
-    <div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
-        <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
-            <span class="sr-only">Loading...</span>
-        </div>
-    </div>
+
+    @include('components.spinnerLoading')
 
     <!-- Navbar & Hero Start -->
     <div class="container-fluid position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
             <a href="" class="navbar-brand p-0">
-                <h1 class="text-primary"><img src="assets/img/cropped-kedah-baru.png" alt="Logo Negeri Kedah" class="me-3" style="height:40px;"></i>
+                <h1 class="text-primary righteous-regular"><img src="assets/img/cropped-kedah-baru.png" alt="Logo Negeri Kedah" class="me-3" style="height:40px;"></i>
                     ePSM
                 </h1>
             </a>
@@ -141,47 +137,6 @@
                     <!--fetch table here-->
                 </div>
 
-                <!--table data kehadiran
-                <div class="table-responsive rounded-2">
-                    <table class="table table-striped table-bordered align-middle" id="jadualKehadiran">
-                        <thead class="table-primary text-center text-capitalize">
-                            <tr>
-                                <th>Bil</th>
-                                <th>Jabatan/Bahagian</th>
-                                <th>Anggota</th>
-                                <th>Jusa</th>
-                                <th>P n P</th>
-                                <th>Sokongan 1</th>
-                                <th>Sokongan 2</th>
-                            </tr>
-                        </thead>
-                        <tbody class="text-center">
-                            <tr>
-                                <td>1</td>
-                                <td class="text-start">BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH</td>
-                                <td>27</td>
-                                <td>0</td>
-                                <td>5</td>
-                                <td>19</td>
-                                <td>3</td>
-                            </tr>
-                            <tr class="fw-semibold bg-light">
-                                <td colspan="2">Jumlah Keseluruhan</td>
-                                <td>27</td>
-                                <td>0</td>
-                                <td>5</td>
-                                <td>19</td>
-                                <td>3</td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>-->
-
-                {{-- Alert peratus                 <div id="pencapaianBox" class="alert alert-primary text-center fw-semibold mt-4" role="alert">
-                    % Pencapaian (7 Hari Berkursus): 100% (27 orang)
-                </div>--}}
-
-
                 {{-- Footer Container--}}
                 <div class="text-center mt-4 small text-muted">
                     Hubungi BSM<br>
@@ -204,5 +159,5 @@
 @endsection
 
 @push('scripts')
-<script src="{{ asset('assets/js/statistik_kehadiran.js')}}"></script>
+    <script src="{{ asset('assets/js/statistik_kehadiran.js')}}"></script>
 @endpush

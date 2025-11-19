@@ -20,6 +20,9 @@ class TestLoginController extends Controller
 
         if($user){
             session(['user'=>$user]);
+
+            session(['userlevel' => $user -> userlevel ?? 0]);
+
             return redirect()->route('home')->with('success','Login Berjaya!');
         } else{
             return back()->with('error','No KP atau Katalaluan salah!');

@@ -4,11 +4,13 @@
 
 @section('content')
 
+  @include('components.spinnerLoading')
+
   <!-- Navbar & Hero Start -->
   <div class="container-fluid position-relative p-0">
           <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
               <a href="" class="navbar-brand p-0">
-                  <h1 class="text-primary"><img src="assets/img/cropped-kedah-baru.png" alt="Logo Negeri Kedah" class="me-3" style="height:40px;"></i>
+                  <h1 class="text-primary righteous-regular"><img src="assets/img/cropped-kedah-baru.png" alt="Logo Negeri Kedah" class="me-3" style="height:40px;"></i>
                       ePSM
                   </h1>
               </a>
@@ -154,12 +156,6 @@
   <!-- Footer Start -->
   <div class="container-fluid footer py-5 wow fadeIn" data-wow-delay="0.2s">
       <div class="container py-5">
-          <div class="col-lg-5">
-              <div class="d-flex align-items-center justify-content-center justify-content-lg-end">
-                  <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-facebook-f"></i></a>
-                  <a class="btn btn-secondary btn-md-square rounded-circle me-3" href=""><i class="fab fa-instagram"></i></a>
-              </div>
-          </div>
           <div class="container text-center">
               <p class="text-white mb-0">© 2025 ePSM Helpdesk. Semua Hak Terpelihara.</p>
           </div>

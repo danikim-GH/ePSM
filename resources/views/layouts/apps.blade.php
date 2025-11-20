@@ -32,6 +32,7 @@
 
     <!-- Template Stylesheet -->
     <link href="{{ asset("assets/css/style.css") }}" rel="stylesheet">  
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css"/>
     @stack('styles')
 </head>
 <body>
@@ -50,13 +51,11 @@
     <script src="{{ asset("assets/lib/counterup/counterup.min.js") }}"></script>
     <script src="{{ asset("assets/lib/owlcarousel/owl.carousel.min.js") }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
 
     <!-- Template Javascript -->
     <script src="{{ asset("assets/js/main.js") }}"></script>
 
     <!-- Bootstrap JS (Dropdown, Modal, Collapse etc.) -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
 
     @stack('scripts')

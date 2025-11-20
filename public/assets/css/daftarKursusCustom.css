@@ -1,0 +1,42 @@
+.container{
+    padding-top: 5rem
+}
+/* === Glass Effect Container === */
+.glass-container {
+    background: rgba(255, 255, 255, 0.35);
+    backdrop-filter: blur(18px);
+    border-radius: 22px;
+    padding: 3rem;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.12);
+    transition: 0.35s ease;
+}
+.glass-container:hover {
+    transform: scale(1.01);
+}
+
+/* Background behind form */
+.kursus-bg {
+    min-height: 100vh;
+    background: linear-gradient(135deg, #e8f0f7, #c9dff2);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 60px 20px;
+}
+
+label {
+    color: #363636 !important;
+}
+
+.custom-input {
+    border: 1px solid rgba(180, 180, 180, 0.4) !important;
+    background: rgba(255, 255, 255, 0.55) !important;
+    transition: 0.3s ease;
+}
+
+.custom-input:focus {
+    border-color: #007bff !important;
+    box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
+    background: rgba(255, 255, 255, 0.85) !important;
+}

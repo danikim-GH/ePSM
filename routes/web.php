@@ -62,3 +62,4 @@ Route::get('/getKursus',[StatistikController::class, 'getKursus']);
 //admin panel route
 Route::get('/admin-panel',[AdminPanelController::class, 'adminView'])->name('adminView');//pending user page
 Route::get('/admin-panel/user-list',[UserListController::class,'view'])->name('view');
+Route::get('/admin-panel/user-list/list',[UserListController::class,'getUsers']);

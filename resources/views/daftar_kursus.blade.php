@@ -4,6 +4,7 @@
 
 @push('styles')
     <link href="{{ asset("assets/css/daftarKursusCustom.css") }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset("assets/css/components/dropdown.css") }}">
 @endpush
 
 @section('content')
@@ -27,7 +28,7 @@
                 <div class="row g-4">
                     <div class="col-lg-6">
                         <div class="form-floating">
-                            <select class="form-select border-0 bg-light bg-opacity-75 custom-input" id="program" name="program" required>
+                            <select class="form-select border-0 bg-light bg-opacity-75 custom-input position-relative dropdown-icon" id="program" name="program" required>
                                 <option selected disabled>Pilih Program Latihan</option>
                                 <option value="1" data-has-end="4">Program</option>
                                 <option value="2" data-has-end="3">Latihan</option>
@@ -37,12 +38,13 @@
                                 <option value="6" data-has-end="2">Sesi Pembelajaran</option>
                             </select>
                             <label for="program">Program Latihan</label>
+                            <i class="fa-solid fa-caret-down dropdown-arrow"></i>
                         </div> <!--form floating-->
                     </div>
     
                     <div class="col-lg-6">
                         <div class="form-floating">
-                            <select class="form-select border-0 bg-light bg-opacity-75 custom-input" id="aktiviti" name="aktiviti" required>
+                            <select class="form-select border-0 bg-light bg-opacity-75 custom-input position-relative dropdown-icon" id="aktiviti" name="aktiviti" required>
                                 <option selected disabled>Sila pilih aktiviti</option>
                                 <option value="0">Kursus</option>
                                 <option value="1">Seminar</option>
@@ -76,6 +78,7 @@
                                 <option value="29">Pentadbiran</option>
                             </select>
                             <label for="aktiviti">Aktiviti</label>
+                            <i class="fa-solid fa-caret-down dropdown-arrow"></i>
                         </div>
                     </div>
     
@@ -149,18 +152,20 @@
 
                     <div class="col-12">
                         <div class="form-floating">
-                            <input type="text" class="form-control border-0 custom-input" id="anjuran" name="anjuran" placeholder="Anjuran" required>
+                            <input type="text" class="form-control border-0 custom-input position-relative dropdown-icon" id="anjuran" name="anjuran" placeholder="Anjuran" required>
                             <label for="anjuran">Anjuran</label>
+                            <i class="fa-solid fa-caret-down dropdown-arrow"></i>
                         </div>
                     </div>
     
                     <div class="col-lg-6">
-                        <div class="form-floating">
-                            <select class="form-select border-0 custom-input" id="lokasi" name="lokasi" required>
+                        <div class="form-floating position-relative">
+                            <select class="form-select border-0 custom-input dropdown-icon" id="lokasi" name="lokasi" required>
                                 <option selected value="dalam">Dalam Negara</option>
                                 <option value="luar">Luar Negara</option>
                             </select>
                             <label for="lokasi">Dalam Negara / Luar Negara</label>
+                            <i class="fa-solid fa-caret-down dropdown-arrow"></i>  
                         </div>
                     </div>
     
@@ -191,7 +196,9 @@
                             <label for="rujukan">No Rujukan</label>
                         </div>
                     </div>
-                    
+
+                    <!--********Letak input sijil sini*********-->
+
                     <div class="d-grid gap-2 d-sm-flex justify-content-end mt-3">
                         <button type="submit" class="btn btn-primary px-3 px-sm-5 py-3">Hantar</button>
                         <button type="reset" class="btn btn-outline-secondary px-3 px-sm-5 py-3">Batal</button>

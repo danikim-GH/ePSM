@@ -4,6 +4,7 @@
 
 @push('styles')
 <link href="{{ asset("assets/css/helpdesk_custom.css") }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset("assets/css/components/dropdown.css") }}">
 @endpush
 
 @section('content')
@@ -49,8 +50,8 @@
           </div>
 
           <div class="col-lg-6">
-            <div class="form-floating custom-floating">
-              <select class="form-select custom-input" id="kategori" name="kategori" required>
+            <div class="form-floating custom-floating position-relative">
+              <select class="form-select custom-input dropdown-icon" id="kategori" name="kategori" required>
                 <option selected disabled>Pilih Kategori Aduan</option>
                 <option value="Teknikal">Isu Teknikal</option>
                 <option value="Akaun">Isu Akaun / Log Masuk</option>
@@ -58,6 +59,7 @@
                 <option value="Lain">Lain-lain</option>
               </select>
               <label for="kategori">Kategori Aduan</label>
+              <i class="fa-solid fa-caret-down dropdown-arrow"></i>              
             </div>
           </div>
 
@@ -80,7 +82,6 @@
               Hantar Aduan
             </button>
           </div>
-
         </div>
       </form>
     </div>

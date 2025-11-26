@@ -27,7 +27,7 @@
                 <option value="Pentadbiran">Pentadbiran</option>
                 <option value="Sumber Manusia">Sumber Manusia</option>
                 <option value="Kewangan">Kewangan</option>
-                <option value="IT">IT</option>
+                <option value="BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH">IT</option>
             </select>
         </div>
 
@@ -44,36 +44,10 @@
                 </tr>
             </thead>
             <tbody>
-                {{-- SAMPLE DATA — nanti guna foreach --}}
-                <tr>
-                    <td>Ahmad Bakri</td>
-                    <td>990101-01-2211</td>
-                    <td>ahmad@example.com</td>
-                    <td>013-2233445</td>
-                    <td>Pentadbiran</td>
-                    <td>Staff</td>
-                </tr>
 
-                <tr>
-                    <td>Nurin Sofia</td>
-                    <td>010202-02-1122</td>
-                    <td>nurin@gmail.com</td>
-                    <td>011-8877665</td>
-                    <td>IT</td>
-                    <td>Admin</td>
-                </tr>
-
-                <tr>
-                    <td>Faris Ilham</td>
-                    <td>000303-02-3311</td>
-                    <td>faris@gmail.com</td>
-                    <td>012-4222331</td>
-                    <td>Kewangan</td>
-                    <td>Guest</td>
-                </tr>
             </tbody>
         </table>
-
+        <div id="pagination" class="pagination-cotainer"></div>
     </main>
 </div>
 

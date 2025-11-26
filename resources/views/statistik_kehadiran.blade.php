@@ -134,7 +134,7 @@
 
                 <!--NEW-->
                 <div id="resultContainer" class="mt-4 text-center">
-                    <!--fetch table here-->
+                    <!--fetch table here from statistik_kehadiran.js-->
                 </div>
 
                 {{-- Footer Container--}}

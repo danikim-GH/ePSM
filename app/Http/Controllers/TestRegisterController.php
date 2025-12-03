@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Hash;
 
 class TestRegisterController extends Controller
 {
@@ -13,12 +14,22 @@ class TestRegisterController extends Controller
     }
 
     public function store(Request $request){
+        $request->validate([
+            'Nama' => 'required',
+            'NoKP' => 'required|unique:lampirana,NoKP',
+            'katalaluan' => 'required',
+            'emel' => 'required|email',
+            'hp' => 'required'
+        ]);
+
         DB::table('lampirana')->insert([
             'Nama' => $request->Nama,
             'NoKP' => $request->NoKP,
-            'katalaluan' => $request->katalaluan,
-            'userlevel' => $request->userlevel,
+            'katalaluan' => Hash::make($request->katalaluan),
+            'emel'=> $request->emel,
+            'hp'=>$request->hp,
+            'userlevel' => 0,
         ]);
-        return redirect()->route('register.create')->with('success', 'Pendaftaran Berjaya!');
+        return redirect()->route('login')->with('success', 'Pendaftaran Berjaya!, Menunggu Kelulusan Admin');
     }
 }

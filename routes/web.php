@@ -63,3 +63,5 @@ Route::get('/getKursus',[StatistikController::class, 'getKursus']);
 Route::get('/admin-panel',[AdminPanelController::class, 'adminView'])->name('adminView');//pending user page
 Route::get('/admin-panel/user-list',[UserListController::class,'view'])->name('view');
 Route::get('/admin-panel/user-list/list',[UserListController::class,'getUsers']);
+Route::post('/admin/approve/{nokp}', [AdminPanelController::class, 'approveUser'])->name('admin.approve');//admin approval user pending registration
+Route::get('/admin/edit-user/{nokp}',[AdminPanelController::class, 'editUser'])->name('admin.editUser');//admin button edit info user soon will be edit!!! 27/11/2025

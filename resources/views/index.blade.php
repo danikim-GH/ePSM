@@ -268,7 +268,7 @@
     <!-- Calendar Section -->
     <section class="py-5 bg-white">
         <div class="container">
-            <h2 class="text-center mb-4">Kalendar Kursus</h2>
+            <h2 class="text-center mb-4 pt-sans-bold">Kalendar Kursus</h2>
             <div id="calendar">
                 <div class="modal fade" id="kursusModal" tabindex="-1" aria-labelledby="modalKursusTitle" aria-hidden="true">
                     <div class="modal-dialog">

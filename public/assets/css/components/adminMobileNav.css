@@ -1,0 +1,36 @@
+/********** MOBILE BOTTOM NAVIGATION ************/
+
+.mobile-bottom-nav {
+    display: none;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--card-bg);
+    border-top: 1px solid #e2e8f0;
+    padding: 10px 0;
+    z-index: 100;
+    box-shadow: 0 -4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.nav-item {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 8px 0;
+    color: var(--text-muted);
+    text-decoration: none;
+    font-size: 12px;
+    transition: var(--transition);
+}
+
+.nav-item.active {
+    color: var(--accent-color);
+}
+
+.nav-item i {
+    font-size: 18px;
+    margin-bottom: 4px;
+}

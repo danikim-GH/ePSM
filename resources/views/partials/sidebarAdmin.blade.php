@@ -4,7 +4,7 @@
             <img class="kedah-img" src="{{ asset("assets/img/cropped-kedah-baru.png") }}" alt="logoKedah" style="max-width: 50px; margin-right:30px">
         </div>
         <div class="sidebar-header">
-            <h3 class="text-primary pt-sans-bold" style="font-size: 24px;">Admin Panel</h3>
+            <h2 class="text-primary pt-sans-bold" style="font-size: 26px;">Admin Panel</h2>
             <i class="bi bi-list sidebar-toggle" style="margin-bottom: 5px" id="sidebarToggle"></i>
         </div>
         <ul class="sidebar-menu">

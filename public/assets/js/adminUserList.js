@@ -102,23 +102,22 @@ function renderTable(users) {
             <td>${startIndex + index + 1}</td>
             <td>
                 <div class="user-info">
-                    <strong>${u.Nama || '-'}</strong>
+                    <strong>${u.Nama || 'NULL'}</strong>
                 </div>
             </td>
-            <td>${u.NoKP || '-'}</td>
+            <td>${u.NoKP || 'NULL'}</td>
             <td>
                 <div class="email-cell">
-                    <i class="fas fa-envelope"></i>
-                    ${u.emel || '-'}
+                    ${u.emel || 'NULL'}
                 </div>
             </td>
-            <td>${u.hp || '-'}</td>
+            <td>${u.hp || 'NULL'}</td>
             <td>
                 <span class="department-badge">${u.NamaJabatan || 'NULL'}</span>
             </td>
             <td>
                 <span class="level-badge level-${u.userlevel || 'user'}">
-                    ${u.userlevel === '9' ?  'Admin': 'o' || 'User'}
+                    ${userLevelLabel(u.userlevel)}
                 </span>
             </td>
             <td>
@@ -208,13 +207,13 @@ function updateStats(data) {
     }
     
     if (showingStart && showingEnd && totalRecords) {
-        const perPage = 10; // Adjust based on your backend
+        const perPage = 1; //adjust if needed
         const start = ((currentPage - 1) * perPage) + 1;
-        const end = Math.min(start + data.users.length - 1, data.total || 0);
+        const end = currentData.users.length;
         
         showingStart.textContent = start;
         showingEnd.textContent = end;
-        totalRecords.textContent = data.total || 0;
+        totalRecords.textContent = currentData.total_users || 0;
     }
 }
 
@@ -365,6 +364,17 @@ async function handleDelete() {
         // Restore button state
         confirmDeleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete User';
         confirmDeleteBtn.disabled = false;
+    }
+}
+
+//Return user level value into string even it is string tho
+function userLevelLabel(level){
+    switch(level){
+        case '9': return 'Admin';
+        case '8': return 'EO';
+        case '1': return 'Staff';
+        case '0': return 'Pending User';
+        default: return 'Undefined';
     }
 }
 

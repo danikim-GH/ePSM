@@ -76,7 +76,7 @@
             
             <div class="table-footer">
                 <div class="table-info">
-                    Showing <span id="showingStart">0</span> to <span id="showingEnd">0</span> of <span id="totalRecords">0</span> entries
+                    Showing <span id="showingStart">0</span> to <span id="showingEnd">0</span> of <span id="totalRecords">0</span> Users
                 </div>
                 <div id="pagination" class="page-container"></div>
             </div>

@@ -43,6 +43,7 @@ class UserListController extends Controller
             'users' => $users->items(),
             'current_page' => $users->currentPage(),
             'last_page'=> $users->lastPage(),
+            'total_users' => $users->total(),
         ]);
     }
 }

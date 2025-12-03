@@ -25,4 +25,9 @@ class Lampirana extends Model
         'userlevel'
     ];
 
+    protected $hidden = ['katalaluan'];
+
+    public function username(){
+        return 'NoKP';
+    }
 }

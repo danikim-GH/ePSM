@@ -6,25 +6,13 @@
 <body>
     <h2>Daftar Pengguna Baru</h2>
 
-    <form method="POST" action="{{ route('register.store') }}">
+    <form action="{{ route('register.store') }}" method="POST">
         @csrf
-        <label for="Nama">Nama:</label><br>
-        <input type="text" id="Nama" name="Nama" required><br><br>
-
-        <label for="NoKP">No. Kad Pengenalan:</label><br>
-        <input type="text" id="NoKP" name="NoKP" required><br><br>
-
-        <label for="katalaluan">Katalaluan:</label><br>
-        <input type="password" id="katalaluan" name="katalaluan" required><br><br>
-
-        <label for="userlevel">User Level:</label><br>
-        <select id="userlevel" name="userlevel" required>
-            <option value="">-- Pilih User Level --</option>
-            <option value="9">9</option>
-            <option value="8">8</option>
-            <option value="1">1</option>
-        </select><br><br>
-
+        <input type="text" name="Nama" placeholder="Nama" required>
+        <input type="text" name="NoKP" placeholder="No KP" required>
+        <input type="email" name="emel" placeholder="Email" required>
+        <input type="text" name="hp" placeholder="Phone" required>
+        <input type="password" name="katalaluan" placeholder="Katalaluan" required>
         <button type="submit">Daftar</button>
     </form>
 </body>

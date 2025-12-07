@@ -30,6 +30,6 @@ class TestRegisterController extends Controller
             'hp'=>$request->hp,
             'userlevel' => 0,
         ]);
-        return redirect()->route('login')->with('success', 'Pendaftaran Berjaya!, Menunggu Kelulusan Admin');
+        return redirect()->route('login.show')->with('success', 'Pendaftaran Berjaya!, Menunggu Kelulusan Admin');
     }
 }

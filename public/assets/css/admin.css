@@ -19,8 +19,10 @@
     --sidebar-collapsed: 70px;
     --header-height: 80px;
     --shadow-light: 0 4px 12px rgba(0, 20, 66, 0.08);
-    --shadow-medium: 0 8px 24px rgba(0, 20, 66, 0.12);
-    --shadow-heavy: 0 12px 32px rgba(0, 20, 66, 0.15);
+    --shadow-medium: 0px 0px 10px 10px rgba(0, 20, 66, 0.12);
+    /*Top Right Bottom Left*/
+    /*h-offset(shadow->kiri/kanan) v-offset(shadow->atas/bawah) blur spread (color)*/
+    --shadow-heavy: 6px 8px 20px 5px rgba(0, 20, 66, 0.25);
     --border-radius: 16px;
     --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
     --mobile-breakpoint: 768px;
@@ -61,7 +63,7 @@ body {
     bottom: 0;
     z-index: 1000;
     overflow-y: auto;
-    box-shadow: 2px 0 12px rgba(0,0,0,0.25);
+    box-shadow: 2px 0 12px rgba(0,0,0,0.55);
     display: flex;
     flex-direction: column;
 }
@@ -270,7 +272,7 @@ body {
     padding: 25px 30px;
     background: var(--card-bg);
     border-radius: var(--border-radius);
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-heavy);
     border-left: 10px solid var(--accent-color);
 }
 
@@ -315,7 +317,7 @@ body {
     display: flex;
     align-items: center;
     gap: 15px;
-    box-shadow: var(--shadow-medium);
+    box-shadow: var(--shadow-heavy);
     transition: var(--transition);
 }
 
@@ -340,7 +342,7 @@ body {
     padding: 15px 20px;
     background: var(--card-bg);
     border-radius: 12px;
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-heavy);
 }
 
 .filter-group {
@@ -390,7 +392,7 @@ body {
     background: var(--card-bg);
     border-radius: var(--border-radius);
     padding: 25px;
-    box-shadow: var(--shadow-light);
+    box-shadow: var(--shadow-medium);
     transition: var(--transition);
     position: relative;
     overflow: hidden;
@@ -849,6 +851,11 @@ body {
     .action-buttons {
         grid-template-columns: 1fr;
     }
+
+    .user-card:hover .level-select{
+        
+        color: var(--text-light) !important;
+    }
     
     .btn-view {
         grid-column: span 1;
@@ -896,6 +903,8 @@ body {
         padding: 10px;
         font-size: 14px;
     }
+
+
 }
 
 /* Landscape Mode */

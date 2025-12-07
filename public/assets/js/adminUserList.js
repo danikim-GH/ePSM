@@ -203,7 +203,7 @@ function updateStats(data) {
     const totalRecords = document.getElementById('totalRecords');
     
     if (totalUsers) {
-        totalUsers.textContent = data.total || 0;
+        totalUsers.textContent = data.total_users || 0;
     }
     
     if (showingStart && showingEnd && totalRecords) {

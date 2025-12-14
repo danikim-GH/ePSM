@@ -77,8 +77,22 @@ window.addEventListener('resize', () => {
     }, 250);
 });
 
+//Handle suspend form submission
+document.addEventListener('click',function(e){
+    if(e.target.closest('.suspend-form') || e.target.classList.contains('btn-act-error')){
+        const form = e.target.closest('.suspend-form');
+        if(form){
+            const username = form.closest('user-card').querySelector('.info-value').textContent.trim();
+            const confirmed = confirm(`Adakah anda pasti untuk menangguhkan pengguna dengan No.KP: ${username} ?`);
+            if(!confirmed){
+                e.preventDefault();
+            }
+        }
+    }
+});
+
 // User Card Interactions
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', pendingUsersCount(),suspendedCount(),function() {
     // Initialize sidebar state
     updateSidebarState();
     
@@ -375,6 +389,30 @@ function initSidebarTooltips() {
         });
     }
 }
+
+
+function suspendedCount(){
+    fetch('/admin/suspended-count')
+        .then(response => response.json())
+        .then(data => {
+            document.getElementById('suspendedCount').textContent = data.total_suspended;
+        })
+        .catch(error => {
+            console.error('Error fetching suspended count:', error);
+        })
+}
+
+function pendingUsersCount(){
+    fetch('/admin/pending-users-count')
+        .then(response => response.json())
+        .then(data =>{
+            document.getElementById('pendingUsersCount').textContent = data.pending_users_count;
+        })
+        .catch(error => {
+            console.error('Error fetching pending users count:', error);
+        });
+}
+
 
 // Initialize on load
 window.addEventListener('load', initSidebarTooltips);

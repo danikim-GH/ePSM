@@ -2,10 +2,11 @@
 
 namespace App\Models;
 
+use Illuminate\Foundation\Auth\User as Authenticable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
-use Illuminate\Database\Eloquent\Model;
 
-class Lampirana extends Model
+
+class Lampirana extends Authenticable
 {
     use HasFactory;
 
@@ -22,12 +23,18 @@ class Lampirana extends Model
         'NamaJabatan',
         'emel',
         'hp',
-        'userlevel'
+        'userlevel',
+        'gambar'
     ];
-
     protected $hidden = ['katalaluan'];
-
     public function username(){
         return 'NoKP';
+    }
+    public function getStatusBadge(){
+        return match($this->userlevel){
+            '0',0 => ['Pending', 'pending', 'clock'], //pending
+            'SP' => ['Suspend', 'suspend', 'user-slash'], //suspended
+            default => ['Error','error', 'user-fill'],
+        }; 
     }
 }

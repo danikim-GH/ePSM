@@ -36,9 +36,9 @@ return [
     */
 
     'guards' => [
-        'web' => [
+        'lampirana' => [
             'driver' => 'session',
-            'provider' => 'users',
+            'provider' => 'lampiranas',
         ],
     ],
 
@@ -60,10 +60,12 @@ return [
     */
 
     'providers' => [
-        'users' => [
+        'lampiranas' => [
             'driver' => 'eloquent',
-            'model' => env('AUTH_MODEL', App\Models\User::class),
+            'model' => env('AUTH_MODEL', App\Models\Lampirana::class),
         ],
+
+        //boleh tambah table banyak based on requirement if user more than one table, just repeated based on previous code above>-<
 
         // 'users' => [
         //     'driver' => 'database',

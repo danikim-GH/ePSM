@@ -43,12 +43,12 @@ async function fetchUsers(page = 1) {
             <td colspan="9">
                 <div style="text-align: center; padding: 40px;">
                     <i class="fas fa-spinner fa-spin fa-2x" style="color: #53708eff;"></i>
-                    <p style="margin-top: 15px; color: #64748b;">Loading users...</p>
+                    <p style="margin-top: 15px; color: #64748b;">Loading users...</p> 
                 </div>
             </td>
         </tr>
     `;
-    
+
     try {
         const res = await fetch(`/admin-panel/user-list/list?search=${encodeURIComponent(search)}&jabatan=${encodeURIComponent(jabatan)}&level=${encodeURIComponent(level)}&page=${page}`);
         const json = await res.json();
@@ -65,7 +65,7 @@ async function fetchUsers(page = 1) {
         updateStats(json);
     } catch (error) {
         console.error('Error fetching users:', error);
-        userTableBody.innerHTML = `
+        userTableBody.innerHTML = html `
             <tr>
                 <td colspan="9" class="no-data">
                     <i class="fas fa-exclamation-circle"></i>

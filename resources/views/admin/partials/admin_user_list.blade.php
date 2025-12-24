@@ -16,8 +16,8 @@
 
     <main class="admin-content">
 
-        <div class="content-header">
-            <h2 class="pt-sans-bold">All Registered Users</h2>
+        <div class="content-header wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+            <h1 class="gabarito-regular">All Registered Users</h1>
             <div class="stats-summary">
                 <span class="stat-item">
                     <i class="fas fa-users"></i>
@@ -171,6 +171,7 @@
         </div>
     </div>
 </div>
+
 
 @endsection
 

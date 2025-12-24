@@ -28,9 +28,16 @@
     padding: 8px 16px;
     background: white;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 6px 4px 10px 4px rgba(0, 0, 0, 0.19);
     font-size: 14px;
+    backdrop-filter: blur(40px);
     color: #4a5568;
+    transition: box-shadow  1s ease , transform 1s ease;
+}
+
+.stat-item:hover{
+    box-shadow: 6px 8px 10px 5px rgba(16, 77, 221, 0.25);
+    transform: translateY(-5px);
 }
 
 .stat-item i {
@@ -151,7 +158,10 @@
     font-size: 14px;
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    border-bottom: 2px solid #007bff;
+}
+
+.user-table tbody{
+    overflow-x: scroll;
 }
 
 .user-table tbody tr {
@@ -167,12 +177,18 @@
     padding: 16px 20px;
     color: #475569;
     font-size: 14px;
-    vertical-align: middle;
+    vertical-align:auto;
 }
 
 .user-table td:first-child {
     color: #64748b;
     font-weight: 500;
+}
+
+
+
+.user-table td{
+    overflow-x: visible;
 }
 
 /* Status Badges */

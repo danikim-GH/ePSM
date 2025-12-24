@@ -1,4 +1,14 @@
+/*Root Customized*/
+:root{
+    --bg-modal: rgba(60, 55, 55, 0.596);
+    --backdrop-modal: blur(2.5px);
+}
+
 /*Font styles*/
+main{
+    overflow-x: hidden;
+}
+
 .pt-sans-regular {
     font-family: "PT Sans", sans-serif;
     font-weight: 400;
@@ -34,7 +44,7 @@
 #spinner {
     opacity: 0;
     visibility: hidden;
-    transition: opacity 1.24s ease-out, visibility 0s linear 4s;
+    transition: opacity .5s ease-out, visibility 0s linear .5s;
     z-index: 99999;
 }
 
@@ -107,8 +117,7 @@
 }
 
 .btn.btn-secondary {
-    color: var(--bs-white);
-   
+    color: var(--bs-white);  
 }
 
 .btn.btn-secondary:hover {
@@ -118,6 +127,7 @@
 /*** Topbar Start ***/
 
 /*** Navbar ***/
+.navbar-light-secondary .navbar-nav .nav-link,
 .navbar-light .navbar-nav .nav-link {
     position: relative;
     margin-right: 25px;
@@ -129,21 +139,31 @@
     transition: .5s;
 }
 
+/*SINI PROBLEM UNTUK NAVBAR COLOR STICKY TOP*/
+.sticky-top.navbar-light-secondary .navbar-nav .nav-link{
+    padding: 20px 0;
+    color: var(--bs-light);
+}
+
+
 .sticky-top.navbar-light .navbar-nav .nav-link {
     padding: 20px 0;
     color: var(--bs-dark);
 }
 
+.navbar-light-secondary .navbar-nav .nav-link:hover,
+.navbar-light-secondary .navbar-nav .nav-link.active,
 .navbar-light .navbar-nav .nav-link:hover,
 .navbar-light .navbar-nav .nav-link.active {
     color: var(--bs-primary);
 }
 
+.navbar-light-secondary .navbar-brand img,
 .navbar-light .navbar-brand img {
     max-height: 60px;
     transition: .5s;
 }
-
+.sticky-top.navbar-light-secondary .navbar-brand img
 .sticky-top.navbar-light .navbar-brand img {
     max-height: 45px;
 }
@@ -159,7 +179,7 @@
 
 .dropdown .dropdown-menu a:hover {
     background: var(--bs-primary);
-    color: var(--bs-white);
+    color: var(--bs-secondary);
 }
 
 .navbar .nav-item:hover .dropdown-menu {
@@ -168,15 +188,22 @@
     background: var(--bs-light);
     transition: .5s;
     opacity: 1;
+    overflow-x: hidden;
+}
+
+.modal{
+    background-color: var(--bg-modal);
+    backdrop-filter: var(--backdrop-modal);
 }
 
 @media (max-width: 991.98px) {
 
-    
+    .navbar-light-secondary.bg-dark .nav-link 
     .navbar-light.bg-dark .nav-link {
         color: #fff !important;
     }
 
+    .sticky-top.navbar-light-secondary,
     .sticky-top.navbar-light {
         position: relative;
         background: var(--bs-white);
@@ -188,9 +215,17 @@
         color: var(--bs-primary);
     }
 
+    .navbar-light-secondary .navbar-collapse,
     .navbar-light .navbar-collapse {
         margin-top: 15px;
         border-top: 1px solid rgba(0, 0, 0, .08);
+    }
+
+    .navbar-light-secondary .navbar-nav .nav-link,
+    .sticky-top.navbar-light-secondary .navbar-nav .nav-link{
+        padding: 10px 0;
+        margin-left: 0;
+        color: var(--bs-light);
     }
 
     .navbar-light .navbar-nav .nav-link,
@@ -199,13 +234,10 @@
         margin-left: 0;
         color: var(--bs-dark);
     }
-
+    
+    .navbar-light-secondary .navbar-brand img,
     .navbar-light .navbar-brand img {
         max-height: 45px;
-    }
-
-    .modal{
-        background-color: aqua;
     }
 
     .responsive-padding{
@@ -219,7 +251,6 @@
         display: inline-block;
         white-space: nowrap;
         overflow: hidden;
-        animation: formalReveal 1.2s ease forwards;
     }
 
 
@@ -251,6 +282,7 @@
         opacity: 0;
     }
 
+    .navbar-light-secondary,
     .navbar-light {
         position: absolute;
         width: 100%;
@@ -263,13 +295,13 @@
         border-style: dotted;
         z-index: 1050;
     }
-    
+    .sticky-top.navbar-light-secondary,
     .sticky-top.navbar-light {
         position: fixed;
         background: var(--bs-light);
         border: none;
     }
-
+    .navbar-light-secondary .navbar-nav .nav-item::before,
     .navbar-light .navbar-nav .nav-item::before {
         position: absolute;
         content: "";
@@ -280,11 +312,11 @@
         background: var(--bs-primary);
         transition: .5s;
     }
-
+    .sticky-top.navbar-light-secondary .navbar-nav .nav-item::before,
     .sticky-top.navbar-light .navbar-nav .nav-item::before {
         bottom: 0;
     }
-
+    .navbar-light-secondary .navbar-nav .nav-item::after,
     .navbar-light .navbar-nav .nav-item::after {
         content: "";
         position: absolute;
@@ -296,19 +328,23 @@
         opacity: 0;
         transition: 0.5s;
     }
-
+    .navbar-light-secondary .navbar-nav .nav-item:hover::after,
+    .navbar-light-secondary .navbar-nav .nav-item.active::after,
     .navbar-light .navbar-nav .nav-item:hover::after,
     .navbar-light .navbar-nav .nav-item.active::after {
         bottom: 1px;
         opacity: 1;
     }
 
+    .navbar-light-secondary .navbar-nav .nav-item:hover::before,
+    .navbar-light-secondary .navbar-nav .nav-item.active::before,
     .navbar-light .navbar-nav .nav-item:hover::before,
     .navbar-light .navbar-nav .nav-item.active::before {
         width: calc(100% - 2px);
         left: 1px;
     }
 
+    .navbar-light-secondary .navbar-nav .nav-link.nav-contact::before,
     .navbar-light .navbar-nav .nav-link.nav-contact::before {
         display: none;
     }
@@ -388,6 +424,8 @@
     justify-content: end;
     background: linear-gradient(rgba(0, 0, 0, .5), rgba(0, 0, 0, 0.5));
     background-size: cover;
+    overflow-x: hidden;
+    
 }
 
 .carousel-caption-1-content {
@@ -968,7 +1006,7 @@
 
 /*** Footer Start ***/
 .footer {
-    background: var(--bs-dark);
+    background: var(--bs-secondary);
 }
 
 .footer .footer-item a {

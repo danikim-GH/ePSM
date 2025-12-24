@@ -2,6 +2,10 @@
 <html lang="en">
 <head>
     <meta charset="utf-8">
+
+    {{-- CSRF TOKEN --}}
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <title>ePSM @yield('title')</title>
     <meta content="width=device-width, initial-scale=1.0" name="viewport">
     <meta content="ePSM, EPSM, Bahagian Sumber Manusia SUK, SUK Kedah" name="keywords">
@@ -27,6 +31,7 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
 
     <!-- Libraries Stylesheet -->
+    <link rel="stylesheet" href="{{ asset('assets/lib/animate/animate.css') }}">
     <link href="{{ asset("assets/lib/animate/animate.min.css") }}" rel="stylesheet">
     <link href="{{ asset("assets/lib/owlcarousel/assets/owl.carousel.min.css") }}" rel="stylesheet">
 
@@ -40,6 +45,12 @@
 </head>
 <body>
 
+    <!-- User Profile Modal -->
+
+    @auth
+        @include('components.user-profile-modal')
+    @endauth
+
     <!-- Navbar -->
 
     <!-- Page Content -->
@@ -48,20 +59,20 @@
     </main>
 
     <!-- JavaScript Libraries -->
-    <script src="{{ asset("assets/lib/wow/wow.min.js") }}"></script>
-    <script src="{{ asset("assets/lib/easing/easing.min.js") }}"></script>
-    <script src="{{ asset("assets/lib/waypoints/waypoints.min.js") }}"></script>
-    <script src="{{ asset("assets/lib/counterup/counterup.min.js") }}"></script>
-    <script src="{{ asset("assets/lib/owlcarousel/owl.carousel.min.js") }}"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
+    <script src="{{ asset("assets/lib/wow/wow.min.js") }}"></script>
+    <script src="{{ asset("assets/lib/owlcarousel/owl.carousel.min.js") }}"></script>
+
+    @stack('scripts')
 
     <!-- Template Javascript -->
     <script src="{{ asset("assets/js/main.js") }}"></script>
 
     <!-- Bootstrap JS (Dropdown, Modal, Collapse etc.) -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js" integrity="sha384-FKyoEForCGlyvwx9Hj09JcYn3nv7wiPVlz7YYwJrWVcXK/BmnVDxM+D2scQbITxI" crossorigin="anonymous"></script>
-
-    @stack('scripts')
+    
+    <!-- User Profile Modal JS -->
+    <script src="{{ asset('assets/js/components/userProfileModal.js') }}"></script>
 
 </body>
 </html>

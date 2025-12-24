@@ -10,11 +10,21 @@
 
     @include('components.spinnerLoading')
 
+    {{-- -
+    @auth
+        <p>Hi , {{ Auth::guard('lampirana')->user()->userlevel }}</p>    
+    @endauth
+    --}}
+
+        
+    @guest('lampirana')
+        <a href="{{ route('login.show') }}">Login</a>
+    @endguest
 
     <!-- Navbar & Hero Start -->
     <div class="container-fluid position-relative p-0">
         <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-            <a href="" class="navbar-brand p-0">
+            <a href="" class="navbar-brand p-0 wow" data-wow-delay="0ms" style="visibility: visible; animation-delay: 0ms; animation-name: fadeInDown;">
                 <h1 class="text-primary righteous-regular"><img src="assets/img/cropped-kedah-baru.png" alt="Logo Negeri Kedah" class="me-3" style="height:40px;">
                     ePSM
                 </h1>
@@ -28,58 +38,15 @@
                 </div>  
             </div>
         </nav>
-        <!-- Carousel Start -->
-        <div class="carousel-header">
-            <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
-                <ol class="carousel-indicators">
-                    <li data-bs-target="#carouselId" data-bs-slide-to="0" class="active"></li>
-                    <li data-bs-target="#carouselId" data-bs-slide-to="1"></li>
-                    <li data-bs-target="#carouselId" data-bs-slide-to="2"></li>
-                </ol>
-                <div class="carousel-inner" role="listbox">
-                    <div class="carousel-item active">
-                        <img src="assets/img/kedah_scenery.jpg" class="img-fluid w-100" alt="Image" style="height: 700px; object-fit: cover;">
-                        <div class="carousel-caption-1">
-                            <div class="carousel-caption-1-content" style="max-width: 900px;">
-                                <h4 class="text-white text-uppercase fw-bold mb-4 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;" style="letter-spacing: 3px;">Importance life</h4>
-                                <h1 class="display-2 text-capitalize text-white mb-4 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1.3s" style="animation-delay: 1.3s;">Always Want Safe Water For Healthy Life</h1>
-                                <p class="mb-5 fs-5 text-white fadeInLeft animated" data-animation="fadeInLeft" data-delay="1.5s" style="animation-delay: 1.5s;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                </p>
-                                <div class="carousel-caption-1-content-btn fadeInLeft animated" data-animation="fadeInLeft" data-delay="1.7s" style="animation-delay: 1.7s;"></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="carousel-item">
-                        <img src="assets/img/kedah_scenery2.jpg" class="img-fluid w-100" alt="Image" style="height: 700px; object-fit: cover;">
-                        <div class="carousel-caption-2">
-                            <div class="carousel-caption-2-content" style="max-width: 900px;">
-                                <h4 class="text-white text-uppercase fw-bold mb-4 fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;" style="letter-spacing: 3px;">Importance life</h4>
-                                <h1 class="display-2 text-capitalize text-white mb-4 fadeInRight animated" data-animation="fadeInRight" data-delay="1.3s" style="animation-delay: 1.3s;">Always Want Safe Water For Healthy Life</h1>
-                                <p class="mb-5 fs-5 text-white fadeInRight animated" data-animation="fadeInRight" data-delay="1.5s" style="animation-delay: 1.5s;">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
-                                </p>
-                                <div class="carousel-caption-2-content-btn fadeInRight animated" data-animation="fadeInRight" data-delay="1.7s" style="animation-delay: 1.7s;"></div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <button class="carousel-control-prev" type="button" data-bs-target="#carouselId" data-bs-slide="prev">
-                    <span class="carousel-control-prev-icon btn btn-primary fadeInLeft animated" aria-hidden="true" data-animation="fadeInLeft" data-delay="1.1s" style="animation-delay: 1.3s;"> <i class="fa fa-angle-left fa-3x"></i></span>
-                    <span class="visually-hidden">Previous</span>
-                </button>
-                <button class="carousel-control-next" type="button" data-bs-target="#carouselId" data-bs-slide="next">
-                    <span class="carousel-control-next-icon btn btn-primary fadeInRight animated" aria-hidden="true" data-animation="fadeInLeft" data-delay="1.1s" style="animation-delay: 1.3s;"><i class="fa fa-angle-right fa-3x"></i></span>
-                    <span class="visually-hidden">Next</span>
-                </button>
-            </div>
-        </div>
-        <!-- Carousel End -->
+        <!-- Navbar & Hero End -->
+        @include('layouts.carousel')
     </div>
-    <!-- Navbar & Hero End -->
 
+    
     <!-- feature Start -->
     <div class="container-fluid feature bg-light py-5">
         <div class="container py-5">
-            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px;">
+            <div class="text-center mx-auto pb-5 wow fadeInUp" data-wow-delay="0.2s" style="max-width: 800px; visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                 <h1 class="text-uppercase text-primary righteous-regular">Pilihan</h1>
                 <h3 class="display-5 text-capitalize mb-3 pt-sans-bold">Urus Kursus Anda</h3>
                 <p class="text-muted">Pilih tindakan di bawah untuk mengurus pendaftaran, maklumat, dan jadual kursus anda.</p>
@@ -87,7 +54,7 @@
 
             <div class="row g-4 justify-content-center ">
                 <!-- Card 1: Daftar Kursus -->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.2s">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                     <a href="{{ route('kursus.store') }}" class="text-decoration-none">
                         <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between" data-bs-toggle="#" data-bs-target="#" style="cursor:pointer;">
                             <div>
@@ -99,7 +66,7 @@
                     </a>    
                 </div>
                 <!-- Card 2 -->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp; cursor: pointer;">
                     <a href="{{route('senarai.index')}}" class="text-decoration-none">
                         <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                             <div>
@@ -111,7 +78,7 @@
                     </a>
                 </div>
                 <!-- Card 3 -->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.3s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.4s" style="visibility: visible; animation-delay: 0.4s; animation-name: fadeInUp; cursor: pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="fa fa-list-alt text-white fa-3x"></i></div>
@@ -121,7 +88,7 @@
                     </div>
                 </div>
                 <!-- Card 4 -->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.4s" style="cursor:pointer;"> 
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.5s" style="visibility: visible; animation-delay: 0.6s; animation-name: fadeInUp; cursor: pointer;"> 
                     <a href="{{ route('statistik-kehadiran') }}">
                         <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                             <div>    
@@ -143,7 +110,7 @@
                     </div>
                 </div>
                 <!-- Card 6 -->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.7s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.6s" style="cursor:pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="bi bi-chat-square-text text-white fa-3x"></i></div>
@@ -153,7 +120,7 @@
                     </div>
                 </div>
                 <!-- Card 7 -->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.8s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.6s" style="cursor:pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="bi bi-file-excel-fill text-white fa-3x"></i></div>
@@ -163,7 +130,7 @@
                     </div>
                 </div>
                 <!-- Card 8 -->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.9s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.6s" style="cursor:pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="bi bi-archive-fill text-white fa-3x"></i></div>
@@ -173,7 +140,7 @@
                     </div>
                 </div>
                 <!--Card 9-->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.9s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.6s" style="cursor:pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="bi bi-cup-hot-fill text-white fa-3x"></i></div>
@@ -183,7 +150,7 @@
                     </div>
                 </div>
                 <!--Card 9-->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.9s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.6s" style="cursor:pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="bi bi-chevron-double-up text-white fa-3x"></i></div>
@@ -193,7 +160,7 @@
                     </div>
                 </div>
                 <!--Card 10-->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.9s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.6s" style="cursor:pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="bi bi-arrow-repeat text-white fa-3x"></i></div>
@@ -203,7 +170,7 @@
                     </div>
                 </div>
                 <!--Card 11-->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.9s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.6s" style="cursor:pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="bi bi-heart-pulse-fill text-white fa-3x"></i></div>
@@ -213,7 +180,7 @@
                     </div>
                 </div>
                 <!--Card 12-->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.9s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.8s" style="cursor:pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="bi bi-book-half text-white fa-3x"></i></div>
@@ -223,7 +190,7 @@
                     </div>
                 </div>
                 <!--Card 12-->
-                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.9s" style="cursor:pointer;">
+                <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" data-wow-delay="0.8s" style="cursor:pointer;">
                     <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between">
                         <div>
                             <div class="feature-icon mb-3 mx-auto"><i class="bi bi-person-workspace text-white fa-3x"></i></div>
@@ -236,40 +203,12 @@
         </div>
     </div>
     <!-- feature End -->
-    <!-- Modal Daftar Kursus -->
-    <div class="modal fade" id="daftarKursusModal" tabindex="-1" aria-labelledby="daftarKursusLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="daftarKursusLabel">Daftar Kursus</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
-                </div>
-            <div class="modal-body">
-                <form id="formDaftarKursus">
-                    <div class="mb-3">
-                        <label for="namaKursus" class="form-label">Nama Kursus</label>
-                        <input type="text" class="form-control" id="namaKursus" name="namaKursus" placeholder="Contoh: Kursus Kepimpinan">
-                    </div>
-                <div class="mb-3">
-                    <label for="tarikh" class="form-label">Tarikh</label>
-                    <input type="date" class="form-control" id="tarikh" name="tarikh">
-                </div>
-                <div class="mb-3">
-                    <label for="lokasi" class="form-label">Lokasi</label>
-                    <input type="text" class="form-control" id="lokasi" name="lokasi" placeholder="Contoh: Dewan Seminar A">
-                </div>
-                <button type="submit" class="btn btn-primary">Simpan</button>
-                </form>
-            </div>
-            </div>
-        </div>
-    </div>
 
     <!-- Calendar Section -->
     <section class="py-5 bg-white">
         <div class="container">
             <h2 class="text-center mb-4 pt-sans-bold">Kalendar Kursus</h2>
-            <div id="calendar">
+            <div id="calendar" class="mb-5  wow fadeInUp" data-wow-delay="0.2s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInLeft;">
                 <div class="modal fade" id="kursusModal" tabindex="-1" aria-labelledby="modalKursusTitle" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
@@ -894,12 +833,16 @@
     <!-- Copyright End -->
 
 
-    <!-- Back to Top -->
-    <a href="#" class="btn btn-secondary btn-lg-square rounded-circle back-to-top"><i class="fa fa-arrow-up"></i></a>   
+@include('components.backToTop')
 
 @endsection
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.8/index.global.min.js"></script>
     <script src="{{ asset("assets/js/daftar_kursus.js") }}"></script>
+
+    {{-- Additional JS library --}}
+    <script src="{{ asset("assets/lib/easing/easing.min.js") }}"></script>
+    <script src="{{ asset("assets/lib/waypoints/waypoints.min.js") }}"></script>
+    <script src="{{ asset("assets/lib/counterup/counterup.min.js") }}"></script>
 @endpush

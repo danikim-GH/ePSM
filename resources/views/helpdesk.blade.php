@@ -10,7 +10,7 @@
 @section('content')
 
 @include('components.spinnerLoading')
-@include('components.navbar_wrapper',['navbarClass'=>'navbar-light bg-dark shadow'])
+@include('components.navbar_wrapper',['navbarClass'=>'navbar-light-secondary bg-secondary'])
 
 <div class="helpdesk-bg">
   <div class="container">
@@ -51,15 +51,23 @@
 
           <div class="col-lg-6">
             <div class="form-floating custom-floating position-relative">
-              <select class="form-select custom-input dropdown-icon" id="kategori" name="kategori" required>
-                <option selected disabled>Pilih Kategori Aduan</option>
-                <option value="Teknikal">Isu Teknikal</option>
-                <option value="Akaun">Isu Akaun / Log Masuk</option>
-                <option value="Tempahan">Masalah Tempahan</option>
-                <option value="Lain">Lain-lain</option>
-              </select>
+              <div class="dropdown w-100">
+                <button class="form-select custom-input text-start dropdown-toggle" type="button" id="kategoriDropdown"
+                  data-bs-toggle="dropdown" aria-expanded="false"
+                >Pilih Kategori Aduan</button>
+
+                <ul class="dropdown-menu w-100">
+                  <li><a href="#" class="dropdown-item" data-value="Teknikal">Isu Teknikal</a></li>
+                  <li><a href="#" class="dropdown-item" data-value="Akaun">Isu Akaun/Log Masuk</a></li>
+                  <li><a href="#" class="dropdown-item" data-value="Tempahan">Masalah Submit</a></li>
+                  <li><a href="#" class="dropdown-item" data-value="Lain">Lain-lain</a></li>
+                </ul>
+              </div>
+              <input type="hidden" name="kategori" id="kategori">
               <label for="kategori">Kategori Aduan</label>
-              <i class="fa-solid fa-caret-down dropdown-arrow"></i>              
+                  @error('kategori')
+                    <div class="invalid-feedback d-block">{{ $message }}</div>
+                  @enderror
             </div>
           </div>
 
@@ -97,3 +105,23 @@
 </a>
 
 @endsection
+
+@push('scripts')
+<script>
+  document.querySelectorAll('.dropdown-item').forEach(item => {
+    item.addEventListener('click', function (e) {
+      e.preventDefault();
+
+      const value = this.dataset.value;
+      const text  = this.textContent;
+
+      document.getElementById('kategori').value = value;
+      document.getElementById('kategoriDropdown').textContent = text;
+    });
+  });
+
+  @if ($errors->has('kategori'))
+    document.getElementById('kategoriDropdown').classList.add('is-invalid');
+  @endif
+</script>
+@endpush

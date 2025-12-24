@@ -10,7 +10,7 @@
   <div class="container-fluid position-relative p-0">
           <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
               <a href="" class="navbar-brand p-0">
-                  <h1 class="text-primary righteous-regular"><img src="assets/img/cropped-kedah-baru.png" alt="Logo Negeri Kedah" class="me-3" style="height:40px;"></i>
+                  <h1 class="text-primary righteous-regular"><img src="{{ asset("assets/img/cropped-kedah-baru.png") }}" alt="Logo Negeri Kedah" class="me-3" style="height:40px;"></i>
                       ePSM
                   </h1>
               </a>

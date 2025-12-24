@@ -4,25 +4,11 @@
 
 @section('content')
 
-    @include('components.spinnerLoading')
+@include('components.spinnerLoading')
+@include('components.navbar_wrapper',['navbarClass'=>'navbar-light'])
 
     <!-- Navbar & Hero Start -->
     <div class="container-fluid position-relative p-0">
-        <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-            <a href="" class="navbar-brand p-0">
-                <h1 class="text-primary righteous-regular"><img src="assets/img/cropped-kedah-baru.png" alt="Logo Negeri Kedah" class="me-3" style="height:40px;"></i>
-                    ePSM
-                </h1>
-            </a>
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
-                <span class="fa fa-bars"></span>
-            </button>
-            <div class="collapse navbar-collapse" id="navbarCollapse">
-                <div class="navbar-nav ms-auto py-0">                        
-                    @include('partials.navbar')
-                </div>  
-            </div>
-        </nav>
         <!-- Carousel Start -->
         <div class="carousel-header">
             <div id="carouselId" class="carousel slide" data-bs-ride="carousel">
@@ -33,7 +19,7 @@
                 </ol>
                 <div class="carousel-inner" role="listbox">
                     <div class="carousel-item active">
-                        <img src="assets/img/statistic_graph.jpg" class="img-fluid w-100" alt="Image" style="height: 700px; object-fit: cover;">
+                        <img src="{{ asset("assets/img/statistic_graph.jpg") }}" class="img-fluid w-100" alt="Image" style="height: 700px; object-fit: cover;">
                         <div class="carousel-caption-1">
                             <div class="carousel-caption-1-content" style="max-width: 900px;">
                                 <h4 class="text-white text-uppercase fw-bold mb-4 fadeInLeft animated" data-animation="fadeInLeft" data-delay="1s" style="animation-delay: 1s;" style="letter-spacing: 3px;">Importance life</h4>
@@ -45,7 +31,7 @@
                         </div>
                     </div>
                     <div class="carousel-item">
-                        <img src="assets/img/kedah_scenery2.jpg" class="img-fluid w-100" alt="Image" style="height: 700px; object-fit: cover;">
+                        <img src="{{ asset("assets/img/kedah_scenery2.jpg") }}" class="img-fluid w-100" alt="Image" style="height: 700px; object-fit: cover;">
                         <div class="carousel-caption-2">
                             <div class="carousel-caption-2-content" style="max-width: 900px;">
                                 <h4 class="text-white text-uppercase fw-bold mb-4 fadeInRight animated" data-animation="fadeInRight" data-delay="1s" style="animation-delay: 1s;" style="letter-spacing: 3px;">Importance life</h4>

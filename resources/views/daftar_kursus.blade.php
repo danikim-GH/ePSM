@@ -11,7 +11,7 @@
 
 
 @include('components.spinnerLoading')
-@include('components.navbar_wrapper',['navbarClass'=>'navbar-light bg-dark shadow'])
+@include('components.navbar_wrapper',['navbarClass'=>'navbar-light-secondary bg-secondary shadow'])
 
 
 <div class="kursus-bg">

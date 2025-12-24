@@ -7,7 +7,7 @@
         <i class="fas fa-users"></i>
         <span>Users</span>
     </a>
-    <a href="#" class="nav-item">
+    <a href="{{ route('admin.setting') }}" class="nav-item">
         <i class="fas fa-cog"></i>
         <span>Settings</span>
     </a>

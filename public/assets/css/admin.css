@@ -89,9 +89,9 @@ body {
 
 .admin-sidebar.bg-dark .sidebar-header h2 {
     font-size: 24px;
-    color: var(--accent-color) !important; /* Override text-primary */
-    font-weight: 700;
+    color: var(--text-light) !important; /* Override text-primary */
     white-space: nowrap;
+    letter-spacing: 1.2px;
     margin: 0;
 }
 
@@ -384,11 +384,13 @@ body {
 
 .cards-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
+    justify-self:auto;
 }
 
-.user-card {
+.user-card-suspend,
+.user-card-pending {
     background: var(--card-bg);
     border-radius: var(--border-radius);
     padding: 25px;
@@ -399,14 +401,64 @@ body {
     border: 1px solid #e2e8f0;
     animation: fadeInUp 0.4s ease-out forwards;
 }
-
-.user-card:hover {
-    background: var(--primary-gradient) !important;
-    color: var(--text-light);
+.user-card-suspend:hover,
+.user-card-pending:hover {
+    background: var(--accent-color) !important;
+    color: var(--text-dark);
     box-shadow: var(--shadow-heavy);
     transform: translateY(-8px);
-    border-color: var(--shadow-heavy);
     scale: 1.02;
+}
+
+.user-card-suspend .card-header,
+.user-card-pending .card-header{
+    padding: 24px;
+    display: flex;
+    justify-content: center;
+}
+
+.avatar-suspend,
+.avatar-pending{
+    width: 64px;
+    height: 64px;
+    background: rgba(0, 0, 0, 0.15);
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.user-card-pending:hover .avatar-pending,
+.user-card-suspend:hover .avatar-suspend{
+    background-color: #333333;
+}
+
+.avatar-suspend i,
+.avatar-pending i{
+    font-size: 28px;
+    color: #fff;
+}
+
+.user-card-pending:hover .avatar-pending i{
+    color: #ffc107;
+}
+
+.user-card-suspend:hover .avatar-suspend i{
+    color: #dc3435;
+}
+
+.user-card-suspend .card-info,
+.user-card-pending .card-info {
+    background: #ececec;
+    padding: 18px 20px;
+    text-align: center;
+    border-radius: 12px;
+}
+
+
+.user-card-suspend h3,
+.user-card-pending h3  {
+    font-size: 16px;
+    letter-spacing: 1px;
 }
 
 /* Hover effects for card content */

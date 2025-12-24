@@ -1,22 +1,37 @@
 <?php
 
-use App\Http\Controllers\AdminPanelController;
-use App\Http\Controllers\StatistikController;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\MenuController;
 use App\Http\Controllers\GaleriController;
 use App\Http\Controllers\KursusController;
 use App\Http\Controllers\NavbarController;
 use App\Http\Controllers\SenaraiController;
+use App\Http\Controllers\CarouselController;
 use App\Http\Controllers\HelpdeskController;
-use App\Http\Controllers\DashboardController;
-use App\Http\Controllers\TestLoginController;
-use App\Http\Controllers\TestRegisterController;
 use App\Http\Controllers\UserListController;
+use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\StatistikController;
+use App\Http\Controllers\testDebugController;
+use App\Http\Controllers\TestLoginController;
+use App\Http\Controllers\AdminPanelController;
+use App\Http\Controllers\AdminSettingController;
+use App\Http\Controllers\TestRegisterController;
 
-//index/home page
-Route::get('/',[DashboardController::class,'index'])->name('home');
-Route::get('/home',[DashboardController::class,'index'])->name('home');
+
+//login route
+Route::get('/login',[TestLoginController::class,'showLogin'])->name('login');
+Route::post('/login',[TestLoginController::class,'checkLogin'])->name('login.check');
+
+//add middleware function for auth
+Route::middleware('auth:lampirana')->group(function(){
+    //index/home page
+    Route::get('/',[DashboardController::class,'index'])->name('home');
+    Route::get('/home',[DashboardController::class,'index'])->name('home');
+});
+
+
+
 
 //calendar events fetch 
 Route::get('kursus/events', [KursusController::class, 'getKursusEvents'])->name('kursus.events');
@@ -26,7 +41,7 @@ Route::get('/test-navbar', [NavbarController::class, 'index']);
 Route::get('/navbar',[MenuController::class, 'navbar']);
 
 //helpdesk page
-Route::get('/helpdesk',[HelpdeskController::class,'helpdesk']);
+Route::get('/helpdesk',[HelpdeskController::class,'helpdesk'])->name('helpdesk');
 Route::post('/helpdesk',[HelpdeskController::class, 'store'])->name('helpdesk.store');
 
 //galeri page
@@ -40,18 +55,15 @@ Route::post('/daftar_kursus', [KursusController::class, 'store'])->name('kursus.
 Route::get('/senarai_kursus',[SenaraiController::class,'index'])->name('senarai.index');
 
 //test register route
-Route::get('/register',[TestRegisterController::class,'create'])->name('register.create');
+Route::get('/register',[TestRegisterController::class,'viewRegister'])->name('register.view');
 Route::post('/register',[TestRegisterController::class,'store'])->name('register.store');
 
-//login route
-Route::get('/login',[TestLoginController::class,'showLogin'])->name('login.show');
-Route::post('/login',[TestLoginController::class,'checkLogin'])->name('login.check');
 
 //logout route
 Route::get('/logout',function(){
     session()->forget('user');
     session()->forget('user_level');
-    return redirect()->route('login.show')->with('success','Berjaya log keluar!');
+    return redirect()->route('login')->with('success','Berjaya log keluar!');
 })->name('logout');
 
 //statistik kehadiran route
@@ -65,3 +77,33 @@ Route::get('/admin-panel/user-list',[UserListController::class,'view'])->name('v
 Route::get('/admin-panel/user-list/list',[UserListController::class,'getUsers']);
 Route::post('/admin/approve/{nokp}', [AdminPanelController::class, 'approveUser'])->name('admin.approve');//admin approval user pending registration
 Route::get('/admin/edit-user/{nokp}',[AdminPanelController::class, 'editUser'])->name('admin.editUser');//admin button edit info user soon will be edit!!! 27/11/2025
+Route::post('/admin/suspend-user/{nokp}',[AdminPanelController::class, 'suspendUser'])->name('admin.suspendUser');//admin suspend user registration
+Route::get('/admin/suspended-count', function(){
+    $count = DB::table('lampirana')->where('userlevel', 'SP')->count();
+    return response()->json(['total_suspended' => $count]);
+});//count suspended user fetch using API
+Route::get('/admin/pending-users-count',[AdminPanelController::class, 'pendingUsersCount'])->name('admin.pendingUsersCount');//count pending user fetch using API
+Route::get('/admin-panel/settings',[AdminSettingController::class,'adminSettingView'])->name('admin.setting');//admin setting page
+
+/*ADMIN SETTING CAROUSEL EDIT*/
+/*
+Route::middleware(['auth'])->group(function () {
+    // Dashboard
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
+});*/
+    
+    // Carousel Admin Routes
+    Route::prefix('admin')->group(function () {
+        Route::get('/carousel', [CarouselController::class, 'index'])->name('admin.carousel');
+        Route::post('/carousel/store', [CarouselController::class, 'store'])->name('admin.carousel.store');
+        Route::get('/carousel/edit/{id}', [CarouselController::class, 'edit'])->name('admin.carousel.edit');
+        Route::post('/carousel/update', [CarouselController::class, 'update'])->name('admin.carousel.update');
+        Route::delete('/carousel/delete/{id}', [CarouselController::class, 'destroy'])->name('admin.carousel.delete');
+        Route::get('/carousel/list', [CarouselController::class, 'list'])->name('admin.carousel.list');
+    });
+    
+    // If you're accessing via /admin-panel/settings, add this:
+    //Route::get('/admin-panel/settings', [AdminSettingController::class, 'index'])->name('admin.setting');
+
+//test debug view route
+Route::get('/test-debug',[testDebugController::class,'viewDebug'])->name('testDebug');

@@ -1,4 +1,8 @@
 /* Reset and base styles */
+:root{
+    --text-placeholder: #dbd9d9;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -175,17 +179,15 @@ body {
     margin-bottom: 5px;
 }
 
-.input-icon {
-    position: absolute;
-    left: 18px;
-    top: 50%;
-    transform: translateY(-50%);
-    color: #00d4ff;
-    font-size: 1.1rem;
-    z-index: 1;
+.input-group-select {
+    position: relative;
 }
 
-.input-group input {
+.select-wrapper {
+    position: relative;
+}
+
+.input-group-select select {
     width: 100%;
     padding: 18px 20px 18px 50px;
     background: rgba(255, 255, 255, 0.05);
@@ -193,15 +195,92 @@ body {
     border-radius: 12px;
     color: #ffffff;
     font-size: 1rem;
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    cursor: pointer;
     transition: all 0.3s ease;
     position: relative;
     z-index: 2;
 }
 
-.input-group input::placeholder {
-    color: #dbd9d9;
+/*necessary for 1 form placeholder in 1 frame */
+.full-width {
+    grid-column: 1 / -1;
 }
 
+.input-group-select select option {
+    background: red;
+    color: #ffffff;
+    padding: 12px;
+}
+
+.input-group-select select option:hover {
+    background: rgba(0, 212, 255, 0.1);
+}
+
+.input-group-select select option:checked {
+    background: rgba(0, 212, 255, 0.1);
+    color: black;
+}
+
+.input-group-select select:disabled {
+    background: rgba(255, 255, 255, 0.05);
+    color: #999;
+    cursor: not-allowed;
+}
+
+.select-arrow {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #00d4ff;
+    font-size: 1rem;
+    z-index: 3;
+    transition: transform 0.3s ease;
+}
+
+.input-group-select select:focus + .select-arrow {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.input-icon {
+    position:absolute;
+    left: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #00d4ff;
+    font-size: 1.1rem;
+    z-index: 3;
+    transition: transform 0.5s ease-in-out;
+}
+
+.input-group:hover .input-icon{
+    transform: translateX(5px) translateY(-50%);
+}
+
+.input-group input,
+.input-group-select select {
+    width: 100%;
+    padding: 18px 20px 18px 50px;
+    background: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 1px;
+    color: var(--text-placeholder);
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+    z-index: 2;
+}
+
+.input-group input::placeholder,
+.input-group-select select:invalid {
+    color: var(--text-placeholder);
+}
+
+.input-group-select select:focus,
 .input-group input:focus {
     outline: none;
     border-color: #00d4ff;
@@ -209,19 +288,93 @@ body {
     box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.1);
 }
 
+/* Focus state for select with border animation */
+.input-group-select:focus-within .input-border {
+    width: 71.89%;
+}
+
+/* Modern Select Wrapper */
+.modern-select {
+    position: relative;
+    width: 100%;
+}
+
+.modern-select select {
+    width: 100%;
+    padding: 16px 22px 16px 50px;
+    background: rgba(255, 255, 255, 0.07);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+    border-radius: 14px;
+    color: #fff;
+    font-size: 1rem;
+    appearance: none;
+    cursor: pointer;
+    backdrop-filter: blur(6px);
+    transition: all 0.25s ease;
+}
+
+/* Hover effect */
+.modern-select select:hover {
+    background: rgba(255, 255, 255, 0.12);
+    border-color: #00d4ff;
+}
+
+/* Focus glowing */
+.modern-select select:focus {
+    outline: none;
+    background: rgba(255, 255, 255, 0.14);
+    border-color: #00d4ff;
+    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.15);
+}
+
+/* Custom Arrow */
+.smooth-arrow {
+    position: absolute;
+    right: 18px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #00d4ff;
+    font-size: 1rem;
+    transition: transform 0.6s ease, color 0.8s ease;
+}
+
+/* Rotate on focus */
+.modern-select select:focus + .smooth-arrow {
+    transform: translateY(-50%) rotate(180deg);
+    color: #00ffff;
+}
+
+/* Dropdown options style */
+.modern-select select option {
+    background: #0a0f1a;
+    color: #fff;
+    padding: 14px;
+}
+
+.modern-select select option:hover {
+    background: rgba(0, 212, 255, 0.2);
+}
+
+/* Placeholder color */
+.modern-select select:invalid {
+    color: #8895a7;
+}
+
+
 .input-border {
     position: absolute;
     bottom: 0;
     left: 0;
     width: 0;
     height: 2px;
-    background: linear-gradient(90deg, #00d4ff, #0099ff);
     transition: width 0.4s ease;
     border-radius: 0 0 12px 12px;
     z-index: 3;
 }
 
-.input-group input:focus ~ .input-border {
+.input-group input:focus ~ .input-border,
+.input-group-select select:focus ~ .input-border {
     width: 100%;
 }
 
@@ -269,6 +422,43 @@ body {
 .strength-text {
     font-size: 0.85rem;
     color: #c9c7c7;
+}
+
+/* Terms and conditions */
+.terms-group {
+    display: flex;
+    align-items: center;
+    margin-bottom: 25px;
+    padding: 15px;
+    background: rgba(255, 255, 255, 0.05);
+    border-radius: 12px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.terms-group input[type="checkbox"] {
+    margin-right: 12px;
+    width: 18px;
+    height: 18px;
+    accent-color: #00d4ff;
+    cursor: pointer;
+}
+
+.terms-group label {
+    font-size: 0.9rem;
+    color: #dbd9d9;
+    cursor: pointer;
+    flex: 1;
+}
+
+.terms-link {
+    color: #00d4ff;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.terms-link:hover {
+    color: #0099ff;
+    text-decoration: underline;
 }
 
 /* Submit button */
@@ -400,7 +590,7 @@ body {
 }
 
 .language-selector select option {
-    background: #1a1f2e;
+    background: #2a2f3e;
     color: #ffffff;
 }
 
@@ -441,6 +631,28 @@ body {
     color: #ffffff;
 }
 
+/* Animation for "Other Department" field */
+#otherDeptGroup {
+    animation: slideDown 0.3s ease-out;
+    grid-column: 1 / -1;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Focus state indicator */
+.select-focused {
+    z-index: 10;
+}
+
 /* Responsive design */
 @media (max-width: 768px) {
     .register-card {
@@ -459,22 +671,30 @@ body {
     
     .logo-text {
         font-size: 1.8rem;
-    }    
-
-    .logo-kedah{
-        width: 10px;
-        height: 10px;
-        margin-right: 10px;
     }
 
-    .logo i {
-        font-size: 2rem;
+    .logo img {
+        width: 2rem;
+        height: 2rem;
+    }
+    
+    .input-group input,
+    .input-group-select select {
+        padding: 16px 20px 16px 50px;
+    }
+    
+    .select-arrow {
+        right: 15px;
     }
     
     .language-selector {
         top: 15px;
         right: 15px;
         padding: 8px 12px;
+    }
+    
+    .terms-group {
+        padding: 12px;
     }
 }
 
@@ -495,15 +715,62 @@ body {
         font-size: 0.9rem;
     }
     
-    .input-group input {
-        padding: 16px 20px 16px 50px;
+    .input-group input,
+    .input-group-select select {
+        padding: 14px 20px 14px 50px;
+        font-size: 0.95rem;
     }
     
-    .terms-container {
-        padding: 12px;
+    .input-icon {
+        left: 15px;
+        font-size: 1rem;
+    }
+    
+    .password-toggle {
+        right: 15px;
+        font-size: 1rem;
     }
     
     .submit-btn {
         padding: 18px;
+        font-size: 1rem;
+    }
+    
+    .terms-group label {
+        font-size: 0.85rem;
+    }
+}
+
+/* Ensure select dropdown has proper height on mobile */
+@media (max-height: 700px) {
+    .input-group input,
+    .input-group-select select {
+        padding: 14px 20px 14px 50px;
+    }
+    
+    .form-grid {
+        gap: 18px;
+    }
+}
+
+/* Print styles */
+@media print {
+    .bg-shapes,
+    .submit-btn,
+    .language-selector,
+    .password-toggle,
+    .progress-indicator {
+        display: none;
+    }
+    
+    .register-card {
+        background: white;
+        color: black;
+        box-shadow: none;
+        border: 1px solid #ccc;
+    }
+    
+    .register-title {
+        -webkit-text-fill-color: black;
     }
 }

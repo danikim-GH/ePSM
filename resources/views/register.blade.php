@@ -8,6 +8,9 @@
 @endpush
 
 @section('content')
+
+@include('components.spinnerLoading')
+
 <div class="register-container">
         <div class="bg-shapes">
             <div class="shape shape-1"></div>
@@ -70,6 +73,30 @@
                         <div class="input-border"></div>
                     </div>
                     
+                    <!-- Department field -->
+                    <div class="input-group input-group-select full-width">                     
+                        <div class="input-icon">
+                            <i class="fas fa-building"></i>
+                        </div>
+
+                        <div class="select-wrapper modern-select">
+                            <select name="NamaJabatan" id="NamaJabatan" required>
+                                <option value="" disabled selected>Pilih Jabatan</option>
+                                <option value="BAHAGIAN TEKNOLOGI MAKLUMAT">BAHAGIAN TEKNOLOGI MAKLUMAT</option>
+                                <option value="SURUHANJAYA PERKHIDMATAN AWAM">SURUHANJAYA PERKHIDMATAN AWAM</option>
+                                <option value="BAHAGIAN PEMBAGUNAN SUMBER MANUSIA">BAHAGIAN PEMBAGUNAN SUMBER MANUSIA</option>
+                                <option value="OTHERS">Lain-lain</option>
+                            </select>
+
+                            <div class="select-arrow smooth-arrow">
+                                <i class="fas fa-chevron-down"></i>
+                            </div>
+                        </div>
+
+                        <div class="input-border"></div>
+                    </div>
+
+                    
                     <!-- Password field -->
                     <div class="input-group">
                         <div class="input-icon">
@@ -93,6 +120,8 @@
                             <i class="fas fa-eye"></i>
                         </button>
                     </div>
+
+
                 </div>
                 
                 <!-- Password strength indicator -->
@@ -114,7 +143,7 @@
                 
                 <!-- Login link -->
                 <div class="login-link text-light">
-                    Sudah mempunyai akaun? <a href="#" class="login-text">Log Masuk di sini</a>
+                    Sudah mempunyai akaun? <a href="{{ route('login') }}" class="login-text">Log Masuk di sini</a>
                 </div>
             </form>
             
@@ -139,14 +168,12 @@
         <!-- Notification toast -->
         <div class="toast" id="formToast">
             <i class="fas fa-check-circle toast-icon"></i>
-            <span class="toast-message">Sila isi semua medan dengan betul</span>
+            <span class="toast-message">Sila isi semua ruangan dengan betul</span>
         </div>
 </div>
 @endsection
 
-
-
-
 @push('scripts')
     <script src="{{ asset('assets/js/register.js') }}"></script>
 @endpush
+

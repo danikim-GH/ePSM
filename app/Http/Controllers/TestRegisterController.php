@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Hash;
 
 class TestRegisterController extends Controller
 {
-    public function create()
+    public function viewRegister()
     {
         return view('register');
     }
@@ -19,7 +19,8 @@ class TestRegisterController extends Controller
             'NoKP' => 'required|unique:lampirana,NoKP',
             'katalaluan' => 'required',
             'emel' => 'required|email',
-            'hp' => 'required'
+            'hp' => 'required',
+            'NamaJabatan' => 'required',
         ]);
 
         DB::table('lampirana')->insert([
@@ -29,6 +30,7 @@ class TestRegisterController extends Controller
             'emel'=> $request->emel,
             'hp'=>$request->hp,
             'userlevel' => 0,
+            'NamaJabatan' => $request->NamaJabatan,
         ]);
         return redirect()->route('login.show')->with('success', 'Pendaftaran Berjaya!, Menunggu Kelulusan Admin');
     }

@@ -1,6 +1,6 @@
-<nav class="navbar navbar-expand-lg {{ $navbarClass }} px-4 px-lg-5 py-3 py-lg-0">
-    <a href="{{url('/')}}" class="navbar-brand p-0">
-        <h1 class="text-primary righteous-regular">
+<nav class="navbar navbar-expand-lg {{ $navbarClass }}  px-4 px-lg-5 py-3 py-lg-0">
+    <a href="" class="navbar-brand p-0 wow slideInLeft">
+        <h1 class="text-primary righteous-regular wow" >
             <img src="{{asset('assets/img/cropped-kedah-baru.png')}}" alt="Logo negeri kedah" class="me-3" style="height: 40px;">
             ePSM
         </h1>

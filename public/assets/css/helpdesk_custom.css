@@ -97,3 +97,7 @@
 .animate-fadeInUp {
     animation: fadeInUp .7s ease-out;
 }
+
+.is-invalid {
+    border-color: #dc3545 !important;
+}

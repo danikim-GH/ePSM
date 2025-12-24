@@ -1,6 +1,7 @@
 @extends('layouts.apps')
 
 @section('title', 'Admin Panel - Pending Registrations')
+
 @push('styles')
     <link href="{{ asset("assets/css/admin.css") }}" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -17,10 +18,10 @@
 
     {{-- Main Content --}}
     <main class="admin-content" id="adminContent">
-        <div class="content-header">
+        <div class="content-header wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
             <div class="header-top">
                 <div class="header-title">
-                    <h1 class="pt-sans-bold"><i class="fas fa-user-clock header-icon"></i>Pending User Registrations</h1>
+                    <h1 class="gabarito-regular"><i class="fas fa-user-clock header-icon"></i>Daftar Pengguna: Pending & Suspend</h1>
                     <p class="subtitle">Review and approve new user registrations</p>
                 </div>
             </div>
@@ -29,106 +30,75 @@
                 <div class="stat-card">
                     <i class="fas fa-users stat-icon"></i>
                     <div class="stat-info">
-                        <span class="stat-number">{{ count($pending) }}</span>
+                        <span class="stat-number js-pending-count">0</span>
                         <span class="stat-label">Pending Users</span>
                     </div>
                 </div>
                 <div class="stat-card">
-                    <i class="fas fa-clock stat-icon"></i>
+                    <i class="fa-solid fa-user-slash"></i>
                     <div class="stat-info">
-                        <span class="stat-number">{{ count($pending) }}</span>
-                        <span class="stat-label">Awaiting Review</span>
+                        <span class="stat-number js-suspended-count" >0</span>
+                        <span class="stat-label">Suspended Users</span>
                     </div>
                 </div>
             </div>
         </div>
 
-        <div class="user-cards-container">
-            @if(count($pending) > 0)
-                <div class="filter-bar">
-                    <div class="filter-group">
-                        <i class="fas fa-filter"></i>
-                        <select class="filter-select">
-                            <option value="all">All Users</option>
-                            <option value="new">New Today</option>
-                            <option value="old">Pending > 3 Days</option>
-                        </select>
-                    </div>
-                    <div class="search-box">
-                        <i class="fas fa-search"></i>
-                        <input type="text" placeholder="Search users by name or email..." class="search-input">
-                    </div>
+        @if(count($pending) > 0)
+            <div class="filter-bar wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="0s" style=" visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
+                <div class="filter-group">
+                    <i class="fas fa-filter"></i>
+                    <select class="filter-select">
+                        <option value="all">All Users</option>
+                        <option value="new">New Today</option>
+                        <option value="old">Pending > 3 Days</option>
+                    </select>
                 </div>
-                
-                <div class="cards-grid">
-                    @foreach ($pending as $user)
-                        <div class="user-card" data-user-id="{{ $user->NoKP }}">
-                            <div class="card-header">
-                                <div class="user-avatar">
-                                    <span class="avatar-text">{{ strtoupper(substr($user->Nama, 0, 1)) }}</span>
-                                </div>
-                                <div class="user-status">
-                                    <span class="status-badge pending">
-                                        <i class="fas fa-clock"></i> Pending
-                                    </span>
-                                    <span class="date-badge">
-                                        <i class="far fa-calendar"></i> {{ date('M d, Y') }}
-                                    </span>
-                                </div>
-                            </div>
-                            
-                            <div class="user-info">
-                                <div class="info-group">
-                                    <label><i class="fas fa-user info-icon"></i> Name</label>
-                                    <p class="info-value">{{ $user->Nama }}</p>
-                                </div>
-                                <div class="info-group">
-                                    <label><i class="fas fa-id-card info-icon"></i> IC Number</label>
-                                    <p class="info-value">{{ $user->NoKP }}</p>
-                                </div>
-                                <div class="info-group">
-                                    <label><i class="fas fa-envelope info-icon"></i> Email</label>
-                                    <p class="info-value">{{ $user->emel }}</p>
-                                </div>
-                                <div class="info-group">
-                                    <label><i class="fas fa-phone info-icon"></i> Phone</label>
-                                    <p class="info-value">{{ $user->hp }}</p>
-                                </div>
-                            </div>
-
-                            <div class="user-actions">
-                                <form action="{{ route('admin.approve', $user->NoKP) }}" method="POST" class="action-form">
-                                    @csrf
-                                    <div class="form-group position-relative">
-                                        <label for="userlevel-{{ $user->NoKP }}" class="form-label">
-                                            <i class="fas fa-user-tag"></i> Assign Role
-                                        </label>
-                                        <select name="userlevel" id="userlevel-{{ $user->NoKP }}" class="level-select" required>
-                                            <option value="">Select User Level</option>
-                                            <option value="9">Administrator</option>
-                                            <option value="8">Lower Admin</option>
-                                            <option value="1">Staff Member</option>
-                                            <option value="2">Guest User</option>
-                                            <option value="3">Custom Role</option>
-                                        </select>
-                                    </div>
-                                    
-                                    <div class="action-buttons">
-                                        <button class="btn btn-approve btn-act" type="submit">
-                                            <i class="fas fa-check-circle"></i> Approve
-                                        </button>
-                                        <a class="btn btn-edit btn-act-edit" href="{{ route('admin.editUser', $user->NoKP) }}">
-                                            <i class="fas fa-edit"></i> Edit
-                                        </a>
-                                        <button class="btn btn-view btn-view-details btn-act-error" type="button" data-user-id="{{ $user->NoKP }}">
-                                            <i class="fa-solid fa-user-slash"></i> Suspend
-                                        </button>
-                                    </div>
-                                </form>
-                            </div>
+                <div class="search-box">{{-- letak id searchBox --}}
+                    <i class="fas fa-search"></i>
+                    <input type="text" placeholder="Search users by name or email..." class="search-input">
+                </div>
+            </div>
+            <div class="cards-grid">
+                <div class="user-card-pending bg-dark wow fadeInUp" data-wow-duration="1.8s" role="button" data-bs-toggle="modal" data-bs-target="#pendingUserModal">
+                    <div class="card-header">
+                        <div class="avatar-pending">
+                            <i class="fas fa-user-clock"></i>
                         </div>
-                    @endforeach
+                    </div>
+    
+                    <div class="card-info">
+                        <div class="info-group">
+                            <h3 class="gabarito-regular text-uppercase mb-1">pending users list</h3>
+                            <span class="badge bg-warning text-dark fs-6 px-3 py-2">
+                                <span class="js-pending-count">0</span> Orang
+                            </span>
+                        </div>
+                    </div>
                 </div>
+
+                <div class="user-card-suspend bg-dark wow fadeInUp" data-wow-duration="1.8s" role="button" data-bs-toggle="modal" data-bs-target="#suspendUserModal">
+                    <div class="card-header">
+                        <div class="avatar-suspend">
+                            <i class="fas fa-user-slash"></i>
+                        </div>
+                    </div>
+
+                    <div class="card-info">
+                        <div class="info-group">
+                            <h3 class="gabarito-regular text-uppercase mb-1">suspended users list</h3>
+                            <span class="badge bg-danger text-ligth fs-6 px-3 py-2">
+                                <span class="js-suspended-count">0</span> Orang
+                            </span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+
+
+            {{-- REJECT CARD BUAT LIST STYLE --}}
+                
             @else
                 <div class="empty-state">
                     <div class="empty-icon">
@@ -142,12 +112,163 @@
                 </div>
             @endif
         </div>
-        {{-- Mobile Bottom Navigation --}}
+
+        <h1 class="pt-sans-regular">User Pending</h1>
+
+        {{-- Search + Filter --}}
+        <div class="filter-row">
+            <div class="search-container">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" id="searchBox" placeholder="Search user name / email...">
+                <button class="clear-search" id="clearSearch" title="Clear search">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+
+            <div class="filter-group">
+                <select id="jabatanFilter">
+                    <option value="">All Departments</option>
+                    <option value="Pentadbiran">Pentadbiran</option>
+                    <option value="Sumber Manusia">Sumber Manusia</option>
+                    <option value="Kewangan">Kewangan</option>
+                    <option value="BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH">IT</option>
+                </select>
+                
+                <select id="levelFilter">
+                    <option value="">All Levels</option>
+                    <option value="admin">Admin</option>
+                    <option value="user">User</option>
+                    <option value="staff">Staff</option>
+                </select>
+            </div>
+        </div>
+
+        {{-- User Table --}}
+        <div class="table-container">
+            <table class="user-table" id="userTable">
+                <thead>
+                    <tr>
+                        <th>Bil.</th>
+                        <th>Nama</th>
+                        <th>No KP</th>
+                        <th>Emel</th>
+                        <th>No. Fon</th>
+                        <th>Jabatan</th>
+                        <th>Level</th>
+                        <th class="text-center">Tindakan</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <!-- Data will be populated by JavaScript soo will seperate for pending and suspended users-->
+                </tbody>
+            </table>
+            
+            <div class="table-footer">
+                <div class="table-info">
+                    Showing <span id="showingStart">0</span> to <span id="showingEnd">0</span> of <span id="totalRecords">0</span> Users
+                </div>
+                <div id="pagination" class="page-container"></div>
+            </div>
+        </div>
+
         @include('admin.components.mobile_bottom_nav')
     </main>
 </div>
+
+<!-- Edit User Modal -->
+<div id="editUserModal" class="modal">
+    <div class="modal-content">
+        <div class="modal-header">
+            <h3 class="pt-sans-bold">Edit User</h3>
+            <button class="modal-close" id="closeModal">&times;</button>
+        </div>
+        <div class="modal-body">
+            <form id="editUserForm">
+                <input type="hidden" id="editUserId" name="id">
+                
+                <div class="form-group">
+                    <label for="editName">Name</label>
+                    <input type="text" id="editName" name="name" class="form-control" required>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editEmail">Email</label>
+                        <input type="email" id="editEmail" name="email" class="form-control" required>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editPhone">Phone</label>
+                        <input type="text" id="editPhone" name="phone" class="form-control">
+                    </div>
+                </div>
+                
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="editNoKP">No KP</label>
+                        <input type="text" id="editNoKP" name="no_kp" class="form-control">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="editLevel">Level</label>
+                        <select id="editLevel" name="level" class="form-control" required>
+                            <option value="user">User</option>
+                            <option value="admin">Admin</option>
+                            <option value="staff">Staff</option>
+                        </select>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="editDepartment">Department</label>
+                    <select id="editDepartment" name="department" class="form-control">
+                        <option value="">Select Department</option>
+                        <option value="Pentadbiran">Pentadbiran</option>
+                        <option value="Sumber Manusia">Sumber Manusia</option>
+                        <option value="Kewangan">Kewangan</option>
+                        <option value="BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH">IT</option>
+                    </select>
+                </div>
+                
+                
+                <div class="modal-actions">
+                    <button type="button" class="btn-cancel" id="cancelEdit">Cancel</button>
+                    <button type="submit" class="btn-save">Save Changes</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+
+<!-- Delete Confirmation Modal -->
+<div id="deleteConfirmModal" class="modal">
+    <div class="modal-content modal-sm">
+        <div class="modal-header">
+            <h3 class="pt-sans-bold">Confirm Delete</h3>
+        </div>
+        <div class="modal-body">
+            <div class="delete-icon">
+                <i class="fas fa-exclamation-triangle"></i>
+            </div>
+            <p>Are you sure you want to delete this user?</p>
+            <p class="delete-user-name" id="deleteUserName"></p>
+            <p class="text-warning">This action cannot be undone.</p>
+        </div>
+        <div class="modal-actions">
+            <button class="btn-cancel" id="cancelDelete">Cancel</button>
+            <button class="btn-delete" id="confirmDelete">Delete User</button>
+        </div>
+    </div>
+</div>
+
+@include('admin.partials.admin_modal_user_pending_list')
+
+@include('components.backToTop')
+
 @endsection
 
 @push('scripts')
     <script src="{{ asset("assets/js/admin.js")}}"></script>
+    <script src="{{ asset("assets/js/adminUserList.js") }}"></script>
+    <script src="{{ asset("assets/js/adminPanel.js") }}"></script>
 @endpush

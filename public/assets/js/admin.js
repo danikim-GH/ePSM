@@ -5,6 +5,10 @@ const mobileToggle = document.getElementById("mobileMenuToggle");
 const overlay = document.createElement('div');
 overlay.className = 'sidebar-overlay';
 
+//Pending List Panel
+const openPendingBtn = document.getElementById('openPendingPanel');
+const pendingPanel = document.getElementById('pendingUserPanel');
+
 // Add overlay to body
 document.body.appendChild(overlay);
 
@@ -82,6 +86,11 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize sidebar state
     updateSidebarState();
     
+    popoverAndModalShow()
+
+    openPendingPanel();
+    closePendingPanel();
+
     // Card hover effects - only on desktop
     const userCards = document.querySelectorAll('.user-card');
     
@@ -374,6 +383,51 @@ function initSidebarTooltips() {
             }
         });
     }
+}
+
+function popoverAndModalShow(){
+    if(window.innerWidth<768) return;
+
+    document.querySelectorAll('[data-popover]').forEach( el => {
+        new bootstrap.Popover(el,{
+            trigger: 'hover focus',
+            placement: 'top',
+            content: el.dataset.popoverContent,
+            container: 'body'
+        });
+
+        el.addEventListener('click', () =>{
+            const target = el.getAttribute('data-bs-target');
+            if(target){
+                const modal = new bootstrap.Modal(document.querySelector(target));
+                modal.show();
+            }
+        });
+    });
+}
+
+function openPendingPanel(){
+    openPendingBtn?.addEventListener('click', () => {
+        const isVisible = pendingPanel.style.display === 'block';
+
+        pendingPanel.style.display = isVisible ? 'none' : 'block';
+
+        if(!isVisible){
+            pendingPanel.scrollIntoView({ behavior: 'smooth'});
+        }
+    });
+}
+
+
+function closePendingPanel(){
+    document.getElementById('closePendingPanel')?.addEventListener('click', ()=>{
+        
+        openPendingBtn?.scrollIntoView({behavior:'smooth'});
+        
+        setTimeout(() => {
+            pendingPanel.style.display = 'none';
+        }, 5);
+    });
 }
 
 // Initialize on load

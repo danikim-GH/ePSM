@@ -163,4 +163,18 @@
         </div>
     </div>
     <!-- feature End -->
+
+    <div>
+        <h1>Counter</h1>
+        <div class="counter-item">
+            <div class="counter-counting">
+                <span data-toggle="counter-up">1000</span>
+            </div>
+        </div>
+    </div>
 @endsection
+
+@push('scripts')
+    <script src="{{ asset("assets/lib/waypoints/waypoints.min.js") }}"></script>
+    <script src="{{ asset("assets/lib/counterup/counterup.min.js") }}"></script>
+@endpush

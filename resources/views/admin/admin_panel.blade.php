@@ -4,6 +4,7 @@
 
 @push('styles')
     <link href="{{ asset("assets/css/admin.css") }}" rel="stylesheet">
+    <link rel="stylesheet" href="{{ asset("assets/css/adminUserList.css") }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 @endpush
@@ -44,7 +45,7 @@
             </div>
         </div>
 
-        @if(count($pending) > 0)
+            @if(count($pending) > 0)
             <div class="filter-bar wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="0s" style=" visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
                 <div class="filter-group">
                     <i class="fas fa-filter"></i>
@@ -60,7 +61,7 @@
                 </div>
             </div>
             <div class="cards-grid">
-                <div class="user-card-pending bg-dark wow fadeInUp" data-wow-duration="1.8s" role="button" data-bs-toggle="modal" data-bs-target="#pendingUserModal">
+                <div class="user-card-pending bg-dark wow fadeInUp" data-popover="pending" data-popover-content="Klik untuk senarai akaun yang belum disahkan" data-wow-duration="1.8s" role="button" id="openPendingPanel">
                     <div class="card-header">
                         <div class="avatar-pending">
                             <i class="fas fa-user-clock"></i>
@@ -94,11 +95,7 @@
                     </div>
                 </div>
             </div>
-            
 
-
-            {{-- REJECT CARD BUAT LIST STYLE --}}
-                
             @else
                 <div class="empty-state">
                     <div class="empty-icon">
@@ -111,68 +108,15 @@
                     </button>
                 </div>
             @endif
-        </div>
 
-        <h1 class="pt-sans-regular">User Pending</h1>
+        {{-- Pending User List Table HIDDEN BY DEFAULT --}}
 
-        {{-- Search + Filter --}}
-        <div class="filter-row">
-            <div class="search-container">
-                <i class="fas fa-search search-icon"></i>
-                <input type="text" id="searchBox" placeholder="Search user name / email...">
-                <button class="clear-search" id="clearSearch" title="Clear search">
-                    <i class="fas fa-times"></i>
-                </button>
-            </div>
+        @include('admin.partials.admin_pending_user_list')
 
-            <div class="filter-group">
-                <select id="jabatanFilter">
-                    <option value="">All Departments</option>
-                    <option value="Pentadbiran">Pentadbiran</option>
-                    <option value="Sumber Manusia">Sumber Manusia</option>
-                    <option value="Kewangan">Kewangan</option>
-                    <option value="BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH">IT</option>
-                </select>
-                
-                <select id="levelFilter">
-                    <option value="">All Levels</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                    <option value="staff">Staff</option>
-                </select>
-            </div>
-        </div>
-
-        {{-- User Table --}}
-        <div class="table-container">
-            <table class="user-table" id="userTable">
-                <thead>
-                    <tr>
-                        <th>Bil.</th>
-                        <th>Nama</th>
-                        <th>No KP</th>
-                        <th>Emel</th>
-                        <th>No. Fon</th>
-                        <th>Jabatan</th>
-                        <th>Level</th>
-                        <th class="text-center">Tindakan</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <!-- Data will be populated by JavaScript soo will seperate for pending and suspended users-->
-                </tbody>
-            </table>
-            
-            <div class="table-footer">
-                <div class="table-info">
-                    Showing <span id="showingStart">0</span> to <span id="showingEnd">0</span> of <span id="totalRecords">0</span> Users
-                </div>
-                <div id="pagination" class="page-container"></div>
-            </div>
-        </div>
-
-        @include('admin.components.mobile_bottom_nav')
     </main>
+    
+            @include('admin.components.mobile_bottom_nav')
+            @include('components.backToTop')
 </div>
 
 <!-- Edit User Modal -->
@@ -261,9 +205,7 @@
     </div>
 </div>
 
-@include('admin.partials.admin_modal_user_pending_list')
 
-@include('components.backToTop')
 
 @endsection
 
@@ -271,4 +213,6 @@
     <script src="{{ asset("assets/js/admin.js")}}"></script>
     <script src="{{ asset("assets/js/adminUserList.js") }}"></script>
     <script src="{{ asset("assets/js/adminPanel.js") }}"></script>
+    <script src="{{ asset("assets/lib/waypoints/waypoints.min.js") }}"></script>
+    <script src="{{ asset("assets/lib/counterup/counterup.min.js") }}"></script>
 @endpush

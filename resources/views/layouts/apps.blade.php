@@ -62,9 +62,9 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.4/jquery.min.js"></script>
     <script src="{{ asset("assets/lib/wow/wow.min.js") }}"></script>
     <script src="{{ asset("assets/lib/owlcarousel/owl.carousel.min.js") }}"></script>
-
+    
     @stack('scripts')
-
+    
     <!-- Template Javascript -->
     <script src="{{ asset("assets/js/main.js") }}"></script>
 

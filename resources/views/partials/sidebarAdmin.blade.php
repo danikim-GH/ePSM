@@ -1,5 +1,5 @@
     {{-- Side Navigation --}}
-    <aside class="admin-sidebar bg-dark" id="adminSidebar">
+    <aside class="admin-sidebar bg-dark collapsed" id="adminSidebar">
         <div class="text-center">
             <img class="kedah-img" src="{{ asset("assets/img/cropped-kedah-baru.png") }}" alt="logoKedah" style="max-width: 50px; margin-right:30px">
         </div>

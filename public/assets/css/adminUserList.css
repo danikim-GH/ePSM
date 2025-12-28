@@ -157,7 +157,7 @@
     font-weight: 600;
     font-size: 14px;
     text-transform: uppercase;
-    letter-spacing: 0.5px;
+    letter-spacing: 1px;
 }
 
 .user-table tbody{
@@ -170,7 +170,7 @@
 }
 
 .user-table tbody tr:hover {
-    background-color: #f8fafc;
+    background-color: #dfe2e58e;
 }
 
 .user-table td {

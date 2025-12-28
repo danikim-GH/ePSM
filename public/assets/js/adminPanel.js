@@ -11,7 +11,7 @@ function suspendedCount(){
         })
         .catch(error => {
             console.error('Error fetching suspended count:', error);
-        })
+        });
 }
 
 function pendingUsersCount(){
@@ -35,7 +35,7 @@ document.addEventListener('DOMContentLoaded', pendingUsersCount(),suspendedCount
     // Initialize sidebar state
     updateSidebarState();
 
-    
+
     // Mobile bottom nav active state
     const navItems = document.querySelectorAll('.nav-item');
     navItems.forEach(item => {

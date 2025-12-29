@@ -17,10 +17,19 @@ class AdminPanelController extends Controller
     //pending user yang register
     public function pendingUsers(){
         $pending = DB::table('lampirana')
+                    ->select('Nama', 'NoKP', 'emel', 'hp', 'NamaJabatan')
                     ->where('userlevel', '0')
-                    ->get();
+                    ->orderBy('Nama')
+                    ->paginate(5);
 
-        return view('admin.pending', compact('pending'));
+        return response()->json([
+            'success' => true,
+            'title'=>'Pending User List',
+            'users' => $pending->items(),
+            'current_page' => $pending->currentPage(),
+            'last_page'=>$pending->lastPage(),
+            'total_users' => $pending->total(),
+        ]);
     }
 
     //APPROVAL USER

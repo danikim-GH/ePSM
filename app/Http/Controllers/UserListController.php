@@ -34,6 +34,7 @@ class UserListController extends Controller
         //get user & paginate to improve data fetching
         $users = $query
                 ->select('Nama', 'NoKP', 'emel', 'hp', 'NamaJabatan', 'userlevel',)
+                ->whereIn('userlevel',['9','8', '1', '2',] )
                 ->orderBy('Nama')
                 ->paginate(10);
 

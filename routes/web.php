@@ -84,6 +84,8 @@ Route::get('/admin/suspended-count', function(){
 });//count suspended user fetch using API
 Route::get('/admin/pending-users-count',[AdminPanelController::class, 'pendingUsersCount'])->name('admin.pendingUsersCount');//count pending user fetch using API
 Route::get('/admin-panel/settings',[AdminSettingController::class,'adminSettingView'])->name('admin.setting');//admin setting page
+Route::get('/admin-panel/pending-user-list',[AdminPanelController::class, 'pendingUsers'])->name('admin.pendingUsers');// fetch pending user list only
+
 
 /*ADMIN SETTING CAROUSEL EDIT*/
 /*

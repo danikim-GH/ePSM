@@ -1,5 +1,4 @@
         <div id="pendingUserPanel" style="display: none; margin-top: 50px; box-shadow: 5px 8px 20px 5px rgba(0, 20, 66, 0.25); border-radius: 16px; background: #ffffff2c;" class="px-5 py-5">
-            
             <div class="d-flex justify-content-between align-items-center py-3 ">
                 <h1 class="pt-sans-regular">User Pending</h1>
                 <button class="btn btn-sm btn-dark" id="closePendingPanel">
@@ -47,7 +46,6 @@
                             <th>Emel</th>
                             <th>No. Fon</th>
                             <th>Jabatan</th>
-                            <th>Level</th>
                             <th class="text-center">Tindakan</th>
                         </tr>
                     </thead>

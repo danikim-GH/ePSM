@@ -46,20 +46,7 @@
         </div>
 
             @if(count($pending) > 0)
-            <div class="filter-bar wow fadeInUp" data-wow-duration="1.5s" data-wow-delay="0s" style=" visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-                <div class="filter-group">
-                    <i class="fas fa-filter"></i>
-                    <select class="filter-select">
-                        <option value="all">All Users</option>
-                        <option value="new">New Today</option>
-                        <option value="old">Pending > 3 Days</option>
-                    </select>
-                </div>
-                <div class="search-box">{{-- letak id searchBox --}}
-                    <i class="fas fa-search"></i>
-                    <input type="text" placeholder="Search users by name or email..." class="search-input">
-                </div>
-            </div>
+
             <div class="cards-grid">
                 <div class="user-card-pending bg-dark wow fadeInUp" data-popover="pending" data-popover-content="Klik untuk senarai akaun yang belum disahkan" data-wow-duration="1.8s" role="button" id="openPendingPanel">
                     <div class="card-header">
@@ -211,7 +198,7 @@
 
 @push('scripts')
     <script src="{{ asset("assets/js/admin.js")}}"></script>
-    <script src="{{ asset("assets/js/adminUserList.js") }}"></script>
+    <script src="{{ asset("assets/js/adminPendingUserList.js") }}"></script>
     <script src="{{ asset("assets/js/adminPanel.js") }}"></script>
     <script src="{{ asset("assets/lib/waypoints/waypoints.min.js") }}"></script>
     <script src="{{ asset("assets/lib/counterup/counterup.min.js") }}"></script>

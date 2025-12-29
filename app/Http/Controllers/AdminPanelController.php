@@ -17,7 +17,7 @@ class AdminPanelController extends Controller
     //pending user yang register
     public function pendingUsers(){
         $pending = DB::table('lampirana')
-                    ->where('userlevel', 0)
+                    ->where('userlevel', '0')
                     ->get();
 
         return view('admin.pending', compact('pending'));
@@ -32,5 +32,38 @@ class AdminPanelController extends Controller
             ]);
 
         return back()->with('success', 'User berjaya didaftarkan!');
+    }
+
+    public function suspendUser($nokp){
+        DB::table('lampirana')
+            ->where('NoKP', $nokp)
+            ->update([
+                'userlevel' => 'SP'
+            ]);
+
+        return back()->with('success', 'User berjaya disuspend!');
+    }
+
+    //fetch api for pending users count
+    public function pendingUsersCount(){
+        $count = DB::table('lampirana')
+                    ->where('userlevel', '0')
+                    ->count();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Pending users count fetched successfully.',
+            'pending_users_count' => $count,
+        ]);
+    }
+
+    public function suspendedUsersCount(){
+        $count = DB::table('lampirana')
+                ->where('userlevel', 'SP')
+                ->count();
+        return response()->json(['total_suspended'=>$count]);
+    }
+    public function getUsers(){
+        
     }
 }

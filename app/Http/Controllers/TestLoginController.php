@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Lampirana;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 
@@ -22,13 +22,20 @@ class TestLoginController extends Controller
             'katalaluan'=>'required'
         ]);
 
-        $user= DB::table('lampirana')
-        ->where('NoKP', $request->NoKP)
-        ->first();
+        $user = Lampirana::where('NoKP',$request->NoKP)
+                ->first();
 
         if(!$user){
             return back()->with('error','NoKP Tidak Wujud');
         }
+
+        /** Apply untuk hash password lama in DB if possible
+         * if(md5($request->katalaluan) === $user->katalaluan){
+        *  $user->katalaluan = Hash::make($request->katalaluan); // auto rehash ke bcrypt
+        *  $user->save();
+         * }
+         * 
+        **/
 
         //check password hashed
         if(!Hash::check($request->katalaluan, $user->katalaluan)){
@@ -39,10 +46,12 @@ class TestLoginController extends Controller
             return back()->with('error', 'Akaun anda sedang menunggu kelulusan atmin :Ampun Atmin:');
         } 
 
-        session(['user'=>$user]);
-        session(['userlevel' => $user -> userlevel]);
+        if($user->userlevel === "SP"){
+            return back()->with('error', 'Akaun anda telah ditangguhkan, sila hubungi admin untuk maklumat lanjut!');
+        }
+
+        Auth::guard('lampirana')->login($user);
 
         return redirect()->route('home')->with('success','Login Berjaya!');
-    
     }
 }

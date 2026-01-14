@@ -21,7 +21,7 @@
             <div class="stats-summary">
                 <span class="stat-item">
                     <i class="fas fa-users"></i>
-                    <span id="totalUsers">0</span> Users
+                    <span id="totalUsersStatic">0</span> Users
                 </span>
             </div>
         </div>
@@ -86,6 +86,7 @@
     </main>
 </div>
 
+
 <!-- Edit User Modal -->
 <div id="editUserModal" class="modal">
     <div class="modal-content">
@@ -123,9 +124,10 @@
                     <div class="form-group">
                         <label for="editLevel">Level</label>
                         <select id="editLevel" name="level" class="form-control" required>
-                            <option value="user">User</option>
-                            <option value="admin">Admin</option>
-                            <option value="staff">Staff</option>
+                            <option value="9">Admin BTMK</option>
+                            <option value="8">Admin BSM</option>
+                            <option value="1">Staff</option>
+                            <option value="2">Staff H</option>
                         </select>
                     </div>
                 </div>
@@ -172,6 +174,7 @@
     </div>
 </div>
 
+<div id="toast" class="toast"></div>
 
 @endsection
 

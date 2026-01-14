@@ -543,6 +543,22 @@
     margin: 0;
 }
 
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all .3s ease;
+    z-index: 9999;
+}
+.toast.show { opacity: 1; transform: translateY(0); }
+.toast.success { background: #22c55e; }
+.toast.error { background: #ef4444; }
+
 /* Responsive Design */
 @media (max-width: 1200px) {
     .table-container {

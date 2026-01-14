@@ -18,7 +18,7 @@
                 <a href="{{ route('view') }}" title="All Users">
                     <i class="fas fa-users"></i>
                     <span class="material-symbols-outlined"></span>
-                    <span class="menu-text">All Users</span>
+                    <span class="menu-text">Senarai Pengguna</span>
                 </a>
             </li>
             <li class="" title="Jabatan">
@@ -40,7 +40,7 @@
         <div class="sidebar-bottom">
             <a href="{{ route('home') }}" class="sidebar-home-btn">
                 <i class="fas fa-home"></i>
-                <span class="menu-text">Back to Home</span>
+                <span class="menu-text">Kembali ke Halaman Utama</span>
             </a>
         </div>
     </aside>

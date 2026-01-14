@@ -85,3 +85,72 @@ document.addEventListener('keydown', (e) => {
         document.body.style.overflow = '';
     }
 });
+
+
+function initServerSideSearch() {
+    document.querySelectorAll('.search-input').forEach(input => {
+    
+        const clearBtn = input.parentElement.querySelector('.clear-search');
+        let debounce;
+    
+        input.addEventListener('input', () => {
+
+            const keyword = input.value.trim();
+            clearTimeout(debounce);
+            debounce = setTimeout(() => {
+                
+                // toggle clear button
+                if (clearBtn) {
+                    clearBtn.classList.toggle('d-none', keyword === '');
+                }
+    
+                //  SERVER SIDE FETCH
+                if (input.dataset.mode === 'pending' && window.pendingList) {
+                    window.pendingList.fetch(1, { search: keyword });
+                }
+    
+                if (input.dataset.mode === 'suspended' && window.suspendList) {
+                    window.suspendList.fetch(1, { search: keyword });
+                }
+            }, 300);
+        });
+    
+        if(clearBtn){
+            clearBtn.addEventListener('click', () => {
+                input.value = '';
+                input.dispatchEvent(new Event('input'));
+                input.focus();
+            });
+        }
+    });
+}
+
+
+
+function handleEmptyState(rows, visibleCount) {
+    if (!rows.length === 0) return;
+    
+    const tbody = rows[0].closest('tbody');
+    if(!tbody) return;
+    let emptyStateRow = tbody.querySelector('.empty-search-row');
+
+    if(visibleCount === 0) {
+        if(!emptyStateRow) {
+            emptyStateRow = document.createElement('tr');
+            emptyStateRow.className = 'empty-search-row';
+            emptyStateRow.innnerHTML = `
+                <td colspan="100%" class="text-center text-muted py-4">
+                    <i class="fas fa-search-minus mb-2"></i><br>
+                    Tiada data dijumpai
+                </td>
+            `;
+
+            tbody.appendChild(emptyStateRow);
+        }
+    } else {
+        if(emptyStateRow) {
+            emptyStateRow.remove();
+        }
+    }
+
+}

@@ -330,6 +330,8 @@ body {
 
 .user-cards-container {
     padding: 20px 0;
+    justify-content: center;
+    background-color: red;
 }
 
 .filter-bar {
@@ -387,6 +389,8 @@ body {
     grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
     gap: 25px;
     justify-self:auto;
+    justify-content: center;
+    display: flex;
 }
 
 .user-card-suspend,
@@ -398,8 +402,9 @@ body {
     transition: var(--transition);
     position: relative;
     overflow: hidden;
-    border: 1px solid #e2e8f0;
     animation: fadeInUp 0.4s ease-out forwards;
+    width: 670px;
+    height: auto;
 }
 
 .card-info.active{
@@ -407,13 +412,22 @@ body {
     scale: 1.12;
 }
 
-.user-card-suspend:hover,
+.user-card-suspend:hover{
+    background: var(--accent-color) !important;
+    color: var(--text-dark);
+    box-shadow:  0 10px 35px 5px rgba(184, 9, 9, 0.733);
+    transform: translateY(-8px);
+    scale: 1.02;
+    transition: .41s;
+}
+
 .user-card-pending:hover {
     background: var(--accent-color) !important;
     color: var(--text-dark);
-    box-shadow: var(--shadow-heavy);
+    box-shadow:  0 10px 35px 5px rgba(99, 56, 2, 0.865);
     transform: translateY(-8px);
     scale: 1.02;
+    transition: .41s ease;
 }
 
 .user-card-suspend .card-header,
@@ -675,6 +689,75 @@ body {
     color: white;
 }
 
+.btn-sahkan-modal{
+    padding: 10px 24px;
+    margin-right: 6px ;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    color: #f1f5f9 ;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;    
+}
+
+.btn-cancel-modal{
+    padding: 10px 24px;
+    margin-bottom: 6px;
+    background: #f1f5f9;
+    border-radius: 8px;
+    color: #475569;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.btn-delete-modal{
+    padding: 10px 24px;
+    margin-right: 6px ;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    color: #fff;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;    
+}
+
+.btn-reactivate-modal{
+    padding: 10px 24px;
+    margin-right: 6px ;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    color: #000 ;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;    
+}
+
+.btn-suspend-modal{
+    padding: 10px 24px;
+    margin-right: 6px ;
+    margin-bottom: 6px;
+    border-radius: 8px;
+    color: #f1f5f9 ;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.2s ease;    
+}
+
+.btn-sahkan-modal:hover{
+    background: #008b13;
+    box-shadow: var(--shadow-light);
+}
+
+.btn-cancel-modal:hover{
+    background: #126bdf;
+    box-shadow: var(--shadow-light);
+}
+
+.btn-reactivate-modal:hover{
+    background: #969287;
+    box-shadow: var(--shadow-light);
+}
 
 .btn-view {
     background: var(--view-color);
@@ -697,6 +780,12 @@ body {
 
 .btn-act-error:hover{
     background-color: var(--danger-color) !important;
+}
+
+.action-group{
+    display: flex;
+    gap: 8px;
+    justify-content: center;
 }
 
 /* Empty State */
@@ -783,6 +872,8 @@ body {
     font-size: 18px;
     margin-bottom: 4px;
 }
+
+
 
 /********** RESPONSIVE BREAKPOINTS ************/
 

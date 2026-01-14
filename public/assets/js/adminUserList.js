@@ -51,15 +51,24 @@ async function fetchUsers(page = 1) {
 
     try {
         const res = await fetch(`/admin-panel/user-list/list?search=${encodeURIComponent(search)}&jabatan=${encodeURIComponent(jabatan)}&level=${encodeURIComponent(level)}&page=${page}`);
+        const totalUsersRes = await fetch(`/admin-panel/user-list/total-users`);
+
         const json = await res.json();
+        const totalUsersJson = await totalUsersRes.json();
         
         if (!json.success) {
             throw new Error('Failed to fetch users');
         }
+
+        if(!totalUsersJson.success){
+            throw new Error('Failed to fetch total users');
+        }
         
         currentData = json;
         usersData = json.users;
-        
+
+        document.getElementById("totalUsersStatic").innerText = totalUsersJson.total_users || '-';
+
         renderTable(json.users);
         renderPagination(json.current_page, json.last_page);
         updateStats(json);
@@ -203,7 +212,7 @@ function updateStats(data) {
     const totalRecords = document.getElementById('totalRecords');
     
     if (totalUsers) {
-        totalUsers.textContent = data.total_users || 0;
+        totalUsers.textContent = data.total_users || '-';
     }
     
     if (showingStart && showingEnd && totalRecords) {
@@ -297,34 +306,39 @@ async function handleEditSubmit(event) {
     submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Saving...';
     submitBtn.disabled = true;
     
+    const id = document.getElementById('editUserId').value;
+
+    const payload = {
+        name: document.getElementById('editName').value,
+        email: document.getElementById('editEmail').value,
+        phone: document.getElementById('editPhone').value,
+        no_kp: document.getElementById('editNoKP').value,
+        level: document.getElementById('editLevel').value,
+        department: document.getElementById('editDepartment').value,
+    };
+
     try {
-        // Get form data
-        const formData = {
-            id: document.getElementById('editUserId').value,
-            name: document.getElementById('editName').value,
-            email: document.getElementById('editEmail').value,
-            phone: document.getElementById('editPhone').value,
-            no_kp: document.getElementById('editNoKP').value,
-            level: document.getElementById('editLevel').value,
-            department: document.getElementById('editDepartment').value,
-        };
+        const res = await fetch(`/admin-panel/users/${id}`, {
+            method: 'PUT',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            },
+            body: JSON.stringify(payload)
+        });
+
+
         
-        // TODO: Replace with actual API call
-        console.log('Updating user:', formData);
-        
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Show success message
-        alert('User updated successfully!');
-        
-        // Close modal and refresh data
+        const json = await res.json();
+        if (!json.success) throw new Error(json.message);
+
+        showToast('User updated successfully', 'success');
         closeModal();
         fetchUsers(currentPage);
         
     } catch (error) {
         console.error('Error updating user:', error);
-        alert('Failed to update user. Please try again.');
+        showToast('Failed to update user. Please try again.','error');
     } finally {
         // Restore button state
         submitBtn.innerHTML = originalText;
@@ -340,26 +354,34 @@ async function handleDelete() {
     if (!user) return;
     
     // Show loading state
-    confirmDeleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
     confirmDeleteBtn.disabled = true;
+    confirmDeleteBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Deleting...';
     
     try {
-        // TODO: Replace with actual API call
-        console.log('Deleting user:', user);
-        
-        // Simulate API delay
-        await new Promise(resolve => setTimeout(resolve, 1000));
-        
-        // Show success message
-        alert('User deleted successfully!');
-        
+
+        const res = await fetch(`/admin-panel/users/${user.id}`, {
+            method: 'DELETE',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRF-TOKEN': document.querySelector('meta[name="csrf-token"]').content
+            }
+        });
+
+        const json = await res.json();
+
+        if (!json.success || !res.ok) {
+            throw new Error('Failed to delete user');
+        }
+
+        showToast('User deleted successfully!', 'success');
+
         // Close modal and refresh data
         closeModal();
         fetchUsers(currentPage);
-        
+
     } catch (error) {
         console.error('Error deleting user:', error);
-        alert('Failed to delete user. Please try again.');
+        showToast('Failed to delete user. Please try again.','error');
     } finally {
         // Restore button state
         confirmDeleteBtn.innerHTML = '<i class="fas fa-trash"></i> Delete User';
@@ -377,6 +399,17 @@ function userLevelLabel(level){
         default: return 'Undefined';
     }
 }
+
+function showToast(message, type = 'success') {
+    const toast = document.getElementById('toast');
+    toast.textContent = message;
+    toast.className = `toast show ${type}`;
+
+    setTimeout(() => {
+        toast.className = 'toast';
+    }, 3000);
+}
+
 
 // Initialize
 document.addEventListener("DOMContentLoaded", () => {

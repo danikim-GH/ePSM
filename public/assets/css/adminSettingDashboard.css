@@ -1,0 +1,233 @@
+/* assets/css/adminSettingDashboard.css */
+
+/* Settings Dashboard Styles */
+.settings-dashboard {
+    padding: 20px 0;
+}
+
+.settings-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 24px;
+    margin-top: 20px;
+}
+
+.setting-card {
+    background: white;
+    border-radius: 12px;
+    padding: 24px;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 20px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+}
+
+.setting-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(180deg, #007bff, #0056b3);
+    transform: scaleY(0);
+    transition: transform 0.3s ease;
+}
+
+.setting-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+}
+
+.setting-card:hover::before {
+    transform: scaleY(1);
+}
+
+.setting-icon {
+    width: 60px;
+    height: 60px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #007bff, #0056b3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: transform 0.3s ease;
+}
+
+.setting-card:hover .setting-icon {
+    transform: rotate(5deg) scale(1.1);
+}
+
+.setting-icon i {
+    font-size: 28px;
+    color: white;
+}
+
+.setting-content {
+    flex: 1;
+}
+
+.setting-content h3 {
+    margin: 0 0 8px 0;
+    font-size: 18px;
+    color: #333;
+    font-weight: 600;
+}
+
+.setting-content p {
+    margin: 0;
+    font-size: 14px;
+    color: #666;
+    line-height: 1.5;
+}
+
+.btn-setting {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: #f8f9fa;
+    border: none;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    flex-shrink: 0;
+}
+
+.btn-setting i {
+    font-size: 16px;
+    color: #007bff;
+    transition: transform 0.3s ease;
+}
+
+.setting-card:hover .btn-setting {
+    background: #007bff;
+}
+
+.setting-card:hover .btn-setting i {
+    color: white;
+    transform: translateX(3px);
+}
+
+/* Feature Container */
+.feature-container {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.feature-header {
+    margin-bottom: 20px;
+}
+
+.btn-back {
+    padding: 10px 20px;
+    background: #6c757d;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    cursor: pointer;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: all 0.3s ease;
+}
+
+.btn-back:hover {
+    background: #545b62;
+    transform: translateX(-3px);
+}
+
+.btn-back i {
+    font-size: 14px;
+}
+
+/* Breadcrumb Styles */
+.breadcrumb {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 15px;
+    font-size: 14px;
+}
+
+.breadcrumb-link {
+    color: #007bff;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    transition: color 0.3s ease;
+}
+
+.breadcrumb-link:hover {
+    color: #0056b3;
+    text-decoration: underline;
+}
+
+.breadcrumb-separator {
+    color: #999;
+}
+
+.breadcrumb-current {
+    color: #333;
+    font-weight: 600;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .settings-grid {
+        grid-template-columns: 1fr;
+        gap: 16px;
+    }
+    
+    .setting-card {
+        padding: 20px;
+    }
+    
+    .setting-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .setting-icon i {
+        font-size: 24px;
+    }
+    
+    .setting-content h3 {
+        font-size: 16px;
+    }
+    
+    .setting-content p {
+        font-size: 13px;
+    }
+}
+
+@media (max-width: 480px) {
+    .setting-card {
+        flex-direction: column;
+        text-align: center;
+    }
+    
+    .btn-setting {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+    }
+}

@@ -23,7 +23,7 @@
             <div class="header-top">
                 <div class="header-title">
                     <h1 class="gabarito-regular"><i class="fas fa-user-clock header-icon"></i>Daftar Pengguna: Pending & Suspend</h1>
-                    <p class="subtitle">Review and approve new user registrations</p>
+                    <p class="subtitle">Semak dan luluskan pendaftaran pengguna baharu</p>
                 </div>
             </div>
             
@@ -65,7 +65,7 @@
                     </div>
                 </div>
 
-                <div class="user-card-suspend bg-dark wow fadeInUp" data-wow-duration="1.8s" role="button" data-bs-toggle="modal" data-bs-target="#suspendUserModal">
+                <div class="user-card-suspend bg-dark wow fadeInUp" data-popover="suspended" data-popover-content="Klik untuk senarai akaun yang telah dibekukan" data-wow-duration="1.8s" role="button"  id="openSuspendedPanel">
                     <div class="card-header">
                         <div class="avatar-suspend">
                             <i class="fas fa-user-slash"></i>
@@ -99,12 +99,24 @@
         {{-- Pending User List Table HIDDEN BY DEFAULT --}}
 
         @include('admin.partials.admin_pending_user_list')
+        @include('admin.partials.admin_suspend_user_list')
 
     </main>
+    @include('admin.components.mobile_bottom_nav')
     
-            @include('admin.components.mobile_bottom_nav')
-            @include('components.backToTop')
+    <footer>
+    </footer>
+    
 </div>
+@include('components.backToTop')
+
+{{-- Modal Pending User format : (admin.modal.pending_ACTION-TYPE_user_pending) --}}
+@include('admin.modal.pending.admin_suspend_user_pending')
+@include('admin.modal.pending.admin_view_user_pending')
+
+{{-- Modal Suspend User format : (admin.modal.suspend_ACTION-TYPE_user_suspend) --}}
+@include('admin.modal.suspend.admin_delete_user_suspend')
+@include('admin.modal.suspend.admin_reactivate_user_suspend')
 
 <!-- Edit User Modal -->
 <div id="editUserModal" class="modal">
@@ -172,7 +184,7 @@
 </div>
 
 <!-- Delete Confirmation Modal -->
-<div id="deleteConfirmModal" class="modal">
+<div id="deleteConfirmModal" class="modal fade" tabindex="-1">
     <div class="modal-content modal-sm">
         <div class="modal-header">
             <h3 class="pt-sans-bold">Confirm Delete</h3>
@@ -198,8 +210,31 @@
 
 @push('scripts')
     <script src="{{ asset("assets/js/admin.js")}}"></script>
-    <script src="{{ asset("assets/js/adminPendingUserList.js") }}"></script>
+    <script src="{{ asset("assets/js/adminPendingListAndSuspendList.js") }}"></script>
     <script src="{{ asset("assets/js/adminPanel.js") }}"></script>
     <script src="{{ asset("assets/lib/waypoints/waypoints.min.js") }}"></script>
     <script src="{{ asset("assets/lib/counterup/counterup.min.js") }}"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            window.pendingList = adminPendingListAndSuspendList({
+                tableBodyId: 'pendingTableBody',
+                paginationId: 'pendingPagination',
+                fetchUrl: '/admin-panel/pending-user-list',
+                mode: 'pending'
+            });
+
+            window.suspendList = adminPendingListAndSuspendList({
+                tableBodyId: 'suspendTableBody',
+                paginationId: 'suspendPagination',
+                fetchUrl: '/admin-panel/suspended-user-list',
+                mode: 'suspended'
+            });
+
+            // fetch bila panel buka
+            pendingList.fetch(1);
+            suspendList.fetch(1);
+
+            initServerSideSearch();
+        });
+    </script>
 @endpush

@@ -126,6 +126,24 @@ main{
 }
 /*** Topbar Start ***/
 
+/**Start Toast For Menu*/
+.toast-sidemenu {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 14px 18px;
+    border-radius: 6px;
+    color: #fff;
+    opacity: 0;
+    transform: translateY(-10px);
+    transition: all .3s ease;
+    z-index: 9999;
+}
+.toast-sidemenu.show { opacity: 1; transform: translateY(0); }
+.toast-sidemenu.toast-coming-soon { background: #ffaf04e7; }
+
+/**End Toast For Menu*/
+
 /*** Navbar ***/
 .navbar-light-secondary .navbar-nav .nav-link,
 .navbar-light .navbar-nav .nav-link {

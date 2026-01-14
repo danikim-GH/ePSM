@@ -49,8 +49,23 @@ function getMenuIcon(menuTitle) {
 function createMenuCard(menuItem, delay) {
     const icon = getMenuIcon(menuItem.menu_tajuk);
     const url = menuItem.menu_url_alternate || '#';
-    
+    //showToast(menuItem.menu_tajuk + 'Coming Soon')
     // Check if it's a route or modal action
+
+    document.addEventListener('click', function (e) {
+        const card = e.target.closest('.feature-card');
+        if (!card) return;
+
+        const url = card.dataset.url;
+        const title = card.dataset.title;
+
+        // Kalau coming soon
+        if (url === '#') {
+            e.preventDefault();
+            showToast(`${title} akan datang `);
+        }
+    });
+
     const isModal = menuItem.menu_action === 'modal';
     const linkAttribute = isModal 
         ? `data-bs-toggle="modal" data-bs-target="#${menuItem.menu_target}"` 
@@ -60,7 +75,7 @@ function createMenuCard(menuItem, delay) {
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" 
             data-wow-delay="${delay}s" 
             style="visibility: visible; animation-delay: ${delay}s; animation-name: fadeInUp;">
-            <a ${linkAttribute} class="text-decoration-none">
+            <a ${linkAttribute} class="text-decoration-none feature-card" data-url="${url}" data-title="${menuItem.menu_tajuk}">
                 <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between" 
                     style="cursor:pointer;">
                     <div>
@@ -128,7 +143,7 @@ async function loadDynamicMenu() {
                 new WOW().init();
             }
             
-            console.log(`✅ Loaded ${data.data.length} menu items for user level: ${data.user_level}`);
+            console.log(`Loaded ${data.data.length} menu items for user level: ${data.user_level}`);
         } else {
             // No menu items found
             container.innerHTML = `
@@ -177,6 +192,21 @@ function reloadMenu() {
     console.log(' Reloading menu...');
     loadDynamicMenu();
 }
+
+function showToast(message) {
+    const toast = document.createElement('div');
+    toast.className = `toast-sidemenu toast-coming-soon`;
+    toast.textContent = message;
+
+    document.body.appendChild(toast);
+
+    setTimeout(() => toast.classList.add('show'), 50);
+    setTimeout(() => {
+        toast.classList.remove('show');
+        setTimeout(() => toast.remove(), 300);
+    }, 2500);
+}
+
 
 // Export for external use
 window.reloadMenu = reloadMenu;

@@ -29,9 +29,9 @@ class TestRegisterController extends Controller
             'katalaluan' => Hash::make($request->katalaluan),
             'emel'=> $request->emel,
             'hp'=>$request->hp,
-            'userlevel' => 0,
+            'userlevel' => "0",
             'NamaJabatan' => $request->NamaJabatan,
         ]);
-        return redirect()->route('login.show')->with('success', 'Pendaftaran Berjaya!, Menunggu Kelulusan Admin');
+        return redirect()->route('login')->with('success', 'Pendaftaran Berjaya!, Menunggu Kelulusan Admin');
     }
 }

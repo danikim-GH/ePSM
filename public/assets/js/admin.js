@@ -9,6 +9,9 @@ overlay.className = 'sidebar-overlay';
 const openPendingBtn = document.getElementById('openPendingPanel');
 const pendingPanel = document.getElementById('pendingUserPanel');
 
+const openSuspendedBtn = document.getElementById('openSuspendedPanel');
+const suspendedPanel = document.getElementById('suspendedUserPanel')
+
 // Add overlay to body
 document.body.appendChild(overlay);
 
@@ -86,10 +89,13 @@ document.addEventListener('DOMContentLoaded', function() {
     // Initialize sidebar state
     updateSidebarState();
     
-    popoverAndModalShow()
+    popoverAndModalShow();
 
     openPendingPanel();
     closePendingPanel();
+
+    openSuspendedPanel();
+    closeSuspendedPanel();
 
     // Card hover effects - only on desktop
     const userCards = document.querySelectorAll('.user-card');
@@ -418,6 +424,18 @@ function openPendingPanel(){
     });
 }
 
+function openSuspendedPanel(){
+    openSuspendedBtn?.addEventListener('click', () => {
+        const isVisible = suspendedPanel.style.display === 'block';
+
+        suspendedPanel.style.display = isVisible ? 'none' : 'block';
+
+        if(!isVisible){
+            suspendedPanel.scrollIntoView({ behavior: 'smooth'});
+        }
+    });
+}
+
 
 function closePendingPanel(){
     document.getElementById('closePendingPanel')?.addEventListener('click', ()=>{
@@ -428,6 +446,46 @@ function closePendingPanel(){
             pendingPanel.style.display = 'none';
         }, 5);
     });
+}
+
+function closeSuspendedPanel(){
+        document.getElementById('closeSuspendedPanel')?.addEventListener('click', ()=>{
+        
+        openSuspendedBtn?.scrollIntoView({behavior:'smooth'});
+        
+        setTimeout(() => {
+            suspendedPanel.style.display = 'none';
+        }, 5);
+    });
+}
+
+
+async function openEditModal(nokp){
+    const res = await fetch(`/admin-panel/users/${nokp}`);
+    const json = await res.json();
+
+    const user = json.user;
+
+    if(!json.success) return alert('Failed to load user data');
+
+    editUserName.value = user.Nama;
+    editUserEmel.value = user.emel;
+    editUserPhone.value = user.hp;
+    editUserNoKP.value = user.NoKP;
+    editUserJabatan.value = user.NamaJabatan;
+    editUserLevel.value = user.userlevel;
+
+    const modalEl = document.getElementById('editUserModal');
+    bootstrap.Modal.getOrCreateInstance(modalEl).show();
+}
+
+let deleteUserId = null;
+async function openDeleteModal(id){
+    deleteUserId = id;
+
+    const modalEl = document.getElementById('deleteConfirmModal');
+    new bootstrap.Modal(modalEl).show();
+
 }
 
 // Initialize on load

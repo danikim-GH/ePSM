@@ -40,6 +40,11 @@ Route::get('kursus/events', [KursusController::class, 'getKursusEvents'])->name(
 Route::get('/test-navbar', [NavbarController::class, 'index']);
 Route::get('/navbar',[MenuController::class, 'navbar']);
 
+// ========== MENU API ROUTES (NEW) ==========
+// Get side menu items based on user level (menu_arah = 'menutepi')
+Route::get('/api/menu/side-menu', [MenuController::class, 'getSideMenu'])->name('menu.side');
+Route::get('/api/menu/count', [MenuController::class, 'getMenuCount'])->name('menu.count');
+
 //helpdesk page
 Route::get('/helpdesk',[HelpdeskController::class,'helpdesk'])->name('helpdesk');
 Route::post('/helpdesk',[HelpdeskController::class, 'store'])->name('helpdesk.store');

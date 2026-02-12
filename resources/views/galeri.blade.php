@@ -4,7 +4,7 @@
 
 {{-- Add gallery-specific CSS --}}
 @push('styles')
-<link rel="stylesheet" href="{{ asset('css/galeriStyles.css') }}">
+<link rel="stylesheet" href="{{ asset('assets/css/galeriStyles.css') }}">
 @endpush
 
 @section('content')
@@ -14,12 +14,7 @@
 <!-- Navbar & Hero Start -->
 <div class="container-fluid position-relative p-0">
     <nav class="navbar navbar-expand-lg navbar-light px-4 px-lg-5 py-3 py-lg-0">
-        <a href="{{ route('home') }}" class="navbar-brand p-0">
-            <h1 class="text-primary righteous-regular">
-                <img src="{{ asset('assets/img/cropped-kedah-baru.png') }}" alt="Logo Negeri Kedah" class="me-3" style="height:40px;">
-                ePSM
-            </h1>
-        </a>
+        @include('layouts.logo-on-navbar')
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
             <span class="fa fa-bars"></span>
         </button>
@@ -33,7 +28,9 @@
     <!-- Header Start -->
     <div class="container-fluid bg-breadcrumb">
         <div class="container text-center py-5" style="max-width: 900px;">
-            <h4 class="gabarito-regular text-white display-4 mb-4 wow fadeInDown" data-wow-delay="0.1s">GALERI</h4>
+            <h4 class="gabarito-regular text-white display-4 mb-4">
+                {{ $pageTitle ?? 'GALERI' }}
+            </h4>
         </div>
     </div>
     <!-- Header End -->
@@ -167,7 +164,7 @@
                             <circle fill="#666" cx="-8" cy="-8" r="4"/>
                         </g>
                     </svg>
-                    <h4 class="text-muted">Tiada galeri tersedia buat masa ini</h4>
+                    <h4 class="text-muted gabarito-regular">Tiada galeri tersedia buat masa ini</h4>
                     <p class="text-muted">Sila semak semula kemudian</p>
                 </div>
             </div>

@@ -17,7 +17,7 @@
     <div class="admin-content">
         <div class="content-header wow fadeInUp" data-wow-duration="1.3s">
             <h1 class="gabarito-regular">Admin Settings</h1>
-            <p>Manage your website settings and configurations</p>
+            <p>Urus setting dan konfigurasi system ePSM</p>
         </div>
 
         <div class="admin-container">
@@ -26,13 +26,13 @@
                 <div class="settings-grid">
                     
                     <!-- Carousel Settings Card -->
-                    <div class="setting-card" data-feature="carousel" onclick="openFeature('carousel')">
-                        <div class="setting-icon">
-                            <i class="fas fa-images"></i>
+                    <div class="setting-card enable" data-feature="carousel" onclick="openFeature('carousel')">
+                        <div class="setting-icon enable">
+                            <i class="bi bi-highlights"></i>
                         </div>
                         <div class="setting-content">
                             <h3 class="gabarito-regular">Carousel Settings</h3>
-                            <p>Manage homepage carousel images and content</p>
+                            <p>Gambar Slider di halaman utama </p>
                         </div>
                         <button class="btn-setting">
                             <i class="fas fa-arrow-right"></i>
@@ -46,24 +46,9 @@
                         </div>
                         <div class="setting-content">
                             <h3 class="gabarito-regular">Gallery Settings</h3>
-                            <p>Manage gallery images and albums</p>
+                            <p>Urus gambar galeri dan album</p>
                         </div>
                         <button class="btn-setting" >
-                            <i class="fas fa-arrow-right"></i>
-                        </button>
-                    </div>
-
-                    <!-- Site Settings Card -->
-                    <div class="setting-card" data-feature="site" onclick="openFeature('site')">
-                        <div class="setting-icon">
-                            <i class="fas fa-cog"></i>
-                        </div>
-                        <div class="setting-content">
-                            <h3 class="gabarito-regular">Site Settings</h3>
-                            <p>Configure general site settings</p>
-                        </div>
-                        <button class="btn-setting" >
-                            <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
 
@@ -74,10 +59,9 @@
                         </div>
                         <div class="setting-content">
                             <h3 class="gabarito-regular">Menu Settings</h3>
-                            <p>Manage navigation menus</p>
+                            <p>Urus arah atau ubah navigasi menu</p>
                         </div>
                         <button class="btn-setting" >
-                            <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
 
@@ -88,10 +72,9 @@
                         </div>
                         <div class="setting-content">
                             <h3 class="gabarito-regular">Email Settings</h3>
-                            <p>Configure email notifications</p>
+                            <p>Setting notifikasi emel</p>
                         </div>
                         <button class="btn-setting">
-                            <i class="fas fa-arrow-right"></i>
                         </button>
                     </div>
 
@@ -121,3 +104,5 @@
     <script src="{{ asset('assets/js/admin.js') }}"></script>
     <script src="{{ asset('assets/js/adminSettingDashboard.js') }}"></script>
 @endpush
+
+

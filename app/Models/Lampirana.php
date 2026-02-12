@@ -2,11 +2,11 @@
 
 namespace App\Models;
 
-use Illuminate\Foundation\Auth\User as Authenticable;
+use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 
 
-class Lampirana extends Authenticable
+class Lampirana extends Authenticatable
 {
     use HasFactory;
 
@@ -24,7 +24,11 @@ class Lampirana extends Authenticable
         'emel',
         'hp',
         'userlevel',
-        'gambar'
+        'gambar',
+        'katalaluan',
+        'firsttimelogin',
+        'jantina',
+        'aktif',
     ];
     protected $hidden = ['katalaluan'];
     public function username(){

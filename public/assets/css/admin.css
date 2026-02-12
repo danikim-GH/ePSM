@@ -49,6 +49,165 @@ body {
     position: relative;
 }
 
+/* Toast Notification Styling */
+
+.toast {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    background: white;
+    padding: 16px 24px;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.2);
+    z-index: 9999;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    min-width: 300px;
+    max-width: 500px;
+    opacity: 0;
+    transform: translateX(400px);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    font-weight: 500;
+    font-size: 15px;
+    border-left: 4px solid;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(0);
+}
+
+.toast::before {
+    content: '';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 20px;
+    flex-shrink: 0;
+}
+
+/* Toast Success (Generic) */
+.toast-success {
+    background: #f0fdf4;
+    color: #15803d;
+    border-left-color: #22c55e;
+}
+
+.toast-success::before {
+    content: '\f058'; /* fa-check-circle */
+    color: #22c55e;
+}
+
+/* Toast Error */
+.toast-error {
+    background: #fef2f2;
+    color: #991b1b;
+    border-left-color: #ef4444;
+}
+
+.toast-error::before {
+    content: '\f06a'; /* fa-exclamation-circle */
+    color: #ef4444;
+}
+
+/* Toast Warning */
+.toast-warning {
+    background: #fffbeb;
+    color: #92400e;
+    border-left-color: #f59e0b;
+}
+
+.toast-warning::before {
+    content: '\f071'; /* fa-exclamation-triangle */
+    color: #f59e0b;
+}
+
+/* Toast Info */
+.toast-info {
+    background: #eff6ff;
+    color: #1e40af;
+    border-left-color: #3b82f6;
+}
+
+.toast-info::before {
+    content: '\f05a'; /* fa-info-circle */
+    color: #3b82f6;
+}
+
+/* ACTION-SPECIFIC TOASTS */
+
+/* Toast Approve (Green - User Approved) */
+.toast-approve {
+    background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+    color: #ffffff;
+    border-left-color: #065f46;
+}
+
+.toast-approve::before {
+    content: '\f058'; /* fa-check-circle */
+    color: #ffffff;
+}
+
+/* Toast Delete (Red - User Deleted) */
+.toast-delete {
+    background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+    color: #ffffff;
+    border-left-color: #991b1b;
+}
+
+.toast-delete::before {
+    content: '\f2ed'; /* fa-trash-alt */
+    color: #ffffff;
+}
+
+/* Toast Suspend (Orange/Dark Red - User Suspended) */
+.toast-suspend {
+    background: linear-gradient(135deg, #f97316 0%, #ea580c 100%);
+    color: #ffffff;
+    border-left-color: #9a3412;
+}
+
+.toast-suspend::before {
+    content: '\f235'; /* fa-user-slash */
+    color: #ffffff;
+}
+
+/* Toast Reactivate (Blue - User Reactivated to Pending) */
+.toast-reactivate {
+    background: linear-gradient(135deg, #3b82f6 0%, #2563eb 100%);
+    color: #ffffff;
+    border-left-color: #1e40af;
+}
+
+.toast-reactivate::before {
+    content: '\f2ea'; /* fa-history */
+    color: #ffffff;
+}
+
+/* Toast mobile responsive */
+@media (max-width: 768px) {
+    .toast {
+        top: 10px;
+        right: 10px;
+        left: 10px;
+        min-width: auto;
+        max-width: none;
+        font-size: 14px;
+        padding: 14px 18px;
+    }
+}
+
+/* Animation for stacking multiple toasts */
+.toast:nth-child(n+2) {
+    top: calc(20px + (80px * var(--toast-index, 0)));
+}
+
+@media (max-width: 768px) {
+    .toast:nth-child(n+2) {
+        top: calc(10px + (70px * var(--toast-index, 0)));
+    }
+}
+
 /********** SIDEBAR STYLING - COMPATIBLE WITH YOUR MARKUP ************/
 
 .admin-sidebar.bg-dark {
@@ -63,6 +222,7 @@ body {
     bottom: 0;
     z-index: 1000;
     overflow-y: auto;
+    overflow-x: hidden;
     box-shadow: 2px 0 12px rgba(0,0,0,0.55);
     display: flex;
     flex-direction: column;
@@ -73,10 +233,25 @@ body {
     border-bottom: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.admin-sidebar.bg-dark .kedah-img {
+.admin-sidebar.bg-dark .sidebar-logo-wrapper {
     max-width: 50px;
-    margin: 0 auto !important; /* Override inline style */
-    display: block;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.sidebar-logo-divider{
+    width: 10px;
+    height: 32px;
+    background: white !important;
+    border-radius: 10px;
+}
+
+.sidebar-logo-epsm{
+    height: 40px;
+    width: auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
 }
 
 .admin-sidebar.bg-dark .sidebar-header {
@@ -130,14 +305,14 @@ body {
 .admin-sidebar.bg-dark ul.sidebar-menu li a {
     display: flex;
     align-items: center;
-    gap: 15px;
-    padding: 12px 15px;
+    gap: 10px;
+    padding: 12px 10px;
     border-radius: 10px;
     transition: var(--transition);
     color: #fff;
     text-decoration: none;
     position: relative;
-    font-size: 15px;
+    font-size: 14px;
 }
 
 .admin-sidebar.bg-dark ul.sidebar-menu li a:hover {

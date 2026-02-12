@@ -146,7 +146,7 @@ document.addEventListener("DOMContentLoaded", () => {
     userTableBody = document.querySelector("#userTable tbody");
     paginationDiv = document.getElementById("pagination");
 
-    fetchUsers(1);
+    fetch(1);
 });
 
 window.fetchUsers = fetchUsers;

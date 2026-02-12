@@ -48,9 +48,9 @@ function getMenuIcon(menuTitle) {
  */
 function createMenuCard(menuItem, delay) {
     const icon = getMenuIcon(menuItem.menu_tajuk);
-    const url = menuItem.menu_url_alternate || '#';
-    //showToast(menuItem.menu_tajuk + 'Coming Soon')
-    // Check if it's a route or modal action
+    const url = menuItem.menu_url && menuItem.menu_url !== '-' 
+        ? menuItem.menu_url 
+        : '#';
 
     document.addEventListener('click', function (e) {
         const card = e.target.closest('.feature-card');
@@ -66,24 +66,47 @@ function createMenuCard(menuItem, delay) {
         }
     });
 
+    // Kalau coming soon
+    if (url === '#') {
+        return `
+        <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" 
+            data-wow-delay="${delay}s" 
+            style="visibility: visible; animation-delay: ${delay}s; animation-name: fadeInUp;">
+            <a href="#" class="text-decoration-none feature-card" data-url="#" data-title="${menuItem.menu_tajuk}">
+                <div class="feature-item p-4 text-center d-flex flex-column justify-content-between" 
+                    style="cursor:default;">
+                    <div class="feature-item-container">
+                        <div class="feature-icon disable mb-3 mx-auto">
+                            <i class="${icon} text-white fa-3x"></i>
+                        </div>
+                        <h5 class="mb-3 pt-sans-bold text-muted">${menuItem.menu_tajuk}</h5>
+                        <p class="mb-0 feature-menu-text">Klik untuk akses ${menuItem.menu_tajuk.toLowerCase()}</p>
+                    </div>
+                </div>
+            </a>
+        </div>
+    `;
+    }
+
+    //**
     const isModal = menuItem.menu_action === 'modal';
     const linkAttribute = isModal 
         ? `data-bs-toggle="modal" data-bs-target="#${menuItem.menu_target}"` 
         : `href="${url}"`;
-    
+
     return `
         <div class="col-12 col-sm-6 col-lg-4 col-xl-3 wow fadeInUp" 
             data-wow-delay="${delay}s" 
             style="visibility: visible; animation-delay: ${delay}s; animation-name: fadeInUp;">
             <a ${linkAttribute} class="text-decoration-none feature-card" data-url="${url}" data-title="${menuItem.menu_tajuk}">
-                <div class="feature-item h-100 p-4 text-center d-flex flex-column justify-content-between" 
+                <div class="feature-item p-4 text-center d-flex flex-column justify-content-between" 
                     style="cursor:pointer;">
-                    <div>
+                    <div class="feature-item-container">
                         <div class="feature-icon mb-3 mx-auto">
                             <i class="${icon} text-white fa-3x"></i>
                         </div>
                         <h5 class="mb-3 pt-sans-bold">${menuItem.menu_tajuk}</h5>
-                        <p class="mb-0">Klik untuk akses ${menuItem.menu_tajuk.toLowerCase()}</p>
+                        <p class="mb-0 feature-menu-text">Klik untuk akses ${menuItem.menu_tajuk.toLowerCase()}</p>
                     </div>
                 </div>
             </a>
@@ -131,7 +154,7 @@ async function loadDynamicMenu() {
             // Create menu cards with staggered animation delays
             let menuHTML = '';
             data.data.forEach((item, index) => {
-                const delay = 0.2 + (index * 0.1); // Stagger animations
+                const delay = 0.1 + (index * 0.03); // Stagger animations
                 menuHTML += createMenuCard(item, delay);
             });
             
@@ -143,7 +166,7 @@ async function loadDynamicMenu() {
                 new WOW().init();
             }
             
-            console.log(`Loaded ${data.data.length} menu items for user level: ${data.user_level}`);
+            //console.log(`Loaded ${data.data.length} menu items for user level: ${data.user_level}`);
         } else {
             // No menu items found
             container.innerHTML = `
@@ -154,11 +177,11 @@ async function loadDynamicMenu() {
                     </div>
                 </div>
             `;
-            console.warn('⚠️ No menu items returned from server');
+            console.warn(' No menu items returned from server');
         }
         
     } catch (error) {
-        console.error('❌ Error loading menu:', error);
+        console.error('Error loading menu:', error);
         
         // Hide spinner
         if (spinner) {
@@ -181,7 +204,7 @@ async function loadDynamicMenu() {
  * Initialize menu on page load
  */
 document.addEventListener('DOMContentLoaded', function() {
-    console.log('Initializing dynamic menu...');
+    //console.log('Initializing dynamic menu...');
     loadDynamicMenu();
 });
 
@@ -189,7 +212,7 @@ document.addEventListener('DOMContentLoaded', function() {
  * Optional: Reload menu function (can be called externally)
  */
 function reloadMenu() {
-    console.log(' Reloading menu...');
+    //console.log(' Reloading menu...');
     loadDynamicMenu();
 }
 

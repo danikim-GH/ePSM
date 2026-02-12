@@ -26,7 +26,18 @@ class TestLoginController extends Controller
                 ->first();
 
         if(!$user){
-            return back()->with('error','NoKP Tidak Wujud');
+            return back()->with([
+                'status'=>'error',
+                'message'=>'Harap Maaf, NoKP Tidak Wujud',
+            ]);
+        }
+
+        
+        if($request->NoKP === null || $request->NoKP === ""){
+            return back()->with([
+                'status'=>'pending',
+                'message'=>'Sila isi NoKP lagi sekali!',
+            ]);
         }
 
         /** Apply untuk hash password lama in DB if possible
@@ -37,17 +48,46 @@ class TestLoginController extends Controller
          * 
         **/
 
-        //check password hashed
-        if(!Hash::check($request->katalaluan, $user->katalaluan)){
-            return back()->with('error','Katalaluan salah!');
+
+        $dbPassword = $user->katalaluan;
+        $inputPassword = $request->katalaluan;
+
+        // Jika password dalam DB BUKAN bcrypt
+        if (!str_starts_with($dbPassword, '$2y$')) {
+
+            // Jika dulu guna md5
+            if (md5($inputPassword) === $dbPassword) {
+
+                // AUTO REHASH ke bcrypt (SANGAT BAGUS)
+                $user->katalaluan = Hash::make($inputPassword);
+                $user->save();
+
+            } else {
+                return back()->with('error','Katalaluan salah!');
+            }
+
+        } 
+        // Jika sudah bcrypt, guna Hash::check biasa
+        else {
+            if (!Hash::check($inputPassword, $dbPassword)) {
+                return back()->with([ 
+                'status' => 'pass_error',
+                'message' => 'Katalaluan salah!']);
+            }
         }
 
         if($user->userlevel === "0"){
-            return back()->with('error', 'Akaun anda sedang menunggu kelulusan atmin :Ampun Atmin:');
+            return back()->with([
+                    'status' => 'pending', 
+                    'message' => 'Akaun anda sedang menunggu kelulusan admin'
+                ]);
         } 
 
         if($user->userlevel === "SP"){
-            return back()->with('error', 'Akaun anda telah ditangguhkan, sila hubungi admin untuk maklumat lanjut!');
+            return back()->with([
+                'status' => 'suspended',
+                'message' => 'Akaun anda telah ditangguhkan, sila hubungi admin!'
+            ]);
         }
 
         Auth::guard('lampirana')->login($user);

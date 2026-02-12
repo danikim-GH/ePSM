@@ -1,6 +1,6 @@
 @extends('layouts.apps')
 
-@section('title', 'Admin Panel - Pending Registrations')
+@section('title', '- Admin Panel')
 
 @push('styles')
     <link href="{{ asset("assets/css/admin.css") }}" rel="stylesheet">
@@ -22,7 +22,7 @@
         <div class="content-header wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
             <div class="header-top">
                 <div class="header-title">
-                    <h1 class="gabarito-regular"><i class="fas fa-user-clock header-icon"></i>Daftar Pengguna: Pending & Suspend</h1>
+                    <h1 class="gabarito-regular"><i class="fas fa-user-clock header-icon"></i>Daftar Pengguna</h1>
                     <p class="subtitle">Semak dan luluskan pendaftaran pengguna baharu</p>
                 </div>
             </div>
@@ -32,14 +32,14 @@
                     <i class="fas fa-users stat-icon"></i>
                     <div class="stat-info">
                         <span class="stat-number js-pending-count">0</span>
-                        <span class="stat-label">Pending Users</span>
+                        <span class="stat-label">Belum disahkan</span>
                     </div>
                 </div>
                 <div class="stat-card">
                     <i class="fa-solid fa-user-slash"></i>
                     <div class="stat-info">
                         <span class="stat-number js-suspended-count" >0</span>
-                        <span class="stat-label">Suspended Users</span>
+                        <span class="stat-label">Dibekukan</span>
                     </div>
                 </div>
             </div>
@@ -57,7 +57,7 @@
     
                     <div class="card-info">
                         <div class="info-group">
-                            <h3 class="gabarito-regular text-uppercase mb-1">pending users list</h3>
+                            <h3 class="gabarito-regular text-uppercase mb-1">Senarai Pengguna Belum Disahkan</h3>
                             <span class="badge bg-warning text-dark fs-6 px-3 py-2">
                                 <span class="js-pending-count">0</span> Orang
                             </span>
@@ -74,7 +74,7 @@
 
                     <div class="card-info">
                         <div class="info-group">
-                            <h3 class="gabarito-regular text-uppercase mb-1">suspended users list</h3>
+                            <h3 class="gabarito-regular text-uppercase mb-1">Senarai Pengguna Dibekukan</h3>
                             <span class="badge bg-danger text-ligth fs-6 px-3 py-2">
                                 <span class="js-suspended-count">0</span> Orang
                             </span>
@@ -88,7 +88,7 @@
                     <div class="empty-icon">
                         <i class="fas fa-user-check"></i>
                     </div>
-                    <h3>No Pending Registrations</h3>
+                    <h3 class="gabarito-regular">No Pending Registrations</h3>
                     <p>All user registrations have been processed. Check back later for new submissions.</p>
                     <button class="btn btn-refresh">
                         <i class="fas fa-sync-alt"></i> Refresh Page

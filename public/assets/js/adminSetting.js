@@ -51,8 +51,6 @@ document.addEventListener('DOMContentLoaded', function() {
         document.getElementById('carouselId').value = data.id;
         document.getElementById('title').value = data.title;
         document.getElementById('description').value = data.description;
-        document.getElementById('button_text').value = data.button_text || '';
-        document.getElementById('button_link').value = data.button_link || '';
         document.getElementById('order').value = data.order;
         
         // Show image preview if exists
@@ -374,6 +372,17 @@ document.addEventListener('DOMContentLoaded', function() {
             closeDeleteModal();
         }
     }
+
+    const opacitySlider = document.getElementById('overlay_opacity');
+    const opacityVal = document.getElementById('opacityVal');
+
+    opacitySlider.addEventListener('input', function(){
+        opacityVal.textContent = this.value;
+    });
+
+    document.querySelector(`input[name="show_text"][value="${data.show_text}"]`).checked = true;
+    document.getElementById('overlay_opacity').value = data.overlay_opacity;
+    opacityVal.textContent = data.overlay_opacity;
 
     // Initialize
     loadCarouselImages();

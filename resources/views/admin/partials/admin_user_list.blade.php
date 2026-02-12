@@ -17,11 +17,11 @@
     <main class="admin-content">
 
         <div class="content-header wow fadeInUp" data-wow-duration="1s" data-wow-delay="0s" style="visibility: visible; animation-delay: 0.2s; animation-name: fadeInUp;">
-            <h1 class="gabarito-regular">All Registered Users</h1>
+            <h1 class="gabarito-regular">Senarai Pengguna</h1>
             <div class="stats-summary">
-                <span class="stat-item">
+                <span class="stat-item total-users">
                     <i class="fas fa-users"></i>
-                    <span id="totalUsersStatic">0</span> Users
+                    <span id="totalUsersStatic" class="total-users-content">0</span> Pengguna
                 </span>
             </div>
         </div>
@@ -38,18 +38,11 @@
 
             <div class="filter-group">
                 <select id="jabatanFilter">
-                    <option value="">All Departments</option>
-                    <option value="Pentadbiran">Pentadbiran</option>
-                    <option value="Sumber Manusia">Sumber Manusia</option>
-                    <option value="Kewangan">Kewangan</option>
-                    <option value="BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH">IT</option>
-                </select>
-                
-                <select id="levelFilter">
-                    <option value="">All Levels</option>
-                    <option value="admin">Admin</option>
-                    <option value="user">User</option>
-                    <option value="staff">Staff</option>
+                    <option value="">Semua Jabatan</option>
+                    <option value="BAHAGIAN PENGURUSAN SUMBER MANUSIA">BAHAGIAN PENGURUSAN SUMBER MANUSIA</option>
+                    <option value="BAHAGIAN PERANCANG EKONOMI NEGERI KEDAH">BAHAGIAN PERANCANG EKONOMI NEGERI KEDAH</option>
+                    <option value="BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH">BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH</option>
+                    <option value="SURUHANJAYA PERKHIDMATAN AWAM">SURUHANJAYA PERKHIDMATAN AWAM</option>
                 </select>
             </div>
         </div>
@@ -91,7 +84,7 @@
 <div id="editUserModal" class="modal">
     <div class="modal-content">
         <div class="modal-header">
-            <h3 class="pt-sans-bold">Edit User</h3>
+            <h3 class="pt-sans-bold">Edit Pengguna</h3>
             <button class="modal-close" id="closeModal">&times;</button>
         </div>
         <div class="modal-body">
@@ -99,18 +92,18 @@
                 <input type="hidden" id="editUserId" name="id">
                 
                 <div class="form-group">
-                    <label for="editName">Name</label>
+                    <label for="editName">Nama</label>
                     <input type="text" id="editName" name="name" class="form-control" required>
                 </div>
                 
                 <div class="form-row">
                     <div class="form-group">
-                        <label for="editEmail">Email</label>
+                        <label for="editEmail">Emel</label>
                         <input type="email" id="editEmail" name="email" class="form-control" required>
                     </div>
                     
                     <div class="form-group">
-                        <label for="editPhone">Phone</label>
+                        <label for="editPhone">No. Telefon</label>
                         <input type="text" id="editPhone" name="phone" class="form-control">
                     </div>
                 </div>
@@ -124,29 +117,29 @@
                     <div class="form-group">
                         <label for="editLevel">Level</label>
                         <select id="editLevel" name="level" class="form-control" required>
-                            <option value="9">Admin BTMK</option>
-                            <option value="8">Admin BSM</option>
-                            <option value="1">Staff</option>
-                            <option value="2">Staff H</option>
+                            <option value="9">9</option>
+                            <option value="8">8</option>
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
                         </select>
                     </div>
                 </div>
                 
                 <div class="form-group">
-                    <label for="editDepartment">Department</label>
+                    <label for="editDepartment">Jabatan</label>
                     <select id="editDepartment" name="department" class="form-control">
-                        <option value="">Select Department</option>
-                        <option value="Pentadbiran">Pentadbiran</option>
-                        <option value="Sumber Manusia">Sumber Manusia</option>
-                        <option value="Kewangan">Kewangan</option>
-                        <option value="BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH">IT</option>
+                        <option value="">Pilih Jabatan</option>
+                        <option value="BAHAGIAN PENGURUSAN SUMBER MANUSIA">BAHAGIAN PENGURUSAN SUMBER MANUSIA</option>
+                        <option value="BAHAGIAN PERANCANG EKONOMI NEGERI KEDAH">BAHAGIAN PERANCANG EKONOMI NEGERI KEDAH</option>
+                        <option value="BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH">BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH</option>
                     </select>
                 </div>
                 
                 
                 <div class="modal-actions">
-                    <button type="button" class="btn-cancel" id="cancelEdit">Cancel</button>
-                    <button type="submit" class="btn-save">Save Changes</button>
+                    <button type="button" class="btn-cancel" id="cancelEdit">Batal</button>
+                    <button type="submit" class="btn-save">Simpan</button>
                 </div>
             </form>
         </div>
@@ -157,19 +150,19 @@
 <div id="deleteConfirmModal" class="modal">
     <div class="modal-content modal-sm">
         <div class="modal-header">
-            <h3 class="pt-sans-bold">Confirm Delete</h3>
+            <h3 class="gabarito-regular">Confirm Delete</h3>
         </div>
         <div class="modal-body">
-            <div class="delete-icon">
+            <div class="delete-icon text-center">
                 <i class="fas fa-exclamation-triangle"></i>
             </div>
-            <p>Are you sure you want to delete this user?</p>
-            <p class="delete-user-name" id="deleteUserName"></p>
-            <p class="text-warning">This action cannot be undone.</p>
+            <p class="text-center">Delete Pengguna ini?</p>
+            <p class="delete-user-name text-center" id="deleteUserName"></p>
+            <p class="text-danger text-center">Tindakan ini tidak boleh diulang semula.</p>
         </div>
         <div class="modal-actions">
-            <button class="btn-cancel" id="cancelDelete">Cancel</button>
-            <button class="btn-delete" id="confirmDelete">Delete User</button>
+            <button class="btn-cancel" id="cancelDelete">Batal</button>
+            <button class="btn-delete" id="confirmDelete">Delete</button>
         </div>
     </div>
 </div>

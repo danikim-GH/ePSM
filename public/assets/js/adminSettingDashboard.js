@@ -16,15 +16,15 @@ function openFeature(featureName) {
         // Redirect to carousel settings page
         window.location.href = '/admin-panel/settings/carousel';
     } else if (featureName === 'gallery') {
-        showNotification('Gallery settings coming soon!', 'warning');
+        showNotification('Gallery settings akan datang!', 'warning');
     } else if (featureName === 'site') {
-        showNotification('Site settings coming soon!', 'warning');
+        showNotification('Site settings akan datang!', 'warning');
     } else if (featureName === 'menu') {
-        showNotification('Menu settings coming soon!', 'warning');
+        showNotification('Menu settings akan datang!', 'warning');
     } else if (featureName === 'seo') {
-        showNotification('SEO settings coming soon!', 'warning');
+        showNotification('SEO settings akan datang!', 'warning');
     } else if (featureName === 'email') {
-        showNotification('Email settings coming soon!', 'warning');
+        showNotification('Email settings akan datang!', 'warning');
     }
 }
 

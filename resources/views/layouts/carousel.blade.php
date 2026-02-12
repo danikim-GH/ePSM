@@ -19,9 +19,15 @@
         <div class="carousel-inner" role="listbox">
             @foreach($carouselItems as $key => $item)
             <div class="carousel-item {{ $key == 0 ? 'active' : '' }}">
-                <img src="{{ asset($item->image_path) }}" class="img-fluid w-100"
-                    style="height: auto; object-fit: cover;" onerror="this.src='{{ asset('assets/img/kedah_scenery.jpg') }}'">
 
+                <div class="carousel-overlay"
+                    style="background: rgba(0,0,0,{{ $item->overlay_opacity }});">
+                </div>
+
+                <img src="{{ asset($item->image_path) }}" class="img-fluid w-100"
+                    style="max-height: 580px; object-fit: cover;" onerror="this.src='{{ asset('assets/img/kedah_scenery.jpg') }}'">
+
+                @if($item->show_text)
                 <div class="carousel-caption-{{ $key % 2 == 0 ? '1' : '2' }}">
                     <div class="carousel-caption-{{ $key % 2 == 0 ? '1' : '2' }}-content">
 
@@ -35,6 +41,7 @@
 
                     </div>
                 </div>
+                @endif
             </div>
             @endforeach
         </div>

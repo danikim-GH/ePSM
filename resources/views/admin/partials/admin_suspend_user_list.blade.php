@@ -1,6 +1,6 @@
         <div id="suspendedUserPanel" style="display: none; margin-top: 50px; box-shadow: 0 10px 35px 5px rgba(184, 9, 9, 0.541); border-radius: 16px; background: #ffffff2c; margin-bottom: 50px;" class="px-5 py-5">
             <div class="d-flex justify-content-between align-items-center py-3 ">
-                <h1 class="pt-sans-regular">User Suspended <i class="fa fa-user-slash" style="font-size: 1.8rem" aria-hidden="true"></i> </h1> 
+                <h1 class="pt-sans-regular">Senarai Pengguna yang Dibekukan<i class="fa fa-user-slash" style="font-size: 1.8rem" aria-hidden="true"></i> </h1> 
                 <button class="btn btn-sm btn-dark" id="closeSuspendedPanel">
                     <i class="fas fa-times"></i>
                 </button>

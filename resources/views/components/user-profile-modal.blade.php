@@ -3,22 +3,23 @@
     $user = Auth::guard('lampirana')->user();
 @endphp
 
-<div class="modal fade" style="background-color: rgba(60, 55, 55, 0.596); backdrop-filter: blur(2.5px);" id="userModal" tabindex="-1" aria-hidden="true">
+<div class="modal fade" style="background-color: rgba(60, 55, 55, 0.596); backdrop-filter: blur(2.5px);" id="userProfileModal" tabindex="-1" aria-hidden="true">
     <div class="modal-dialog modal-dialog-centered modal-lg">
         <div class="modal-content border-0 shadow">
             <div class="modal-header">
                 <h5 class="modal-title gabarito-regular">
-                    <i class="fa fa-user me-2"></i> Profil Pengguna
+                    Profil Pengguna
                 </h5>
                 <button type="button" class="btn-close btn-close-dark" data-bs-dismiss="modal"></button>
             </div>
 
             <form id="editProfileForm" enctype="multipart/form-data">
+                @csrf
                 <div class="modal-body">
 
                     <!-- PROFILE PIC -->
                     <div class="text-center mb-4 position-relative">
-                        <img id="profilePreview" src="{{ asset($user->gambar ?? 'assets/img/cropped-kedah-baru.png') }}"
+                        <img id="profilePreview" src="{{ $user->gambar ? asset('storage/'.$user->gambar) : asset('assets/img/cropped-kedah-baru.png') }}"
                             class="rounded-circle shadow"
                             width="110" height="110">
 
@@ -36,13 +37,14 @@
                     @php
                         $fields = [
                             'Nama' => 'Nama',
-                            'NoKP' => 'No KP',
-                            'emel' => 'Emel',
+                            'NoKP' => 'NoKP',
+                            'emel' => 'emel',
                             'hp' => 'No Telefon'
                         ];
                     @endphp
 
                     @foreach($fields as $key => $label)
+                    @php $readonly = $key === 'NoKP' @endphp
                     <div class="mb-3 d-flex justify-content-between align-items-center">
                         <div class="flex-grow-1">
                             <small class="text-muted">{{ $label }}</small>
@@ -52,19 +54,24 @@
                                 {{ $user->$key ?? '-' }}
                             </div>
 
-                            <!-- input -->
-                            <input type="text"
+                            @if (!$readonly)
+                                
+                                <!-- input -->
+                                <input type="text"
                                 class="form-control form-control-sm edit-mode d-none"
                                 name="{{ $key }}"
                                 value="{{ $user->$key }}">
+                            @endif
                         </div>
 
+                        @if (!$readonly)
                         <!-- edit icon -->
                         <button type="button"
                                 class="btn btn-link text-secondary"
                                 onclick="enableEdit('{{ $key }}')">
                             <i class="bi bi-pencil-square"></i>
                         </button>
+                        @endif
                     </div>
                     @endforeach
 

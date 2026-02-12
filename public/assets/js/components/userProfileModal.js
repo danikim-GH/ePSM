@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const modalEl = document.getElementById('userModal');
+    const modalEl = document.getElementById('userProfileModal');
     if (!modalEl) return; 
 
     const modal = new bootstrap.Modal(modalEl);
@@ -73,3 +73,57 @@ document.addEventListener('DOMContentLoaded', () => {
         if (modalInstance) modalInstance.hide();
     };
 });
+
+document.addEventListener('DOMContentLoaded', () => {
+
+    const form = document.getElementById('editProfileForm');
+    if (!form) return;
+
+    form.addEventListener('submit', function(e){
+        e.preventDefault();
+
+        const formData = new FormData(this);
+
+        fetch('/profile/update', {
+            method: 'POST',
+            headers: {
+                'X-CSRF-TOKEN': document
+                    .querySelector('meta[name="csrf-token"]').content,
+                'Accept': 'application/json'
+            },
+            body: formData
+        })
+        .then(res => res.json())
+        .then(data => {
+            if (!data.success) return;
+
+            // Update profile pic live
+            if (data.gambar) {
+                document.getElementById('profilePreview').src =
+                    '/storage/' + data.gambar + '?t=' + Date.now();
+            }
+
+            // Sync text view (kalau nak tanpa reload)
+            document.getElementById('view-Nama').innerText = data.user.Nama ?? '-';
+            document.getElementById('view-emel').innerText = data.user.emel ?? '-';
+            document.getElementById('view-hp').innerText   = data.user.hp ?? '-';
+
+            if(data.success){
+                window.location.reload();
+            }
+        })
+        .catch(console.error);
+    });
+});
+
+window.openProfileModalManual = function() {
+    const modalEl = document.getElementById('userProfileModal');
+    if (modalEl) {
+        // Guna getInstance supaya tak buat backdrop baru bertindih-tindih
+        let modalInstance = bootstrap.Modal.getInstance(modalEl);
+        if (!modalInstance) {
+            modalInstance = new bootstrap.Modal(modalEl);
+        }
+        modalInstance.show();
+    }
+};

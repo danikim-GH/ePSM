@@ -21,6 +21,20 @@ body{
     overflow-x: hidden;
     position: relative;
 }
+
+/* Buang spinner pada Chrome, Edge, Safari */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Buang spinner pada Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
 /* Main container */
 .login-container{
     width: 100%;
@@ -31,16 +45,17 @@ body{
     position: relative;
     border: 1px solid rgba(255, 255, 255, 0.1);
     box-shadow: 6px 8px 20px 5px rgba(0, 20, 66, 0.25);
-    
+    height: auto;
+    min-height: 80vh;
 }
 
 .login-card{
     background: linear-gradient(135deg, rgba(109, 75, 75, 0.703), rgba(37, 146, 193, 0.557));
     backdrop-filter: blur(10px);
     border-radius: 35px;
-    padding: 100px; /*ubah nanti bagi responsive on mobile width = 40px padding*/
+    padding: 70px; /*ubah nanti bagi responsive on mobile width = 40px padding*/
     width: 100%;
-    max-width: 800px;
+    max-width: 700px;
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -63,28 +78,36 @@ body{
     margin-bottom: 40px;
 }
 
-.logo {
+/* ====== LOGO SEBELAH-MENYEBELAH ====== */
+.logo-wrapper{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    gap: 18px;
 }
 
-.logo img {
-    width: 3.5rem;
-    height: 3.5rem;
-    color: #00d4ff;
-    margin-right: 10px;
+/* Logo Kedah */
+.logo-kedah{
+    width: 3.2rem;
+    height: 3.2rem;
+    object-fit: contain;
 }
 
-.logo-text {
-    font-size: 3.4rem;
-    font-weight: 700;
-    background: linear-gradient(90deg, #0cb3d4, #01086c, #990505);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 5px;
+/* Logo ePSM */
+.logo-epsm{
+    width: 7.2rem;
+    height: 7.2rem;
+    object-fit: contain;
 }
+
+/* Garis pemisah cantik */
+.logo-divider{
+    width: 2px;
+    height: 30px;
+    background: black;
+    border-radius: 10px;
+}
+
 
 .login-title{
     font-size: 2.85rem;
@@ -191,7 +214,7 @@ body{
 /* Submit button */
 .submit-btn {
     width: 100%;
-    padding: 20px;
+    padding: 15px;
     background: linear-gradient(90deg, #0066cc, #0099ff);
     border: none;
     border-radius: 12px;
@@ -205,7 +228,7 @@ body{
     position: relative;
     overflow: hidden;
     transition: all 0.4s ease;
-    margin-bottom: 100px;
+    margin-bottom: 20px;
 }
 
 .submit-btn:hover {
@@ -256,13 +279,107 @@ body{
 }
 
 .register-text {
-    color: #27ffff;
+    color: #187296;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .register-text:hover {
-    color: #00b7ff;
+    color: #27ffff;
     text-decoration: underline;
+}
+
+.register-link p{
+    font-size: 0.75rem;
+}
+
+.register-link p strong{
+    color: rgb(187, 59, 59);
+}
+
+.register-link p strong:hover{
+    color: rgb(186, 0, 0);
+}
+
+@media (max-width: 1280px) {
+
+
+    .login-container{
+        min-height: 80vh;
+    }
+
+    .login-card{
+        padding: 50px;
+        max-width: 650px;
+        max-height: 90vh;
+    }
+
+    .logo-wrapper{
+        gap: 18px;
+    }
+
+    /* Logo Kedah */
+    .logo-kedah{
+        width: 3.2rem;
+        height: 3.2rem;
+    }
+
+    /* Logo ePSM */
+    .logo-epsm{
+        width: 6.2rem;
+        height: 6.2rem;
+    }
+
+    /* Garis pemisah cantik */
+    .logo-divider{
+        width: 1px;
+        height: 26px;
+        border-radius: 10px;
+    }
+
+    .login-title{
+        font-size: 1.4rem;
+    }
+
+    .login-subtitle{
+        margin-left: 30px;
+        margin-right: 30px;
+    }
+
+    .submit-btn{
+        margin-bottom: 15px;
+        font-size: 0.9rem;
+    }
+    .register-link {
+        font-size: 0.85rem;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .login-card{
+        padding: 35px;
+        max-width: 100%;
+        border-radius: 25px;
+    }
+
+    .logo-text {
+        font-size: 2.2rem;
+        letter-spacing: 3px;
+    }
+
+    .login-title{
+        font-size: 2rem;
+    }
+
+    .login-subtitle{
+        margin-left: 10px;
+        margin-right: 10px;
+        font-size: 0.95rem;
+    }
+
+    .submit-btn{
+        padding: 16px;
+    }
 }

@@ -22,6 +22,19 @@ body {
     position: relative;
 }
 
+/* Buang spinner pada Chrome, Edge, Safari */
+input[type=number]::-webkit-inner-spin-button,
+input[type=number]::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+/* Buang spinner pada Firefox */
+input[type=number] {
+    -moz-appearance: textfield;
+}
+
+
 /* Animated background shapes */
 .bg-shapes {
     position: fixed;
@@ -104,7 +117,6 @@ body {
     width: 100%;
     max-width: 800px;
     border: 1px solid rgba(255, 255, 255, 0.1);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
     position: relative;
     overflow: hidden;
     z-index: 1;
@@ -127,28 +139,36 @@ body {
     margin-bottom: 40px;
 }
 
-.logo {
+/* ====== LOGO SEBELAH-MENYEBELAH ====== */
+.logo-wrapper{
     display: flex;
     justify-content: center;
     align-items: center;
-    margin-bottom: 20px;
+    gap: 18px;
 }
 
-.logo img {
-    width: 2.5rem;
-    height: 2.5rem;
-    color: #00d4ff;
-    margin-right: 10px;
+/* Logo Kedah */
+.logo-kedah{
+    width: 3.2rem;
+    height: 3.2rem;
+    object-fit: contain;
 }
 
-.logo-text {
-    font-size: 2.2rem;
-    font-weight: 700;
-    background: linear-gradient(90deg, #0cb3d4, #01086c, #990505);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    letter-spacing: 5px;
+/* Logo ePSM */
+.logo-epsm{
+    width: 7.2rem;
+    height: 7.2rem;
+    object-fit: contain;
 }
+
+/* Garis pemisah cantik */
+.logo-divider{
+    width: 2px;
+    height: 30px;
+    background: black;
+    border-radius: 10px;
+}
+
 
 .register-title {
     font-size: 2rem;
@@ -169,7 +189,7 @@ body {
 .form-grid {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
-    gap: 25px;
+    gap: 15px;
     margin-bottom: 30px;
 }
 
@@ -209,24 +229,20 @@ body {
     grid-column: 1 / -1;
 }
 
-.input-group-select select option {
-    background: red;
-    color: #ffffff;
-    padding: 12px;
-}
 
 .input-group-select select option:hover {
     background: rgba(0, 212, 255, 0.1);
+    cursor:pointer;
 }
 
 .input-group-select select option:checked {
-    background: rgba(0, 212, 255, 0.1);
-    color: black;
+    background: rgb(30, 37, 39);
+    color: #fff;
 }
 
 .input-group-select select:disabled {
-    background: rgba(255, 255, 255, 0.05);
-    color: #999;
+    background: rgb(251, 251, 251);
+    color: #6e6868;
     cursor: not-allowed;
 }
 
@@ -319,13 +335,7 @@ body {
     border-color: #00d4ff;
 }
 
-/* Focus glowing */
-.modern-select select:focus {
-    outline: none;
-    background: rgba(255, 255, 255, 0.14);
-    border-color: #00d4ff;
-    box-shadow: 0 0 0 4px rgba(0, 212, 255, 0.15);
-}
+
 
 /* Custom Arrow */
 .smooth-arrow {
@@ -347,9 +357,7 @@ body {
 
 /* Dropdown options style */
 .modern-select select option {
-    background: #0a0f1a;
-    color: #fff;
-    padding: 14px;
+    color: #000000;
 }
 
 .modern-select select option:hover {
@@ -451,7 +459,7 @@ body {
 }
 
 .terms-link {
-    color: #00d4ff;
+    color: #0375ff;
     text-decoration: none;
     transition: color 0.3s ease;
 }
@@ -529,14 +537,14 @@ body {
 }
 
 .login-text {
-    color: #00d4ff;
+    color: #80ecff;
     text-decoration: none;
     font-weight: 500;
     transition: color 0.3s ease;
 }
 
 .login-text:hover {
-    color: #0099ff;
+    color: #27ffff;
     text-decoration: underline;
 }
 
@@ -561,38 +569,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 212, 255, 0.7);
 }
 
-/* Language selector */
-.language-selector {
-    position: absolute;
-    top: 20px;
-    right: 20px;
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    padding: 10px 15px;
-    border-radius: 12px;
-    border: 1px solid rgba(255, 255, 255, 0.1);
-}
 
-.language-selector i {
-    color: #00d4ff;
-    font-size: 1.1rem;
-}
-
-.language-selector select {
-    background: transparent;
-    border: none;
-    color: #ffffff;
-    font-size: 0.9rem;
-    cursor: pointer;
-    outline: none;
-}
-
-.language-selector select option {
-    background: #2a2f3e;
-    color: #ffffff;
-}
 
 /* Toast notification */
 .toast {
@@ -653,6 +630,79 @@ body {
     z-index: 10;
 }
 
+/* ===== LAPTOP 1280px (VERY IMPORTANT) ===== */
+@media (max-width: 1280px) {
+
+    body{
+        padding: 15px;
+    }
+
+    .register-container{
+        padding-top: 0;
+        max-width: 1800px;
+        background-color: none;
+    }
+
+    .register-card{
+        width: 740px;   /* kecikkan sikit dari 800 */
+        padding: 15px 50px; /* kurangkan padding */
+    }
+
+    .register-header{
+        margin-bottom: 20px;
+    }
+
+    .register-header p{
+        font-size: 0.80rem;
+    }
+
+    .form-grid{
+        grid-template-columns: repeat(2, 1fr);
+        gap: 30px;
+    }
+
+    .register-title{
+        font-size: 1.5rem;
+    }
+
+    .register-subtitle{
+        font-size: 0.95rem;
+    }
+
+    .logo-wrapper{
+        height: 3.0rem;
+        margin-top: 8px;
+        margin-bottom: 15px;
+    }
+
+    .logo-kedah{
+        width: 3.0rem;
+        height: 3.0rem;
+    }
+
+    .input-group input,
+    .input-group-select select{
+        padding: 10px 12px 10px 24px;
+        font-size: 0.80rem;
+    }
+
+    .submit-btn{
+        padding: 12px;
+        font-size: 0.85rem;
+        margin-bottom: 18px;
+    }
+
+    .password-strength {
+        margin-bottom: 15px;
+    }
+
+    .login-link{
+        font-size: 0.75rem;
+    }
+
+}
+
+
 /* Responsive design */
 @media (max-width: 768px) {
     .register-card {
@@ -686,13 +736,7 @@ body {
     .select-arrow {
         right: 15px;
     }
-    
-    .language-selector {
-        top: 15px;
-        right: 15px;
-        padding: 8px 12px;
-    }
-    
+
     .terms-group {
         padding: 12px;
     }
@@ -757,7 +801,6 @@ body {
 @media print {
     .bg-shapes,
     .submit-btn,
-    .language-selector,
     .password-toggle,
     .progress-indicator {
         display: none;

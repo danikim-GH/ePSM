@@ -17,6 +17,8 @@ class Carousel extends Model
         'button_link',
         'image_path',
         'order',
-        'is_active'
+        'is_active',
+        'show_text',
+        'overlay_opacity'
     ];
 }

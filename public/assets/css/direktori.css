@@ -1,0 +1,45 @@
+body{
+    overflow-x: hidden;
+}
+
+.container{
+    margin-top: 20vh;
+    justify-content: center;
+}
+
+.staff-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.staff-card {
+    background: rgb(216, 235, 253);
+    border-radius: 12px;
+    padding: 20px;
+    text-align: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.08);
+    transition: 0.2s;
+}
+
+.staff-card:hover {
+    transform: translateY(-5px);
+}
+
+.staff-card img {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+}
+
+.staff-card h5 {
+    margin: 5px 0;
+}
+
+.staff-contact {
+    margin-top: 10px;
+    font-size: 13px;
+    color: #555;
+}

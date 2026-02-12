@@ -17,9 +17,16 @@
 
     <div class="login-card">
         <div class="login-header">
-            <div class="logo">
-                <img src="{{ asset('assets/img/cropped-kedah-baru.png') }}" alt="logo-kedah">
-                <span class="logo-text righteous-regular">ePSM</span>
+            <div class="logo-wrapper">
+                <img class="logo-kedah" 
+                    src="{{ asset('assets/img/cropped-kedah-baru.png') }}" 
+                    alt="logo-kedah">
+
+                <div class="logo-divider"></div>
+
+                <img class="logo-epsm" 
+                    src="{{ asset('assets/img/logo_epsm.png') }}" 
+                    alt="logo-epsm">
             </div>
             <h1 class="login-title gabarito-bold">Log Masuk</h1>
             <p class="login-subtitle">Sistem e-Pembangunan Sumber Manusia</p>
@@ -33,7 +40,7 @@
                     <div class="input-icon">
                         <i class="fas fa-id-card"></i>
                     </div>
-                    <input type="text" name="NoKP" id="NoKP" placeholder="No KP">
+                    <input type="text" name="NoKP" id="NoKP" placeholder="No KP" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                     <div class="input-border"></div>
                 </div>
 
@@ -57,11 +64,40 @@
 
             <div class="register-link text-light">
                 Daftar akaun disini - <a href="{{ route('register.view') }}" class="register-text">Pendaftaran Akaun</a>
+                <p>Sebarang pertanyaan, sila hubungi <strong>+60-16383-4887</strong>  (Danial)</p>
             </div>
+
         </form>
-        @if (session('error'))
-            <p style="color: red;">{{ session('error') }}</p>
+        @if(session('status'))
+        <script>
+        document.addEventListener("DOMContentLoaded", function() {
+
+            let status = "{{ session('status') }}";
+            let message = "{{ session('message') }}";
+
+            let bgColor = status === "pending" ? "#f39c12" : "#e74c3c";
+
+            let toast = document.createElement("div");
+            toast.innerText = message;
+            toast.style.position = "fixed";
+            toast.style.bottom = "30px";
+            toast.style.right = "30px";
+            toast.style.background = bgColor;
+            toast.style.color = "white";
+            toast.style.padding = "15px 20px";
+            toast.style.borderRadius = "10px";
+            toast.style.boxShadow = "0 4px 10px rgba(0,0,0,0.2)";
+            toast.style.zIndex = "9999";
+
+            document.body.appendChild(toast);
+
+            setTimeout(() => {
+                toast.remove();
+            }, 4000);
+        });
+        </script>
         @endif
+
     </div>
 </div>
 @endsection

@@ -30,7 +30,7 @@ class MenuController extends Controller
                 ->where('menu_arah', 'menutepi')
                 ->whereRaw("FIND_IN_SET(?, userlevel) > 0", [$userLevel])
                 ->orderBy('menu_sort', 'asc')
-                ->select('ID', 'menu_tajuk', 'menu_url', 'menu_action', 'menu_target', 'menu_sort', 'menu_url_alternate')
+                ->select('ID', 'menu_tajuk', 'menu_url', 'menu_sort')
                 ->get();
 
             return response()->json([

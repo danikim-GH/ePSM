@@ -1,41 +1,86 @@
 @foreach ($mainMenu as $menu)
     @php
         $subs = $submenus[$menu->ID] ?? collect();
+        $menuUrl = trim($menu->menu_url);
     @endphp
 
-    @if ($subs->count())
+    @if ($subs->count() > 0)
+        {{-- Dropdown Menu --}}
         <div class="nav-item dropdown">
-            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown" data-bs-display="dynamic" aria-expanded="false">
+            <a href="#" class="nav-link dropdown-toggle" data-bs-toggle="dropdown">
                 {{ $menu->menu_tajuk }}
             </a>
             <div class="dropdown-menu dropdown-menu-end m-0">
                 @foreach ($subs as $sub)
-
-                    @if ($sub->menu_action === 'modal' && !empty($sub->menu_target))
-                        <a href="#" class="dropdown-item" data-bs-toggle="modal" data-bs-target="#{{ $sub->menu_target }}">{{ $sub->menu_tajuk }}</a>
+                    @php $subUrl = trim($sub->menu_url); @endphp
                     
-                    @elseif ($sub->menu_action === 'route' && !empty($sub->menu_target))
-                        <a href="{{ route($sub->menu_target) }}" class="dropdown-item" target="_blank">{{ $sub->menu_tajuk }}</a>
-                    
-                    @elseif($sub->menu_action === 'link' && !empty($sub->menu_target))
-                        {{-- LINK --}}
-                        <a href="{{ $sub->menu_target }}"
-                        class="dropdown-item">
+                    {{-- Check kalau submenu ada logout --}}
+                    @if($subUrl == 'logout.php')
+                        <a href="javascript:void(0);" class="dropdown-item" 
+                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+                            {{ $sub->menu_tajuk }}
+                        </a>
+                    @elseif($subUrl == 'profail.php')
+                        <a href="javascript:void(0);" class="dropdown-item" onclick="openProfileModalManual()">
                             {{ $sub->menu_tajuk }}
                         </a>
                     @else
-                        {{-- FALLBACK SELAMAT --}}
-                        <a href="#"
-                        class="dropdown-item text-muted">
+                        @php
+
+                            $finalUrl = '#';
+
+                            if($subUrl !== '-'){
+                                $finalUrl = url($subUrl);
+                            }
+
+                            //$subUrl === '-' && 
+                            elseif ($sub->ID === 10) {
+                                $finalUrl = route('galeri.menu', $sub->ID);
+                            }
+
+                            elseif($sub->menu_arah ==='galeri_acara'){
+                                $finalUrl = route('galeri.menu', $sub->ID);
+                            }
+
+                            elseif ($sub->menu_arah === 'info') {
+                                $finalUrl = route('info.show', $sub->menu_idarah);
+                            } 
+
+                            elseif($sub->menu_arah === 'direktori'){
+                                $finalUrl = route('direktori.menu', $sub->ID);
+                            }
+
+                            else {
+                                $finalUrl = ($subUrl === '-' ? '#' : url($subUrl));
+                            }
+                        @endphp
+                    
+                        <a href="{{ $finalUrl }}" class="dropdown-item">
                             {{ $sub->menu_tajuk }}
                         </a>
                     @endif
-                    @endforeach
-                </div>
+                @endforeach
             </div>
+        </div>
+
+    {{-- FIX: Check kalau main menu adalah logout.php --}}
+    @elseif($menuUrl == 'logout.php')
+        <a href="javascript:void(0);" class="nav-item nav-link" 
+           onclick="event.preventDefault(); document.getElementById('logout-form').submit();">
+            {{ $menu->menu_tajuk }}
+        </a>
+    @elseif($menuUrl =='profail.php')
+        <a href="#" class="nav-item nav-link" onclick="openProfileModalManual()">
+            {{ $menu->menu_tajuk }}
+        </a>
     @else
-    <a href="{{ route($menu->menu_target ?? '#') }}" class="nav-item nav-link">
-        {{ $menu->menu_tajuk }}
-    </a>
+        {{-- Link biasa --}}
+        <a href="{{ $menuUrl === '-' ? '#' : url($menuUrl) }}" class="nav-item nav-link">
+            {{ $menu->menu_tajuk }}
+        </a>
     @endif
 @endforeach
+
+<form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">
+    @csrf
+</form>

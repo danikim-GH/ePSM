@@ -40,3 +40,18 @@ label {
     box-shadow: 0 0 8px rgba(0, 123, 255, 0.4);
     background: rgba(255, 255, 255, 0.85) !important;
 }
+
+@media (max-width:1280px) {
+
+    .container{
+        display: flex; 
+        justify-content: center;
+        align-items: center
+    }
+
+    .glass-container {
+        padding: 1rem;
+        width: 80%;
+
+    }
+}

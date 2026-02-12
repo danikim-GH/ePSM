@@ -17,16 +17,19 @@
     border-radius: 12px;
     padding: 24px;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
-    transition: all 0.3s ease;
     display: flex;
     align-items: center;
     gap: 20px;
-    cursor: pointer;
+    cursor: default;
     position: relative;
     overflow: hidden;
 }
 
-.setting-card::before {
+.setting-card.enable{
+    transition: all 0.3s ease;
+}
+
+.setting-card.enable::before {
     content: '';
     position: absolute;
     top: 0;
@@ -38,12 +41,12 @@
     transition: transform 0.3s ease;
 }
 
-.setting-card:hover {
+.setting-card.enable:hover {
     transform: translateY(-5px);
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
 }
 
-.setting-card:hover::before {
+.setting-card.enable:hover::before {
     transform: scaleY(1);
 }
 
@@ -51,7 +54,7 @@
     width: 60px;
     height: 60px;
     border-radius: 12px;
-    background: linear-gradient(135deg, #007bff, #0056b3);
+    background: grey;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -59,7 +62,11 @@
     transition: transform 0.3s ease;
 }
 
-.setting-card:hover .setting-icon {
+.setting-icon.enable{
+    background: linear-gradient(135deg, #007bff, #0056b3);
+}
+
+.setting-card.enable:hover .setting-icon {
     transform: rotate(5deg) scale(1.1);
 }
 
@@ -106,7 +113,7 @@
     transition: transform 0.3s ease;
 }
 
-.setting-card:hover .btn-setting {
+.setting-card.enable:hover .btn-setting {
     background: #007bff;
 }
 

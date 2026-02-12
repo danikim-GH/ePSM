@@ -7,15 +7,24 @@ use Illuminate\Support\Facades\DB;
 
 class GaleriController extends Controller
 {
-    public function galeri(Request $request)
+    public function galeri(Request $request, $menuId)
     {
         // Pagination settings
         $perPage = 5; // Show 5 events per page
         $currentPage = $request->get('page', 1);
 
+        $menuTitles = [
+            '10' => 'Galeri Kursus',
+            '19' => 'Galeri Program',
+            '38' => 'Galeri Mesyuarat'
+        ];
+
+        $pageTitle = $menuTitles[$menuId] ?? 'Galeri';
+
         // Fetch paginated events
         $galeriAcara = DB::table('galeri_acara')
             ->select('ID', 'eg_tajuk', 'eg_tarikh', 'eg_lokasi', 'eg_idmenu')
+            ->where('eg_idmenu',$menuId)
             ->orderBy('eg_tarikh', 'DESC')
             ->paginate($perPage);
 
@@ -32,10 +41,22 @@ class GaleriController extends Controller
             ->groupBy('gal_idevent'); // Group images by event ID
 
         // Get total counts for statistics
-        $totalEvents = DB::table('galeri_acara')->count();
-        $totalImages = DB::table('galeri')->where('gal_papar', 'Y')->count();
+        $totalEvents = DB::table('galeri_acara')
+                        ->where('eg_idmenu',$menuId)
+                        ->count();
+        $totalImages = DB::table('galeri')
+                        ->whereIn('gal_idevent', $eventIds)
+                        ->where('gal_papar', 'Y')
+                        ->count();
 
-        return view('galeri', compact('galeriAcara', 'galeriImages', 'totalEvents', 'totalImages'));
+        return view('galeri', compact(
+            'galeriAcara',
+            'galeriImages',
+            'totalEvents',
+            'totalImages',
+            'pageTitle',
+            'menuId'
+        ));
     }
 
     // Optional: Method to get images for specific event (AJAX)

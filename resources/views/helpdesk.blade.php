@@ -23,6 +23,13 @@
         </p>
       </div>
 
+      @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+          <i class="bi bi-check-circle-fill me-2"></i>{{ session('success') }}
+          <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+      @endif
+
       <form id="helpdeskForm" action="{{ route('helpdesk.store')}}" method="POST">
         @csrf
 
@@ -30,58 +37,50 @@
 
           <div class="col-lg-6">
             <div class="form-floating custom-floating">
-              <input type="text" class="form-control custom-input" id="name" name="name" required />
-              <label for="name">Nama Penuh</label>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="form-floating custom-floating">
-              <input type="email" class="form-control custom-input" id="email" name="email" required />
-              <label for="email">Alamat Emel</label>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="form-floating custom-floating">
-              <input type="text" class="form-control custom-input" id="phone" name="phone" />
-              <label for="phone">No. Telefon</label>
-            </div>
-          </div>
-
-          <div class="col-lg-6">
-            <div class="form-floating custom-floating position-relative">
-              <div class="dropdown w-100">
-                <button class="form-select custom-input text-start dropdown-toggle" type="button" id="kategoriDropdown"
+              <div class="dropdown dropdown-container w-100">
+                <button class="form-select custom-input text-start dropdown-toggle dropdown-container" type="button" id="kategoriDropdown"
                   data-bs-toggle="dropdown" aria-expanded="false"
                 >Pilih Kategori Aduan</button>
 
                 <ul class="dropdown-menu w-100">
-                  <li><a href="#" class="dropdown-item" data-value="Teknikal">Isu Teknikal</a></li>
-                  <li><a href="#" class="dropdown-item" data-value="Akaun">Isu Akaun/Log Masuk</a></li>
-                  <li><a href="#" class="dropdown-item" data-value="Tempahan">Masalah Submit</a></li>
-                  <li><a href="#" class="dropdown-item" data-value="Lain">Lain-lain</a></li>
+                  <li><a href="#" class="dropdown-item aduan-item" data-value="Teknikal">Isu Teknikal</a></li>
+                  <li><a href="#" class="dropdown-item aduan-item" data-value="Akaun">Isu Akaun/Log Masuk</a></li>
+                  <li><a href="#" class="dropdown-item aduan-item" data-value="Tempahan">Masalah Submit</a></li>
+                  <li><a href="#" class="dropdown-item aduan-item" data-value="Lain">Lain-lain</a></li>
                 </ul>
               </div>
-              <input type="hidden" name="kategori" id="kategori">
-              <label for="kategori">Kategori Aduan</label>
-                  @error('kategori')
-                    <div class="invalid-feedback d-block">{{ $message }}</div>
-                  @enderror
+              <input type="hidden" class="form-control custom-input" name="kategori" id="kategori" required>
+              @error('kategori')
+                <div class="invalid-feedback d-block">{{ $message }}</div>
+              @enderror
             </div>
           </div>
 
-          <div class="col-12">
+          <div class="col-lg-6">
             <div class="form-floating custom-floating">
-              <input type="text" class="form-control custom-input" id="subject" name="subject" required />
+              <input type="text" class="form-control custom-input @error('subject') is-invalid @enderror" 
+                id="subject" 
+                name="subject" 
+                value="{{ old('subject') }}"
+                required />
               <label for="subject">Subjek Aduan</label>
+              @error('subject')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
             </div>
           </div>
 
           <div class="col-12">
             <div class="form-floating custom-floating">
-              <textarea class="form-control custom-input" id="message" name="message" style="height: 180px" required></textarea>
+              <textarea class="form-control custom-input @error('message') is-invalid @enderror" 
+                id="message" 
+                name="message" 
+                style="height: 180px" 
+                required>{{ old('message') }}</textarea>
               <label for="message">Butiran Aduan</label>
+              @error('message')
+                <div class="invalid-feedback">{{ $message }}</div>
+              @enderror
             </div>
           </div>
 
@@ -108,7 +107,7 @@
 
 @push('scripts')
 <script>
-  document.querySelectorAll('.dropdown-item').forEach(item => {
+  document.querySelectorAll('.aduan-item').forEach(item => {
     item.addEventListener('click', function (e) {
       e.preventDefault();
 
@@ -117,6 +116,7 @@
 
       document.getElementById('kategori').value = value;
       document.getElementById('kategoriDropdown').textContent = text;
+      document.getElementById('kategoriDropdown').classList.remove('is-invalid');
     });
   });
 

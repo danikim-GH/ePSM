@@ -1,4 +1,3 @@
-{{-- resources/views/admin/carousel.blade.php --}}
 @extends('layouts.apps')
 
 @section('title', '- Admin Carousel Settings')
@@ -22,19 +21,19 @@
                     <i class="fas fa-cog"></i> Settings
                 </a>
                 <span class="breadcrumb-separator">/</span>
-                <span class="breadcrumb-current">Carousel</span>
+                <span class="breadcrumb-current">Banner</span>
             </div>
-            <h1 class="gabarito-regular">Home Page Carousel Settings</h1>
-            <p>Upload and manage carousel images for the home page (slider)</p>
+            <h1 class="gabarito-regular">Banner Halaman Utama</h1>
+            <p>Urus dan muat naik gambar banner untuk halaman utama</p>
         </div>
 
         <div class="admin-container">
             <!-- Current Carousel Images -->
             <div class="card">
                 <div class="card-header">
-                    <h3 class="gabarito-regular">Current Carousel Images</h3>
+                    <h3 class="gabarito-regular">Gambar Banner</h3>
                     <button class="btn btn-primary" id="addNewImageBtn">
-                        <i class="fas fa-plus"></i> Add New Image
+                        <i class="fas fa-plus"></i> Tambah Banner Baru
                     </button>
                 </div>
                 
@@ -68,7 +67,7 @@
             <!-- Add/Edit Form (Initially Hidden) -->
             <div class="card mt-4" id="carouselFormContainer" style="display: none;">
                 <div class="card-header">
-                    <h3 id="formTitle" class="gabarito-regular">Add New Carousel Image</h3>
+                    <h3 id="formTitle" class="gabarito-regular">Tambah Gambar Banner Baru</h3>
                 </div>
                 <div class="card-body">
                     <form id="carouselForm" enctype="multipart/form-data">
@@ -76,34 +75,39 @@
                         <input type="hidden" id="carouselId" name="id">
                         
                         <div class="form-group">
-                            <label for="title">Title</label>
+                            <label for="title">Tajuk</label>
                             <input type="text" id="title" name="title" class="form-control" placeholder="Enter title">
                             <span class="error" id="titleError"></span>
                         </div>
                         
                         <div class="form-group">
-                            <label for="description">Description</label>
+                            <label for="description">Butiran</label>
                             <textarea id="description" name="description" class="form-control" rows="3" placeholder="Enter description"></textarea>
                             <span class="error" id="descriptionError"></span>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label for="button_text">Button Text (Optional)</label>
-                            <input type="text" id="button_text" name="button_text" class="form-control" placeholder="e.g., Learn More">
+                            <label>Tunjuk Tajuk & Butiran</label>
+                            <div>
+                                <label><input type="radio" name="show_text" value="1" checked> Show</label>
+                                <label><input type="radio" name="show_text" value="0"> Hide</label>
+                            </div>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label for="button_link">Button Link (Optional)</label>
-                            <input type="text" id="button_link" name="button_link" class="form-control" placeholder="e.g., /products">
+                            <label>Overlay Opacity</label>
+                            <input type="range" name="overlay_opacity" id="overlay_opacity"
+                                min="0" max="1" step="0.05" value="0.5">
+                            <span id="opacityVal">0.5</span>
                         </div>
-                        
+
                         <div class="form-group">
-                            <label for="order">Display Order</label>
+                            <label for="order">Susunan</label>
                             <input type="number" id="order" name="order" class="form-control" min="1" value="1">
                         </div>
                         
                         <div class="form-group">
-                            <label for="image">Carousel Image</label>
+                            <label for="image">Gambar Banner</label>
                             <div class="file-upload">
                                 <input type="file" id="image" name="image" class="form-control-file" accept="image/*">
                                 <small class="form-text text-muted">Recommended size: 1920x1080px, Max size: 2MB</small>
@@ -115,9 +119,9 @@
                         </div>
                         
                         <div class="form-actions">
-                            <button type="button" class="btn btn-secondary" id="cancelBtn">Cancel</button>
+                            <button type="button" class="btn btn-secondary" id="cancelBtn">Batal</button>
                             <button type="submit" class="btn btn-primary" id="submitBtn">
-                                <span id="submitText">Add Image</span>
+                                <span id="submitText">Tambah Gambar</span>
                                 <span id="loadingSpinner" style="display: none;">
                                     <i class="fas fa-spinner fa-spin"></i>
                                 </span>
@@ -135,12 +139,11 @@
 <div class="modal" id="deleteModal" style="background-color: rgba(60, 55, 55, 0.596); backdrop-filter: blur(2.5px);">
     <div class="modal-content">
         <div class="modal-header">
-            <i class="fa fa-warning text-danger" style="margin-right: 1px;" aria-hidden="true"></i>
-            <h3 class="gabarito-bold text-danger " style="margin-right: 1px;">Delete Confirmation</h3>
+            <h3 class="gabarito-regular text-danger " style="margin-right: 1px;">Delete Confirmation</h3>
             <button class="close-btn" onclick="closeDeleteModal()">&times;</button>
         </div>
         <div class="modal-body" >
-            <h5 class="gabarito-regular text-muted">Title: <strong class="text-dark mt-2 text-uppercase " id="deleteItemTitle" > </strong></h5>
+            <h5 class="gabarito-regular text-muted">Tajuk: <strong class="text-dark mt-2 text-uppercase " id="deleteItemTitle" > </strong></h5>
             <p>Are you sure you want to delete this carousel image? This action cannot be undone.</p>
         </div>
         <div class="modal-footer">

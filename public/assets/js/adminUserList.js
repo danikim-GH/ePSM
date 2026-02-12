@@ -1,6 +1,5 @@
 let searchBox;
 let jabatanFilter;
-let levelFilter;
 let userTableBody;
 let paginationDiv;
 let clearSearchBtn;
@@ -35,7 +34,6 @@ async function fetchUsers(page = 1) {
     
     const search = searchBox.value;
     const jabatan = jabatanFilter.value;
-    const level = levelFilter.value;
     
     // Show loading
     userTableBody.innerHTML = `
@@ -50,7 +48,7 @@ async function fetchUsers(page = 1) {
     `;
 
     try {
-        const res = await fetch(`/admin-panel/user-list/list?search=${encodeURIComponent(search)}&jabatan=${encodeURIComponent(jabatan)}&level=${encodeURIComponent(level)}&page=${page}`);
+        const res = await fetch(`/admin-panel/user-list/list?search=${encodeURIComponent(search)}&jabatan=${encodeURIComponent(jabatan)}&page=${page}`);
         const totalUsersRes = await fetch(`/admin-panel/user-list/total-users`);
 
         const json = await res.json();
@@ -114,7 +112,7 @@ function renderTable(users) {
                     <strong>${u.Nama || 'NULL'}</strong>
                 </div>
             </td>
-            <td>${u.NoKP || 'NULL'}</td>
+            <td>${u.id || 'NULL'}</td>
             <td>
                 <div class="email-cell">
                     ${u.emel || 'NULL'}
@@ -149,6 +147,9 @@ function renderTable(users) {
 
 
 function renderPagination(current, last) {
+
+    paginationDiv.innerHTML = "";
+
     let html = "";
     
     if (last <= 1) return;
@@ -163,7 +164,7 @@ function renderPagination(current, last) {
     `;
     
     // Show page numbers with ellipsis
-    const maxVisible = 5;
+    const maxVisible = 2;
     let start = Math.max(1, current - Math.floor(maxVisible / 2));
     let end = Math.min(last, start + maxVisible - 1);
     
@@ -236,7 +237,7 @@ function openEditModal(userIndex) {
     document.getElementById('editName').value = user.Nama || '';
     document.getElementById('editEmail').value = user.emel || '';
     document.getElementById('editPhone').value = user.hp || '';
-    document.getElementById('editNoKP').value = user.NoKP || '';
+    document.getElementById('editNoKP').value = user.id || '';
     document.getElementById('editLevel').value = user.userlevel || 'user';
     document.getElementById('editDepartment').value = user.NamaJabatan || '';    
     // Show modal
@@ -273,7 +274,6 @@ function setupEventListeners() {
     // Search and filter events
     searchBox.addEventListener('input', debounce(() => fetchUsers(1), 300));
     jabatanFilter.addEventListener('change', () => fetchUsers(1));
-    levelFilter.addEventListener('change', () => fetchUsers(1));
     
     // Clear search button
     clearSearchBtn.addEventListener('click', () => {
@@ -392,10 +392,12 @@ async function handleDelete() {
 //Return user level value into string even it is string tho
 function userLevelLabel(level){
     switch(level){
-        case '9': return 'Admin';
-        case '8': return 'EO';
-        case '1': return 'Staff';
-        case '0': return 'Pending User';
+        case '9': return '9';
+        case '8': return '8';
+        case '3' : return '3';
+        case '2' : return '2';
+        case '1': return '1';
+        case '0': return '0';
         default: return 'Undefined';
     }
 }
@@ -416,7 +418,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Initialize DOM elements
     searchBox = document.getElementById("searchBox");
     jabatanFilter = document.getElementById("jabatanFilter");
-    levelFilter = document.getElementById("levelFilter");
     userTableBody = document.querySelector("#userTable tbody");
     paginationDiv = document.getElementById("pagination");
     clearSearchBtn = document.getElementById("clearSearch");

@@ -25,7 +25,9 @@ class CarouselController extends Controller
             'button_text' => 'nullable|string|max:50',
             'button_link' => 'nullable|url|max:255',
             'order' => 'required|integer|min:1',
-            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'image' => 'required|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'show_text' => 'required|boolean',
+            'overlay_opacity' => 'required|numeric|min:0|max:1'
         ]);
         
         if ($validator->fails()) {
@@ -45,7 +47,9 @@ class CarouselController extends Controller
                 'button_link' => $request->button_link,
                 'order' => $request->order,
                 'image_path' => 'storage/'.$path,
-                'is_active' => true
+                'is_active' => true,
+                'show_text' => $request->show_text,
+                'overlay_opacity' => $request->overlay_opacity
             ]);
             
             return response()->json([

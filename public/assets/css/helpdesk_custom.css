@@ -1,12 +1,11 @@
-@media (min-width: 992px){
-    .container{
+@media (min-width: 992px) {
+    .container {
         padding-top: 5rem;
     }
 }
 
-
-@media (max-width: 991.98px){
-    .container{
+@media (max-width: 991.98px) {
+    .container {
         padding-top: 0rem;
     }
 }
@@ -48,6 +47,10 @@
     color: #555 !important;
 }
 
+.form-select{
+    height: 100%;
+}
+
 .custom-input {
     border: 1px solid rgba(180, 180, 180, 0.4) !important;
     background: rgba(255, 255, 255, 0.55) !important;
@@ -60,17 +63,22 @@
     background: rgba(255, 255, 255, 0.85) !important;
 }
 
+
 /* ===== Button Gradient ===== */
 .btn-gradient {
     background: linear-gradient(135deg, #007bff, #00a6ff);
     border: none;
-    color: #fff;
+    color: #fff !important;
     border-radius: 12px;
     font-size: 1.05rem;
     transition: 0.3s ease;
 }
 
 .btn-gradient:hover {
+    background: linear-gradient(135deg, #0056b3, #0088cc);
+    color: #fff !important;
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(0, 123, 255, 0.4);
     opacity: 1;
 }
 
@@ -78,6 +86,7 @@
 .hover-scale {
     transition: transform 0.4s;
 }
+
 .hover-scale:hover {
     transform: scale(1.04);
 }
@@ -95,7 +104,7 @@
 }
 
 .animate-fadeInUp {
-    animation: fadeInUp .7s ease-out;
+    animation: fadeInUp 0.7s ease-out;
 }
 
 .is-invalid {

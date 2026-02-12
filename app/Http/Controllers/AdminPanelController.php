@@ -9,12 +9,11 @@ use Illuminate\Support\Facades\DB;
 class AdminPanelController extends Controller
 {
     public function adminView(){
-        $pending = Lampirana::where('userlevel', 0) ->get();
-
+        $pending = Lampirana::where('userlevel', 0)->get();
         return view('admin/admin_panel', compact('pending'));
     }
 
-    //pending user yang register
+    // Pending user yang register
     public function pendingUsers(Request $request){
         $pending = DB::table('lampirana')
                     ->select('Nama', 'NoKP', 'emel', 'hp', 'NamaJabatan','userlevel')
@@ -31,10 +30,10 @@ class AdminPanelController extends Controller
 
         return response()->json([
             'success' => true,
-            'title'=>'Pending User List',
+            'title' => 'Pending User List',
             'users' => $pending->items(),
             'current_page' => $pending->currentPage(),
-            'last_page'=>$pending->lastPage(),
+            'last_page' => $pending->lastPage(),
             'total_users' => $pending->total(),
         ]);
     }
@@ -55,15 +54,15 @@ class AdminPanelController extends Controller
 
         return response()->json([
             'success' => true,
-            'title'=>'Pending User List',
+            'title' => 'Suspended User List',
             'users' => $suspend->items(),
             'current_page' => $suspend->currentPage(),
-            'last_page'=>$suspend->lastPage(),
+            'last_page' => $suspend->lastPage(),
             'total_users' => $suspend->total(),
         ]);
     }
 
-    //APPROVAL USER
+    // APPROVAL USER
     public function approveUser(Request $request, $nokp){
         DB::table('lampirana')
             ->where('NoKP', $nokp)
@@ -84,11 +83,9 @@ class AdminPanelController extends Controller
         return back()->with('success', 'User berjaya disuspend!');
     }
 
-    //fetch api for pending users count
+    // Fetch API for pending users count
     public function pendingUsersCount(){
-        $count = DB::table('lampirana')
-                    ->where('userlevel', '0')
-                    ->count();
+        $count = Lampirana::where('userlevel', '0')->count();
 
         return response()->json([
             'success' => true,
@@ -96,18 +93,14 @@ class AdminPanelController extends Controller
             'pending_users_count' => $count,
         ]);
     }
-
+    
     public function suspendedUsersCount(){
-        $count = DB::table('lampirana')
-                ->where('userlevel', 'SP')
-                ->count();
-        return response()->json(['total_suspended'=>$count]);
+        $count = DB::table('lampirana')->where('userlevel', 'SP')->count();
+        return response()->json(['total_suspended' => $count]);
     }
 
     public function editUser($nokp){
-        $user = DB::table('lampirana')
-                ->where('NoKP', $nokp)
-                ->first();
+        $user = DB::table('lampirana')->where('NoKP', $nokp)->first();
 
         if (!$user) {
             return response()->json([
@@ -126,12 +119,20 @@ class AdminPanelController extends Controller
         $user = Lampirana::where('NoKP', $nokp)->first();
 
         if (!$user) {
-            return response()->json(['success' => false, 'message' => 'User not found'], 404);
+            return response()->json([
+                'success' => false,
+                'action' => 'delete',
+                'message' => 'Pengguna Tidak Dijumpai'
+            ], 404);
         }
 
         $user->delete();
 
-        return response()->json(['success' => true, 'message' => 'User deleted successfully']);
+        return response()->json([
+            'success' => true,
+            'action' => 'delete',
+            'message' => 'Pengguna telah berjaya dibuang'
+        ]);
     }
 
     public function updateLevel(Request $request, $nokp)
@@ -145,7 +146,6 @@ class AdminPanelController extends Controller
             ], 404);
         }
 
-        // 
         $userlevel = $request->input('userlevel');
 
         if ($userlevel === null) {
@@ -157,16 +157,25 @@ class AdminPanelController extends Controller
 
         $user->update(['userlevel' => $userlevel]);
 
+        // Determine action type based on userlevel
+        $action = match ($userlevel) {
+            'SP' => 'suspend',
+            '0'  => 'reactivate',
+            '1'  => 'approve',
+            default => 'update'
+        };
+
+        $message = match ($userlevel) {
+            'SP' => 'Pengguna berjaya dibekukan',
+            '0'  => 'Pengguna dikembalikan ke status Belum Disahkan',
+            '1'  => 'Pengguna berjaya disahkan',
+            default => 'Pengguna telah dikemaskini'
+        };
+
         return response()->json([
             'success' => true,
-            'message' => match ($userlevel) {
-                'SP' => 'User berjaya disuspend',
-                '0'  => 'User dikembalikan ke pending',
-                '1'  => 'User berjaya disahkan',
-                default => 'User updated'
-            }
+            'action' => $action,
+            'message' => $message
         ]);
     }
-
 }
-

@@ -1,0 +1,612 @@
+/* ============================================
+   ENHANCED STATISTIK KEHADIRAN STYLES
+   ============================================ */
+
+:root{
+    --main-bg:rgb(25, 64, 154) !important;
+}
+/* Main Wrapper */
+.stat-kehadiran-wrapper {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 2rem 1rem;
+    min-height: calc(100vh - 200px);
+    margin-top: 8em;
+}
+
+/* ============================================
+   HERO HEADER SECTION
+   ============================================ */
+.stat-kehadiran-hero {
+    background-color: rgb(25, 64, 154) !important;
+    border-radius: 16px;
+    padding: 2.5rem 2rem;
+    margin-bottom: 2rem;
+    box-shadow: 0 10px 30px rgba(102, 126, 234, 0.3);
+    color: white;
+}
+
+@keyframes heroFadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+
+.stat-hero-content {
+    position: relative;
+    text-align: center;
+    color: white;
+    z-index: 1;
+}
+
+@keyframes iconPulse {
+    0%, 100% {
+        transform: scale(1);
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 12px 32px rgba(0, 0, 0, 0.25);
+    }
+}
+
+.stat-hero-title {
+    font-size: 2.5rem;
+    margin-bottom: 0.5rem;
+    text-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    letter-spacing: -0.5px;
+    color: white;
+}
+
+.stat-hero-subtitle {
+    font-size: 1.25rem;
+    opacity: 0.95;
+    margin-bottom: 2rem;
+    font-weight: 300;
+    letter-spacing: 0.3px;
+}
+
+.stat-hero-decoration {
+    display: flex;
+    justify-content: center;
+    gap: 1rem;
+    margin-top: 2rem;
+}
+
+.stat-decoration-dot {
+    width: 12px;
+    height: 12px;
+    background: var(--main-bg);
+    border-radius: 50%;
+    animation: dotFloat 2s ease-in-out infinite;
+}
+
+.stat-decoration-dot:nth-child(2) {
+    animation-delay: 0.2s;
+}
+
+.stat-decoration-dot:nth-child(3) {
+    animation-delay: 0.4s;
+}
+
+@keyframes dotFloat {
+    0%, 100% {
+        transform: translateY(0);
+    }
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
+/* ============================================
+   MAIN CARD SECTION
+   ============================================ */
+.stat-main-card {
+    background: #ffffff;
+    border-radius: 20px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+    overflow: hidden;
+    animation: cardSlideUp 0.6s ease-out 0.3s both;
+}
+
+@keyframes cardSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.stat-card-header {
+    background: var(--main-bg);
+    padding: 2rem;
+    border-bottom: 3px solid #667eea;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+
+.stat-card-icon {
+    width: 48px;
+    height: 48px;
+    background:var(--main-bg);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.stat-card-title {
+    font-size: 1.5rem;
+    font-weight: 600;
+    color: #f0f2f7;
+    margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.stat-card-body {
+    padding: 2.5rem;
+}
+
+/* ============================================
+   FILTER SECTION
+   ============================================ */
+.stat-filter-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr auto;
+    gap: 1.5rem;
+    margin-bottom: 2.5rem;
+    align-items: end;
+}
+
+.stat-filter-item {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+}
+
+.stat-filter-label {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-weight: 600;
+    color: #4a5568;
+    font-size: 0.95rem;
+}
+
+.stat-filter-label svg {
+    color: var(--main-bg);
+}
+
+.stat-dropdown-wrapper {
+    position: relative;
+}
+
+.stat-dropdown-btn {
+    width: 100%;
+    padding: 0.875rem 1.25rem;
+    background: white;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    font-weight: 500;
+    color: #2d3748;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+}
+
+.stat-dropdown-btn:hover {
+    border-color: #667eea;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+    transform: translateY(-2px);
+}
+
+.stat-dropdown-btn:focus {
+    outline: none;
+    border-color: #667eea;
+    box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+}
+
+.stat-dropdown-value {
+    flex: 1;
+    text-align: left;
+}
+
+.stat-dropdown-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.stat-dropdown-btn[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+}
+
+.stat-dropdown-menu {
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.1);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+.stat-dropdown-item {
+    padding: 0.75rem 1rem;
+    border-radius: 8px;
+    transition: all 0.2s ease;
+    font-weight: 500;
+    color: #2d3748;
+}
+
+.stat-dropdown-item:hover {
+    background: var(--main-bg);
+    color: white;
+    transform: translateX(5px);
+}
+
+.stat-dropdown-item:active {
+    background:var(--main-bg);
+}
+
+/* Submit Button */
+.stat-filter-submit {
+    display: flex;
+    align-items: flex-end;
+}
+
+.stat-submit-btn {
+    padding: 0.875rem 2.5rem;
+    background: var(--main-bg);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+}
+
+.stat-submit-btn:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.stat-submit-btn:active {
+    transform: translateY(0);
+}
+
+/* ============================================
+   DEPARTMENT SECTION
+   ============================================ */
+.stat-department-section {
+    margin-bottom: 2.5rem;
+    padding: 2rem;
+    background: linear-gradient(135deg, #f6f8fb 0%, #e9ecef 100%);
+    border-radius: 16px;
+    border: 2px dashed #cbd5e0;
+}
+
+.stat-department-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.75rem;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: #2d3748;
+    margin-bottom: 1.5rem;
+}
+
+.stat-department-label svg {
+    color: #667eea;
+}
+
+.stat-dropdown-wrapper-center {
+    display: flex;
+    justify-content: center;
+}
+
+.stat-department-btn {
+    min-width: 400px;
+    padding: 1.25rem 2rem;
+    background: white;
+    border: 2px solid var(--main-bg);
+    border-radius: 12px;
+    font-weight: 600;
+    color: var(--main-bg);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 1rem;
+    box-shadow: 0 4px 12px rgba(102, 126, 234, 0.15);
+}
+
+.stat-department-btn:hover {
+    background: var(--main-bg);
+    color: white;
+    border-color: transparent;
+    transform: translateY(-2px);
+    box-shadow: 0 8px 24px rgba(102, 126, 234, 0.3);
+}
+
+.stat-department-btn svg {
+    transition: transform 0.3s ease;
+}
+
+.stat-department-btn[aria-expanded="true"] svg {
+    transform: rotate(180deg);
+}
+
+.stat-department-text {
+    font-size: 0.95rem;
+    letter-spacing: 0.5px;
+}
+
+.stat-dropdown-menu-wide {
+    min-width: 400px;
+    border: 2px solid #e2e8f0;
+    border-radius: 12px;
+    box-shadow: 0 10px 40px rgba(0, 0, 0, 0.15);
+    padding: 0.5rem;
+    margin-top: 0.5rem;
+}
+
+/* ============================================
+   RESULT AREA
+   ============================================ */
+.stat-result-area {
+    min-height: 200px;
+    margin-bottom: 2rem;
+}
+
+/* Table Styling */
+#jadualKehadiran {
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.08);
+}
+
+#jadualKehadiran thead {
+    background: linear-gradient(135deg, #667eea, #764ba2);
+    color: #2d3748;
+}
+
+#jadualKehadiran th {
+    padding: 1rem;
+    font-weight: 600;
+    border: none;
+}
+
+#jadualKehadiran tbody tr {
+    transition: all 0.2s ease;
+}
+
+#jadualKehadiran tbody tr:hover {
+    background: #f7fafc;
+    transform: scale(1.01);
+}
+
+#jadualKehadiran td {
+    padding: 0.875rem;
+    border-color: #e2e8f0;
+}
+
+.table-responsive {
+    border-radius: 12px;
+}
+
+.summary-header{
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.summary-header.left{
+    justify-content: left;
+}
+
+.summary-header i{
+    font-size: 25px;
+}
+
+/* Alert Styling */
+.stat-result-area .alert {
+    border-radius: 12px;
+    border: none;
+    padding: 1.25rem;
+    font-weight: 500;
+}
+
+.stat-result-area .alert-primary {
+    background: linear-gradient(135deg, #93f9b3, #daf3d1);
+    color: #2e6b3c;
+    border-left: 4px solid #38894b;
+}
+
+.stat-result-area .alert-warning {
+    background: linear-gradient(135deg, #fef3c7, #fde68a);
+    color: #92400e;
+    border-left: 4px solid #f59e0b;
+}
+
+.stat-result-area .alert-danger {
+    background: linear-gradient(135deg, #fee2e2, #fecaca);
+    color: #991b1b;
+    border-left: 4px solid #ef4444;
+}
+
+/* ============================================
+   CARD FOOTER
+   ============================================ */
+.stat-card-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 2px solid #e2e8f0;
+    text-align: center;
+}
+
+.stat-footer-text {
+    color: #4a5568;
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+}
+
+.stat-footer-copyright {
+    color: #718096;
+    font-size: 0.875rem;
+    margin: 0;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+@media (max-width: 992px) {
+    .stat-kehadiran-wrapper {
+        margin-top: 6em;
+        padding: 1.5rem 1rem;
+    }
+
+    .stat-hero-title {
+        font-size: 2.25rem;
+    }
+
+    .stat-hero-subtitle {
+        font-size: 1.1rem;
+    }
+
+    .stat-filter-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .stat-filter-submit {
+        justify-content: stretch;
+    }
+
+    .stat-submit-btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .stat-department-btn {
+        min-width: 100%;
+    }
+
+    .stat-dropdown-menu-wide {
+        min-width: 100%;
+    }
+}
+
+@media (max-width: 768px) {
+    .stat-kehadiran-hero {
+        padding: 3rem 1.5rem;
+        border-radius: 16px;
+    }
+
+    .stat-hero-title {
+        font-size: 1.875rem;
+    }
+
+    .stat-hero-subtitle {
+        font-size: 1rem;
+    }
+
+    .stat-icon-badge {
+        width: 64px;
+        height: 64px;
+    }
+
+    .stat-card-body {
+        padding: 1.5rem;
+    }
+
+    .stat-card-header {
+        padding: 1.5rem;
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .stat-card-title {
+        font-size: 1.25rem;
+    }
+
+    .stat-department-section {
+        padding: 1.5rem;
+    }
+}
+
+@media (max-width: 576px) {
+    .stat-hero-title {
+        font-size: 1.5rem;
+    }
+
+    .stat-hero-subtitle {
+        font-size: 0.9rem;
+    }
+
+    .stat-kehadiran-hero {
+        padding: 2rem 1rem;
+    }
+
+    .stat-card-body {
+        padding: 1rem;
+    }
+
+    .stat-dropdown-btn,
+    .stat-department-btn {
+        padding: 0.75rem 1rem;
+        font-size: 0.9rem;
+    }
+
+    .stat-submit-btn {
+        padding: 0.75rem 1.5rem;
+        font-size: 0.9rem;
+    }
+}
+
+/* ============================================
+   LOADING STATE
+   ============================================ */
+.stat-result-area .text-muted.fst-italic {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    padding: 3rem;
+    font-size: 1.1rem;
+    color: #667eea !important;
+}
+
+/* ============================================
+   ANIMATIONS
+   ============================================ */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.stat-result-area > * {
+    animation: fadeIn 0.5s ease-out;
+}

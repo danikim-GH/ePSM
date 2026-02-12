@@ -6,14 +6,10 @@ function adminPendingListAndSuspendList({ tableBodyId, paginationId, fetchUrl, m
     const tableBody = document.getElementById(tableBodyId);
     const pagination = document.getElementById(paginationId);
 
-    
-
     if (!tableBody || !pagination) return null;
 
     async function fetchUsers(page = 1, extra = {}) {
-
         const params = new URLSearchParams({ page, ...extra });
-
         currentPage = page;
 
         tableBody.innerHTML = `
@@ -56,11 +52,9 @@ function adminPendingListAndSuspendList({ tableBodyId, paginationId, fetchUrl, m
             return;
         }
 
-        //NOTE PAGE CALCULATION [(current page-1) * (total row per pagination) + (index row) - 1]
         users.forEach((u, i) => {
             let actionButtons = '';
-
-            userCache[u.NoKP] = u;//cache user data
+            userCache[u.NoKP] = u;
 
             if (mode === 'pending') {
                 actionButtons = `
@@ -107,17 +101,58 @@ function adminPendingListAndSuspendList({ tableBodyId, paginationId, fetchUrl, m
 
         if (last <= 1) return;
 
-        for (let i = 1; i <= last; i++) {
+        const createBtn = (page, text, isDisabled = false, isActive = false) => {
             const btn = document.createElement('button');
-            btn.className = `page-btn ${i === current ? 'active':''}`;
-            btn.textContent = i;
+            btn.className = `page-btn ${isActive ? 'active' : ''}`;
+            btn.innerHTML = text;
+            btn.disabled = isDisabled;
+            if (!isDisabled) {
+                btn.addEventListener('click', () => fetchUsers(page));
+            }
+            return btn;
+        };
 
-            btn.addEventListener('click', () => {
-                fetchUsers(i);
-            });
+        // --- BTN PREVIOUS ---
+        pagination.appendChild(createBtn(current - 1, '<i class="fas fa-chevron-left"></i>', current === 1));
 
-            pagination.appendChild(btn);
+    // --- LOGIK NOMBOR (SLIDING WINDOW) ---
+        const maxVisible = 5;
+        let start = Math.max(1, current - Math.floor(maxVisible / 2));
+        let end = Math.min(last, start + maxVisible - 1);
+
+        if (end - start + 1 < maxVisible) {
+            start = Math.max(1, end - maxVisible + 1);
         }
+
+        // First Page & Ellipsis
+        if (start > 1) {
+            pagination.appendChild(createBtn(1, '1'));
+            if (start > 2) {
+                const span = document.createElement('span');
+                span.className = 'page-ellipsis';
+                span.textContent = '...';
+                pagination.appendChild(span);
+            }
+        }
+
+        // Loop Nombor Page
+        for (let i = start; i <= end; i++) {
+            pagination.appendChild(createBtn(i, i, false, i === current));
+        }
+
+        // Last Page & Ellipsis
+        if (end < last) {
+            if (end < last - 1) {
+                const span = document.createElement('span');
+                span.className = 'page-ellipsis';
+                span.textContent = '...';
+                pagination.appendChild(span);
+            }
+            pagination.appendChild(createBtn(last, last));
+        }
+
+        // --- BUTANG NEXT ---
+        pagination.appendChild(createBtn(current + 1, '<i class="fas fa-chevron-right"></i>', current === last));
     }
 
     tableBody.addEventListener('click', (e) => {
@@ -130,19 +165,16 @@ function adminPendingListAndSuspendList({ tableBodyId, paginationId, fetchUrl, m
         let user = null;
         if(btn.dataset.user){
             try{
-                user =  btn.dataset.user ? JSON.parse(decodeURIComponent(btn.dataset.user)) : null;
+                user = JSON.parse(decodeURIComponent(btn.dataset.user));
             } catch(err){
                 console.error('Failed to parse user data from button dataset', err);
             }
         }
 
-
         if (!id || !targetModal) return console.log('Missing data-id or data-target-modal');
-
         
         openModal(targetModal, id, user);
     });
-
 
     return {
         fetch: fetchUsers,
@@ -167,8 +199,6 @@ document.addEventListener('DOMContentLoaded', () => {
         if(user){
             injectUserDataIntoModal(modal, user);
         } else {
-            // fetch user data from server or cache
-            // For this example, we'll just log that we need to fetch the user
             console.log(`Fetch user data for ID: ${userId} for action: ${action}`);
         }
     }
@@ -181,20 +211,19 @@ document.addEventListener('DOMContentLoaded', () => {
 
         if(action === 'delete'){
             body.innerHTML = `
-                <p>Are you sure you want to delete the suspended user <strong>${u.Nama}</strong>?</p>
+                <p>Delete akaun pengguna yang telah dibekukan ini <strong>${u.Nama}</strong>?</p>
             `;
             return;
         }
 
         if(action === 'reactivate'){
             body.innerHTML = `
-                <p>Are you sure you want to reactivate <strong>${u.Nama}</strong>?</p>
-                <p>User will be moved back to <strong>Pending</strong> state.</p>
-                <p>current user level: ${u.userlevel}</p>
+                <p>Tetapkan kembali kepada status akaun <strong>${u.Nama}</strong> yang belum disahkan?</p>
+                <p>Pengguna akan kembali ke status <strong>Belum Disahkan</strong></p>
+                <p>user level sekarang: ${u.userlevel}</p>
             `;
             return;
         }
-
 
         body.innerHTML = `
             <div class="user-summary">
@@ -214,9 +243,35 @@ document.addEventListener('DOMContentLoaded', () => {
         activeModal = null;
     }
 
-    function showToast(message, type = 'success') {
+    function showToast(message, type = 'success', action = null) {
         const toast = document.createElement('div');
-        toast.className = `toast toast-${type}`;
+        
+        // Determine toast class based on action
+        let toastClass = 'toast-success'; // default
+        
+        if (action) {
+            switch(action) {
+                case 'delete':
+                    toastClass = 'toast-delete';
+                    break;
+                case 'suspend':
+                    toastClass = 'toast-suspend';
+                    break;
+                case 'reactivate':
+                    toastClass = 'toast-reactivate';
+                    break;
+                case 'view':
+                case 'approve':
+                    toastClass = 'toast-approve';
+                    break;
+                default:
+                    toastClass = `toast-${type}`;
+            }
+        } else {
+            toastClass = `toast-${type}`;
+        }
+        
+        toast.className = `toast ${toastClass}`;
         toast.textContent = message;
 
         document.body.appendChild(toast);
@@ -225,7 +280,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setTimeout(() => {
             toast.classList.remove('show');
             setTimeout(() => toast.remove(), 300);
-        }, 2500);
+            window.location.reload();
+        }, 1000);
     }
 
     function getCSRFToken() {
@@ -238,20 +294,31 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
-
     async function handleUserAction({ userId, action }) {
         let url = '';
         let payload = {};
         let method = 'POST';
 
         switch (action) {
-            case 'suspend': url = `/admin/users/${userId}/update-level`; payload = { userlevel: 'SP' }; break;
-            case 'view': url = `/admin/users/${userId}/update-level`; payload = { userlevel: '1' }; break;
-            case 'reactivate': url = `/admin/users/${userId}/update-level`; payload = { userlevel: '0' }; break;
-            case 'delete': url = `/admin/users/${userId}`; method = 'DELETE'; break;
+            case 'suspend': 
+                url = `/admin/users/${userId}/update-level`; 
+                payload = { userlevel: 'SP' }; 
+                break;
+            case 'view': 
+                url = `/admin/users/${userId}/update-level`; 
+                payload = { userlevel: '1' }; 
+                break;
+            case 'reactivate': 
+                url = `/admin/users/${userId}/update-level`; 
+                payload = { userlevel: '0' }; 
+                break;
+            case 'delete': 
+                url = `/admin/users/${userId}`; 
+                method = 'DELETE'; 
+                break;
         }
 
-        console.log('DEBUG fetch', method, url, payload);
+        //console.log('DEBUG fetch', method, url, payload);
 
         try {
             const res = await fetch(url, {
@@ -264,14 +331,15 @@ document.addEventListener('DOMContentLoaded', () => {
                 body: method === 'DELETE' ? null : JSON.stringify(payload)
             });
 
-            // debug raw response text
             const text = await res.text();
             console.log('DEBUG response', text);
 
-            const json = JSON.parse(text); // replace res.json() with manual parse
+            const json = JSON.parse(text);
             if (!json.success) throw new Error(json.message || 'Action failed');
 
-            showToast(json.message || 'Action successful');
+            // Pass the action to showToast
+            showToast(json.message || 'Action successful', 'success', action);
+            
             if (window.pendingList) window.pendingList.fetch(1);
             if (window.suspendedList) window.suspendedList.fetch(1);
 
@@ -281,9 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     }
 
-
     document.addEventListener('click', (e) => {
-
         const btn = e.target.closest(
             '.btn-suspend-modal, .btn-sahkan-modal, .btn-delete-modal, .btn-reactivate-modal'
         );
@@ -301,7 +367,6 @@ document.addEventListener('DOMContentLoaded', () => {
         closeModal();
     });
 
-
-    // expose global supaya boleh call dari table
+    // expose global
     window.openModal = openModal;
 });

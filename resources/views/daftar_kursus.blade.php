@@ -5,6 +5,28 @@
 @push('styles')
     <link href="{{ asset("assets/css/daftarKursusCustom.css") }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset("assets/css/components/dropdown.css") }}">
+    <link rel="stylesheet" href="{{ asset("assets/css/components/toast-notifications.css") }}">
+    {{-- CSS Select2 & Theme Bootstrap 5 --}}
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
+
+    <style>
+        /* Custom CSS untuk bagi Select2 nampak macam input transparent anda */
+        .select2-container--bootstrap-5 .select2-selection {
+            background-color: rgba(248, 249, 250, 0.75) !important; /* bg-light opacity-75 */
+            border: 0 !important;
+            min-height: 58px; /* Ikut tinggi form-floating */
+            display: flex;
+            align-items: center;
+            border-radius: 0.375rem;
+        }
+        
+        /* Bagi label nampak elok */
+        .form-floating .select2-container {
+            padding-top: 1.625rem;
+            padding-bottom: 0.625rem;
+        }
+    </style>
 @endpush
 
 @section('content')
@@ -23,7 +45,7 @@
                     Sila lengkapkan maklumat berikut untuk merekodkan kehadiran anda bagi kursus yang dihadiri.
                 </p>
             </div>
-            <form id="kursusFormUpper" action="{{ route('kursus.store') }}" method="POST">
+            <form id="kursusFormUpper" action="{{ route('kursus.store') }}" method="POST" enctype="multipart/form-data">
                 @csrf
                 <div class="row g-4">
                     <div class="col-lg-6">
@@ -57,25 +79,6 @@
                                 <option value="8">Klinik Kaunseling</option>
                                 <option value="9">Pembelajaran Online</option>
                                 <option value="10">Jika tiada, klik di sini untuk daftar</option>
-                                <option value="11">Pentadbiran</option>
-                                <option value="12">Pentadbiran</option>
-                                <option value="13">Pentadbiran</option>
-                                <option value="14">Pentadbiran</option>
-                                <option value="15">Pentadbiran</option>
-                                <option value="16">Pentadbiran</option>
-                                <option value="17">Pentadbiran</option>
-                                <option value="18">Pentadbiran</option>
-                                <option value="19">Pentadbiran</option>
-                                <option value="20">Pentadbiran</option>
-                                <option value="21">Pentadbiran</option>
-                                <option value="22">Pentadbiran</option>
-                                <option value="23">Pentadbiran</option>
-                                <option value="24">Pentadbiran</option>
-                                <option value="25">Pentadbiran</option>
-                                <option value="26">Pentadbiran</option>
-                                <option value="27">Pentadbiran</option>
-                                <option value="28">Pentadbiran</option>
-                                <option value="29">Pentadbiran</option>
                             </select>
                             <label for="aktiviti">Aktiviti</label>
                             <i class="fa-solid fa-caret-down dropdown-arrow"></i>
@@ -150,11 +153,16 @@
                         </div>
                     </div>
 
-                    <div class="col-12">
-                        <div class="form-floating">
-                            <input type="text" class="form-control border-0 custom-input position-relative dropdown-icon" id="anjuran" name="anjuran" placeholder="Anjuran" required>
-                            <label for="anjuran">Anjuran</label>
-                            <i class="fa-solid fa-caret-down dropdown-arrow"></i>
+                    <div class="col-12" id="anjuranWrapper"> 
+                        <div class="form-floating">    
+                            <select class="form-select border-0 bg-light bg-opacity-75 custom-input position-relative dropdown-icon" 
+                                    id="anjuran" 
+                                    name="anjuran"
+                                    data-url="{{ route('ajax.anjuran') }}">
+                                @if(old('anjuran'))
+                                    <option value="{{ old('anjuran') }}" selected>{{ old('anjuran') }}</option>
+                                @endif
+                            </select>
                         </div>
                     </div>
     
@@ -198,6 +206,23 @@
                     </div>
 
                     <!--********Letak input sijil sini*********-->
+                    <div class="col-12">
+                        <div class="form-floating">
+                            <input type="file"
+                                class="form-control border-0 custom-input"
+                                id="sijil"
+                                name="sijil"
+                                accept="application/pdf">
+                            <label for="sijil">Sijil Kursus (PDF sahaja)</label>
+                        </div>
+                        <small class="text-muted">
+                            * Optional. Muat naik sijil dalam format PDF sahaja.
+                        </small>
+                    </div>
+
+
+
+
 
                     <div class="d-grid gap-2 d-sm-flex justify-content-end mt-3">
                         <button type="submit" class="btn btn-primary px-3 px-sm-5 py-3">Hantar</button>
@@ -208,6 +233,7 @@
         </div><!--div glass container-->
     </div>
 </div>
+
 
 
 
@@ -225,64 +251,39 @@
     <i class="fa fa-arrow-up"></i>
 </a>
 
-@if (session('success'))
-<script>
-Swal.fire({
-    title: 'Berjaya!',
-    text: '{{ session('success') }}',
-    icon: 'success',
-    background: '#f0fff4',
-    color: '#166534',
-    confirmButtonText: 'OK',
-    confirmButtonColor: '#16a34a',
-    showConfirmButton: true,
-    timer: 3000,
-    timerProgressBar: true,
-    showClass: {
-        popup: 'swal2-noanimation', // disable popup animation
-        backdrop: 'swal2-noanimation'
-    },
-    hideClass: {
-        popup: '' // biar kosong untuk elak goyang
-    },
-    didOpen: (popup) => {
-        // biar icon tick default SweetAlert animate sendiri
-        const icon = popup.querySelector('.swal2-success');
-        if (icon) icon.style.animation = 'swal2-animate-success-icon 0.8s ease-in-out';
-    }
-});
-</script>
-@endif
-
-@if (session('error'))
-<script>
-Swal.fire({
-    title: 'Gagal!',
-    text: '{{ session('error') }}',
-    icon: 'error',
-    background: '#fef2f2',
-    color: '#7f1d1d',
-    confirmButtonText: 'Cuba Lagi',
-    confirmButtonColor: '#dc2626',
-    showConfirmButton: true,
-    showClass: {
-        popup: 'swal2-noanimation', // disable popup slide
-        backdrop: 'swal2-noanimation'
-    },
-    hideClass: {
-        popup: ''
-    },
-    didOpen: (popup) => {
-        const icon = popup.querySelector('.swal2-error');
-        if (icon) icon.style.animation = 'swal2-animate-error-icon 0.7s ease-in-out';
-    }
-});
-</script>
-@endif
-
 @endsection
 
 @push('scripts')
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.6.0/dist/jquery.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
+    <script src="{{ asset("assets/js/components/toast-notifications.js") }}"></script>
     <script src="{{ asset("assets/js/daftar_kursus.js") }}"></script>
+
+    <script>
+        // Show toast notifications based on session messages
+        document.addEventListener('DOMContentLoaded', function() {
+            @if (session('success'))
+                Toast.success('{{ session('success') }}', 4000);
+            @endif
+
+            @if (session('error'))
+                Toast.error('{{ session('error') }}', 5000);
+            @endif
+
+            @if (session('warning'))
+                Toast.warning('{{ session('warning') }}', 4000);
+            @endif
+
+            @if (session('info'))
+                Toast.info('{{ session('info') }}', 4000);
+            @endif
+
+            @if ($errors->any())
+                @foreach ($errors->all() as $error)
+                    Toast.error('{{ $error }}', 5000);
+                @endforeach
+            @endif
+        });
+    </script>
 @endpush

@@ -4,7 +4,7 @@ document.addEventListener('DOMContentLoaded', function() {
     const loginForm = document.querySelector('form[method="POST"]');
     const loginButton = loginForm?.querySelector('button[type="submit"]');
     const passwordInput = document.getElementById('katalaluan');
-    const togglePasswordButton = document.querySelector('.toggle-password');
+    const togglePasswordButton = document.querySelector('.password-toggle');
     
     // Initialize form
     initForm();
@@ -54,10 +54,7 @@ document.addEventListener('DOMContentLoaded', function() {
                 */
         }
         
-        if (input.required && !value) {
-            showFieldError(input, 'Ruangan ini diperlukan');
-            return false;
-        }
+
         
         clearFieldError(input);
         return true;

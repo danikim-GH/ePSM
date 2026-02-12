@@ -5,11 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
-use function Illuminate\Log\log;
-
 class StatistikController extends Controller
 {
-    //
     public function statistikKehadiran(){
         return view('statistik_kehadiran');
     }
@@ -17,7 +14,6 @@ class StatistikController extends Controller
     public function getJabatan(Request $request){
         $jabatan = $request->query('nama');
 
-        //fetch dari lampirana
         $data = DB::table('lampirana')
         ->where('NamaJabatan',$jabatan)
         ->get();
@@ -30,15 +26,12 @@ class StatistikController extends Controller
             ]);
         }
 
-        //sort ikut lantikan
-        $lantikanList = [
-            'Tetap', 'Sementara', 'Kontrak'
-        ];
+        $lantikanList = ['Tetap', 'Sementara', 'Kontrak'];
         $result = [];
 
         foreach($lantikanList as $lantikan){
             $subset = $data->where('lantikan', $lantikan);
-            if($subset->isEmpty())continue;
+            if($subset->isEmpty()) continue;
 
             $result[] = [
                 'lantikan' => $lantikan,
@@ -55,104 +48,131 @@ class StatistikController extends Controller
     }
 
     public function getKursus(Request $request){
+        // 1. Ambil input
         $jabatan = $request->query('NamaJabatan');
         $lantikan = $request->query('lantikan');
         $tahun = $request->query('tahun');
-        $namaStaff = $request->query('Nama');
-        $nokp = $request->query('NoKP');
 
-        //fetch data table lampirana
+        // 2. Query Staff (Lampirana)
         $staffQuery = DB::table('lampirana')
-        ->select('NoKP', 'Nama', 'kumpulan', 'lantikan', 'NamaJabatan')
-        ->where('NamaJabatan', $jabatan);
+            ->select('NoKP', 'Nama', 'kumpulan', 'lantikan', 'NamaJabatan')
+            ->where('NamaJabatan', $jabatan);
 
-        if($lantikan){
+        // Filter lantikan hanya jika user pilih specific, abaikan jika 'PERJAWATAN' (default value UI)
+        if($lantikan && strtoupper($lantikan) !== 'PERJAWATAN'){
             $staffQuery->where('lantikan', $lantikan);
         }
 
-        $staffList = $staffQuery->get(); // collect staff variable store dalam $stafflist
+        $staffList = $staffQuery->get();
 
         if($staffList->isEmpty()){
             return response()->json([
                 'success'=>false,
-                'message'=>'Tiada staff/lantikan yang ditemui dalam jabatan tersebut!'
+                'message'=>'Tiada staff ditemui dalam jabatan ini.'
             ]);
         }
 
-        $nokpArr = $staffList->pluck('NoKP')->unique()->toArray();
-
-        //fetch table kursus !!untuk hari
-        $kursusData = DB::table('kursus')
-        ->select('kursus_nokp', 'kursus_bilhari', 'kursus_thmula')
-        ->whereIn('kursus_nokp', $nokpArr);
+        // 3. Collect NoKP & Bersihkan (TRIM Space)
+        // Kita guna key-value pair biar senang match nanti
+        // Format: ['900101xx' => '900101xx']
+        $cleanNokpMap = [];
         
+        foreach($staffList as $staf){
+            // Buang whitespace depan belakang
+            $cleanIC = trim($staf->NoKP);
+            if(!empty($cleanIC)){
+                $cleanNokpMap[$cleanIC] = $cleanIC;
+            }
+        }
+        
+        $targetNokps = array_values($cleanNokpMap);
+
+        // 4. Query Table Kursus
+        $kursusQuery = DB::table('kursus')
+            ->select('kursus_nokp', 'kursus_bilhari', 'kursus_thmula');
+            
+        // Guna whereIn biasa sebab NoKP tiada dash
+        $kursusQuery->whereIn('kursus_nokp', $targetNokps);
+
+        // Filter Tahun (Oleh sebab kursus_thmula adalah DATE, whereYear boleh guna)
         if($tahun){
-            $kursusData->whereYear('kursus_thmula', $tahun);
+            $kursusQuery->whereYear('kursus_thmula', $tahun);
         }
 
-        $kursusRows = $kursusData->get();
+        // OPTIONAL: Filter Status Sah? (Uncomment jika perlu kira yang lulus saja)
+        // $kursusQuery->where('kursus_sah', 1);
 
-        $hariPerStaff = []; //create array for storing staff kursus day attend
+        $kursusRows = $kursusQuery->get();
+
+        // 5. Mapping Hari ke Staff
+        $hariPerStaff = [];
 
         foreach($kursusRows as $r){
-            $kp = $r->kursus_nokp;
-            $hari = (int)$r->kursus_bilhari;
-            if(!isset($hariPerStaff[$kp])) $hariPerStaff[$kp] = 0; //ni kalau variable null or not declared
+            // Pastikan nokp dari table kursus pun kita trim juga
+            $kp = trim($r->kursus_nokp); 
+            $hari = (int) $r->kursus_bilhari; // Cast to int, null jadi 0
+            
+            if(!isset($hariPerStaff[$kp])) {
+                $hariPerStaff[$kp] = 0;
+            }
             $hariPerStaff[$kp] += $hari;
         }
 
-        //aggregation
+        // 6. Aggregation Data
         $summary = [
             'total_staff' => 0,
             'staff_lebih7' => 0,
             'staff_kurang7' => 0,
             'staff_tidak_hadir' => 0,
-            'total_hari_kursus' => array_sum($hariPerStaff)
+            'total_hari_kursus' => 0
         ];
 
-        $byKumpulan=[]; //array untuk kumpulan[pnp/jusa/sok1/sok2]
+        // Struktur data kumpulan
+        $byKumpulanData = [
+            'jusa' => ['kumpulan' => 'jusa', 'total_staff' => 0, 'lebih7' => 0, 'kurang7' => 0, 'tidak_hadir' => 0, 'total_hari' => 0],
+            'pnp' => ['kumpulan' => 'pnp', 'total_staff' => 0, 'lebih7' => 0, 'kurang7' => 0, 'tidak_hadir' => 0, 'total_hari' => 0],
+            'sokongan1' => ['kumpulan' => 'sokongan1', 'total_staff' => 0, 'lebih7' => 0, 'kurang7' => 0, 'tidak_hadir' => 0, 'total_hari' => 0],
+            'sokongan2' => ['kumpulan' => 'sokongan2', 'total_staff' => 0, 'lebih7' => 0, 'kurang7' => 0, 'tidak_hadir' => 0, 'total_hari' => 0],
+        ];
 
         foreach($staffList as $staf){
-            $kp = $staf->NoKP;
-            $group = $staf->kumpulan??'unknown';
+            // Logic match guna IC yang dah di-trim
+            $kp = trim($staf->NoKP);
             $sumHari = isset($hariPerStaff[$kp]) ? $hariPerStaff[$kp] : 0;
-
-            //nak confirm key exist
-            if(!isset($byKumpulan[$group])){
-                $byKumpulan[$group] = [
-                    'kumpulan' => $group,
-                    'total_staff' => 0,
-                    'lebih7' => 0,
-                    'kurang7' => 0,
-                    'tidak_hadir' => 0,
-                    'total_hari' => 0
-                ];
+            
+            // Normalize nama kumpulan (lowercase)
+            $groupKey = strtolower($staf->kumpulan ?? '');
+            
+            // Fallback kalau kumpulan null atau typo
+            if(!array_key_exists($groupKey, $byKumpulanData)){
+                // Boleh create category 'lain-lain' atau masukkan ke salah satu group default
+                // Buat masa ni kita skip error, anggap masuk unknown tapi kira dalam summary
+                $groupKey = null; 
             }
 
-            //update total
+            // Update Summary Global
             $summary['total_staff']++;
-            $byKumpulan[$group]['total_staff']++;
-            $byKumpulan[$group]['total_hari']+=$sumHari;
+            $summary['total_hari_kursus'] += $sumHari;
 
-            if($sumHari >=7){
-                $summary['staff_lebih7']++;
-                $byKumpulan[$group]['lebih7']++;
-            } elseif($sumHari > 0 && $sumHari <= 6){
-                $summary['staff_kurang7']++;
-                $byKumpulan[$group]['kurang7']++;
-            } elseif($sumHari == 0){
-                $summary['staff_tidak_hadir']++;
-                $byKumpulan[$group]['tidak_hadir']++;
-            } else{
-                    return response()->json([
-                    'message' => 'sorang problem',
-                    'NoKP' => $nokp,
-                    'Nama staff' => $namaStaff
-                ]);
+            // Tentukan kategori kehadiran
+            $isLebih7 = $sumHari >= 7;
+            $isKurang7 = $sumHari > 0 && $sumHari < 7;
+            $isTidakHadir = $sumHari == 0;
+
+            if($isLebih7) $summary['staff_lebih7']++;
+            elseif($isKurang7) $summary['staff_kurang7']++;
+            elseif($isTidakHadir) $summary['staff_tidak_hadir']++;
+
+            // Update Data Kumpulan (Jika valid)
+            if($groupKey){
+                $byKumpulanData[$groupKey]['total_staff']++;
+                $byKumpulanData[$groupKey]['total_hari'] += $sumHari;
+
+                if($isLebih7) $byKumpulanData[$groupKey]['lebih7']++;
+                elseif($isKurang7) $byKumpulanData[$groupKey]['kurang7']++;
+                elseif($isTidakHadir) $byKumpulanData[$groupKey]['tidak_hadir']++;
             }
         }
-
-        $byKumpulanArray = array_values($byKumpulan);
 
         return response()->json([
             'success' => true,
@@ -160,7 +180,7 @@ class StatistikController extends Controller
             'lantikan' => $lantikan,
             'tahun' => $tahun,
             'summary' => $summary,
-            'by_kumpulan' => $byKumpulanArray
+            'by_kumpulan' => array_values($byKumpulanData)
         ]);
     }
 }

@@ -23,9 +23,16 @@
         <div class="register-card">
             <!-- Header section -->
             <div class="register-header">
-                <div class="logo">
-                    <img src="{{ asset('assets/img/cropped-kedah-baru.png') }}" alt="logo-kedah">
-                    <span class="logo-text righteous-regular">ePSM</span>
+                <div class="logo-wrapper">
+                    <img class="logo-kedah" 
+                        src="{{ asset('assets/img/cropped-kedah-baru.png') }}" 
+                        alt="logo-kedah">
+
+                    <div class="logo-divider"></div>
+
+                    <img class="logo-epsm" 
+                        src="{{ asset('assets/img/logo_epsm.png') }}" 
+                        alt="logo-epsm">
                 </div>
                 <h1 class="register-title gabarito-bold">Daftar Pengguna Baru</h1>
                 <p class="register-subtitle">Pendaftaran akaun perlu menunggu pengesahan admin.</p>
@@ -51,7 +58,7 @@
                         <div class="input-icon">
                             <i class="fas fa-id-card"></i>
                         </div>
-                        <input type="text" name="NoKP" id="NoKP" placeholder="No KP" required>
+                        <input type="text" name="NoKP" id="NoKP" placeholder="No KP" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" maxlength="12" required>
                         <div class="input-border"></div>
                     </div>
                     
@@ -69,7 +76,7 @@
                         <div class="input-icon">
                             <i class="fas fa-phone"></i>
                         </div>
-                        <input type="tel" name="hp" id="hp" placeholder="Nombor Telefon" required>
+                        <input type="tel" name="hp" id="hp" placeholder="Nombor Telefon" inputmode="numeric" pattern="[0-9]*" oninput="this.value = this.value.replace(/[^0-9]/g, '')" required>
                         <div class="input-border"></div>
                     </div>
                     
@@ -82,9 +89,10 @@
                         <div class="select-wrapper modern-select">
                             <select name="NamaJabatan" id="NamaJabatan" required>
                                 <option value="" disabled selected>Pilih Jabatan</option>
-                                <option value="BAHAGIAN TEKNOLOGI MAKLUMAT">BAHAGIAN TEKNOLOGI MAKLUMAT</option>
+                                <option value="BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH">BAHAGIAN TEKNOLOGI MAKLUMAT KEDAH</option>
                                 <option value="SURUHANJAYA PERKHIDMATAN AWAM">SURUHANJAYA PERKHIDMATAN AWAM</option>
                                 <option value="BAHAGIAN PEMBAGUNAN SUMBER MANUSIA">BAHAGIAN PEMBAGUNAN SUMBER MANUSIA</option>
+                                <option value="BAHAGIAN PERANCANG EKONOMI NEGERI KEDAH">BAHAGIAN PERANCANG EKONOMI NEGERI KEDAH</option>
                                 <option value="OTHERS">Lain-lain</option>
                             </select>
 
@@ -146,25 +154,9 @@
                     Sudah mempunyai akaun? <a href="{{ route('login') }}" class="login-text">Log Masuk di sini</a>
                 </div>
             </form>
-            
-            <!-- Progress indicator -->
-            <div class="progress-indicator">
-                <div class="progress-step active"></div>
-                <div class="progress-step"></div>
-                <div class="progress-step"></div>
-                <div class="progress-step"></div>
-            </div>
-        </div>
         
-        <!-- Language selector -->
-        <div class="language-selector">
-            <i class="fas fa-globe"></i>
-            <select id="languageSelect">
-                <option value="en">English</option>
-                <option value="ms" selected>Bahasa Malaysia</option>
-            </select>
         </div>
-        
+
         <!-- Notification toast -->
         <div class="toast" id="formToast">
             <i class="fas fa-check-circle toast-icon"></i>
@@ -176,4 +168,3 @@
 @push('scripts')
     <script src="{{ asset('assets/js/register.js') }}"></script>
 @endpush
-

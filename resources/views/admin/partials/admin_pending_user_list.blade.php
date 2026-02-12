@@ -1,6 +1,6 @@
         <div id="pendingUserPanel" style="display: none; margin-top: 50px; box-shadow: 0 5px 30px 5px rgba(99, 56, 2, 0.865); border-radius: 16px; background: #ffffff2c; margin-bottom: 50px;" class="px-5 py-5">
             <div class="d-flex justify-content-between align-items-center py-3 ">
-                <h1 class="pt-sans-regular">User Pending <i class="fa fa-clock" style="font-size: 2rem" aria-hidden="true"></i> </h1>
+                <h1 class="pt-sans-regular">Pengguna yang Belum Disahkan <i class="fa fa-clock" style="font-size: 2rem" aria-hidden="true"></i> </h1>
                 <button class="btn btn-sm btn-dark" id="closePendingPanel">
                     <i class="fas fa-times"></i>
                 </button>

@@ -234,15 +234,16 @@ body {
 }
 
 .admin-sidebar.bg-dark .sidebar-logo-wrapper {
-    max-width: 50px;
+    max-width: 250px;
     display: flex;
     align-items: center;
     gap: 12px;
 }
 
 .sidebar-logo-divider{
-    width: 10px;
+    width: 0.8px;
     height: 32px;
+    opacity: 0.8;
     background: white !important;
     border-radius: 10px;
 }

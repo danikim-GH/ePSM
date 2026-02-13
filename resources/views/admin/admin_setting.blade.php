@@ -31,8 +31,8 @@
                             <i class="bi bi-highlights"></i>
                         </div>
                         <div class="setting-content">
-                            <h3 class="gabarito-regular">Carousel Settings</h3>
-                            <p>Gambar Slider di halaman utama </p>
+                            <h3 class="gabarito-regular">Banner Settings</h3>
+                            <p>Gambar Banner Slider di halaman utama </p>
                         </div>
                         <button class="btn-setting">
                             <i class="fas fa-arrow-right"></i>
